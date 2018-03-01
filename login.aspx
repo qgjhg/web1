@@ -18,10 +18,10 @@
 		<form runat="server" class="signin-form" method="post">
             <div id="response" runat="server" class="response_div"></div>
 			<div >
-                <asp:TextBox ID="name" runat="server" class="form-control form-input" placeholder="用户名"></asp:TextBox>
+                <asp:TextBox ID="name" runat="server" autocomplete="off" class="form-control form-input" placeholder="用户名"></asp:TextBox>
 			</div>
 			<div class="" style="margin: 20px 0;">
-                <asp:TextBox ID="password" runat="server" class="form-control form-input" placeholder="密   码" type="password"></asp:TextBox>
+                <asp:TextBox ID="password" runat="server" autocomplete="off" class="form-control form-input" placeholder="密   码" type="password"></asp:TextBox>
 			</div>
             <asp:Button ID="login_btn" runat="server" class="btn btn-primary btn-submit" Text="登&nbsp;&nbsp;录" OnClick="login_btn_Click" />
         <span class="signup">还没有账户？立即<a class="signup-a" href="#">注册</a></span>
