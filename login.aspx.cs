@@ -15,7 +15,9 @@ public partial class login : System.Web.UI.Page
     string sqlstr = "";
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["UserId"] != null) { Session.Abandon(); }
         cn = new SqlConnection(connString);
+
     }
 
     protected void login_btn_Click(object sender, EventArgs e)
@@ -37,8 +39,10 @@ public partial class login : System.Web.UI.Page
                     response.InnerHtml = "登陆成功，跳转中···";
                     sqlstr = "SELECT type FROM dbo.login WHERE id='" + userid + "'";
                     da.Connection = cn;
+                    da.CommandText = sqlstr;
+                    da.ExecuteScalar();
                     Session["UserId"] = userid;
-                    Session["UserPassword"] = password;
+                    Session["UserPassword"] = userpassword;
                     Session["Type"] = da.ExecuteScalar().ToString();
                     Response.Redirect("main.aspx");
                 }
