@@ -11,22 +11,25 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>心理学被试招募网</title>
+    <title>心理学实验报名网</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet" />
+
+    <!-- DataTables CSS -->
+    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <!-- DataTables Responsive CSS -->
+    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
 
     <!-- Custom CSS -->
-    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet" />
 
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,7 +53,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="main.html">心理学被试招募网</a>
+                <a class="navbar-brand" href="main.html">心理学实验报名网</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -375,31 +378,8 @@
                         <div class="panel-heading">
                         </div>
                         <!-- /.panel-heading -->
-                        <div class="panel-body">
+                        <div class="panel-body" runat="server" id="table_div">
                             
-                            <!-- /.table-responsive -->
-                            <asp:Table id="expdataTables" runat="server" width="100%" class="table table-striped table-bordered table-hover">
-<%--                                <asp:TableHeaderRow>
-                                    <asp:TableCell>实验名称</asp:TableCell>
-                                    <asp:TableCell>日期</asp:TableCell>
-                                    <asp:TableCell>校区</asp:TableCell>
-                                    <asp:TableCell>地点</asp:TableCell>
-                                    <asp:TableCell>时长</asp:TableCell>
-                                    <asp:TableCell>报酬</asp:TableCell>
-                                    <asp:TableCell>报名情况</asp:TableCell>
-                                    <asp:TableCell>查看详情</asp:TableCell>
-                                </asp:TableHeaderRow>--%>
-                                <asp:TableRow>
-                                    <asp:TableCell>实验名称</asp:TableCell>
-                                    <asp:TableCell>日期</asp:TableCell>
-                                    <asp:TableCell>校区</asp:TableCell>
-                                    <asp:TableCell>地点</asp:TableCell>
-                                    <asp:TableCell>时长</asp:TableCell>
-                                    <asp:TableCell>报酬</asp:TableCell>
-                                    <asp:TableCell>报名情况</asp:TableCell>
-                                    <asp:TableCell>查看详情</asp:TableCell>    
-                                </asp:TableRow>
-                            </asp:Table>
 
                         </div>
                         <!-- /.panel-body -->
@@ -435,8 +415,9 @@
     <script src="../dist/js/sb-admin-2.js"></script>
         <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
+       
     $(document).ready(function() {
-        $('#dataTables-example').DataTable({
+        $("#expdataTables").DataTable({
             responsive: true
         });
     });

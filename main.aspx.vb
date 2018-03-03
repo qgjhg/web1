@@ -13,50 +13,35 @@ Partial Class main
     Dim dbo As New SqlClient.SqlCommand
     Dim sqlstr As String
     Dim SessionValue As String = ""
+    Dim table_html As String = ""
 
     Private Sub main_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        table_html = " <!-- /.table-responsive --> <table width=" & Chr(34) & "100%" & Chr(34) & " class=" & Chr(34) & "table table-striped table-bordered table-hover" & Chr(34) & " id=" & Chr(34) & "expdataTables" & Chr(34) & "><thead><tr><th>实验名称</th><th>日期</th><th>校区</th><th>地点</th><th>时长</th><th>报酬</th><th>报名情况</th><th>查看详情</th>   </tr></thead><tbody>"
         da = New SqlDataAdapter("select * from dbo.实验情况", cn)
         ds = New DataTable
         da.Fill(ds)
         Dim k As Integer = 0
         Dim j As Integer = 0
-        Dim yy As Integer = 0
-        Dim mm As Integer = 0
-        Dim dd As Integer = 0
-        Dim nyy As Integer = DateTime.Today.Year
-        Dim nmm As Integer = DateTime.Today.Month
-        Dim ndd As Integer = DateTime.Today.Day
-        Dim cuttime As String
+        Dim ntime As Integer = DateTime.Today.Year * 10000 + DateTime.Today.Month * 100 + DateTime.Today.Day
+        Dim cuttime As Integer
         While k + j < ds.Rows.Count
-            cuttime = ds.Rows(k + j).Item(3).ToString
-            yy = Left(ds.Rows(k + j).Item(3).ToString, 4)
-            mm = Mid(ds.Rows(k + j).Item(3).ToString, 5, 2)
-            dd = Right(ds.Rows(k + j).Item(3).ToString, 2)
-            If (yy = nyy And mm = nmm And dd >= ndd Or (yy = nyy And mm > nmm) Or (yy > nyy)) Then
-                expdataTables.Rows.Add(New TableRow)
-                expdataTables.Rows(k + 1).Cells.Add(New TableCell)
-                expdataTables.Rows(k + 1).Cells(0).Text = ds.Rows(k + j).Item(1).ToString
-                expdataTables.Rows(k + 1).Cells.Add(New TableCell)
-                expdataTables.Rows(k + 1).Cells(1).Text = yy & "-" & mm & "-" & dd
-                expdataTables.Rows(k + 1).Cells.Add(New TableCell)
-                expdataTables.Rows(k + 1).Cells(2).Text = ds.Rows(k + j).Item(4).ToString
-                expdataTables.Rows(k + 1).Cells.Add(New TableCell)
-                expdataTables.Rows(k + 1).Cells(3).Text = ds.Rows(k + j).Item(5).ToString
-                expdataTables.Rows(k + 1).Cells.Add(New TableCell)
-                expdataTables.Rows(k + 1).Cells(4).Text = ds.Rows(k + j).Item(6).ToString
-                expdataTables.Rows(k + 1).Cells.Add(New TableCell)
-                expdataTables.Rows(k + 1).Cells(5).Text = ds.Rows(k + j).Item(7).ToString
-                expdataTables.Rows(k + 1).Cells.Add(New TableCell)
-                expdataTables.Rows(k + 1).Cells(6).Text = ds.Rows(k + j).Item(9).ToString + "/" + ds.Rows(k + j).Item(10).ToString
-                expdataTables.Rows(k + 1).Cells.Add(New TableCell)
-                expdataTables.Rows(k + 1).Cells(7).Text = "<div title=" & Chr(34) & ds.Rows(k + j).Item(2).ToString & Chr(34) & ">查看详情</div>"
+            cuttime = ds.Rows(k + j).Item(3)
+            If (cuttime >= ntime) Then
+                table_html = table_html + "<tr><td>" & ds.Rows(k + j).Item(1).ToString & "</td>"
+                table_html = table_html + "<td>" & cuttime.ToString & "</td>"
+                table_html = table_html + "<td>" & ds.Rows(k + j).Item(4).ToString & "</td>"
+                table_html = table_html + "<td>" & ds.Rows(k + j).Item(5).ToString & "</td>"
+                table_html = table_html + "<td>" & ds.Rows(k + j).Item(6).ToString & "</td>"
+                table_html = table_html + "<td>" & ds.Rows(k + j).Item(7).ToString & "</td>"
+                table_html = table_html + "<td>" & ds.Rows(k + j).Item(9).ToString & "/" & ds.Rows(k + j).Item(10).ToString & "</td>"
+                table_html = table_html + "<td><div title=" & Chr(34) & ds.Rows(k + j).Item(2).ToString & Chr(34) & ">查看详情</div></td></tr>"
                 k = k + 1
             Else
                 j = j + 1
             End If
         End While
-
+        table_html = table_html & "</tbody></table>"
+        table_div.InnerHtml = table_html
 
     End Sub
 End Class

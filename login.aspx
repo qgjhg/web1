@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>心理学实验参与者招募网</title>
+    <title>心理学实验报名网</title>
     <link rel="stylesheet" href="CSS.css" type="text/css" />
 </head>
 <body>
