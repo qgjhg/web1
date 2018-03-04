@@ -1,0 +1,143 @@
+﻿/*2018.03.04*/
+/*syw*/
+
+body {
+}
+
+.input_asp_box_multiline{
+    resize:none;
+}
+
+.input_asp_box_sigleline {
+
+}
+
+
+.form-control-timechoice1 {
+  float:left;
+  width: 30%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .05s, -webkit-box-shadow ease-in-out .05s;
+       -o-transition: border-color ease-in-out .05s, box-shadow ease-in-out .05s;
+          transition: border-color ease-in-out .05s, box-shadow ease-in-out .05s;
+}
+.form-control-timechoice1:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+.form-control-timechoice2 {
+  width: 30%;
+  margin-left:5%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .05s, -webkit-box-shadow ease-in-out .05s;
+       -o-transition: border-color ease-in-out .05s, box-shadow ease-in-out .05s;
+          transition: border-color ease-in-out .05s, box-shadow ease-in-out .05s;
+}
+.form-control-timechoice2:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+.form-control-timechoice3 {
+  float:right;
+  width: 30%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .05s, -webkit-box-shadow ease-in-out .05s;
+       -o-transition: border-color ease-in-out .05s, box-shadow ease-in-out .05s;
+          transition: border-color ease-in-out .05s, box-shadow ease-in-out .05s;
+}
+.form-control-timechoice3:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+.div_centerbox {
+    display:inline;
+    text-align: center;
+    width: 100%;
+}
+
+.font_exp_title {
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+.font_note {
+    width: 10%;
+    margin-left:5%;
+    font-size:7px;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    font-style:normal;
+    color:darkgray;
+}
+
+.form-control-detail {
+  width: 30%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .05s, -webkit-box-shadow ease-in-out .05s;
+       -o-transition: border-color ease-in-out .05s, box-shadow ease-in-out .05s;
+          transition: border-color ease-in-out .05s, box-shadow ease-in-out .05s;
+}
+
+.form-control-buttondetail {
+  width: 10%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

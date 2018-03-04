@@ -1,4 +1,9 @@
-﻿using System;
+﻿//2016.04 被试招募网站，搁浅
+//2018.01 继续项目
+//login.aspx 2018.03
+//syw
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +22,10 @@ public partial class uploadexp : System.Web.UI.Page
         }
         else 
         {
+            Exp_Intro.Attributes.Add("onKeyDown", "textCounter(this,499);");
+            Exp_Intro.Attributes.Add("onKeyUp", "textCounter(this,499);");
+            //Exp_Time.Attributes.Add("onKeyDown", "add_min(this);");
+            Exp_Time.Attributes.Add("onKeyUp", "add_min(this);");
             if (Session["Type"].ToString() != "admin" && Session["Type"].ToString() != "exp")
             {
                 Response.Redirect("main.aspx");

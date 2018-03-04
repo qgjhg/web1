@@ -4,12 +4,11 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
     <title>心理学实验报名网</title>
 
@@ -24,8 +23,48 @@
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- time picker -->
+    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css" />
+
+    <!-- time picker -->
+    <link href="../css/timepickerbox.css" rel="stylesheet" type="text/css"/>
+
+    <!-- line control -->
+    <script type="text/javascript">
+        function textCounter(field, maxlimit) {
+            if (field.value.length > maxlimit)
+                field.value = field.value.substring(0, maxlimit);
+        }
+    </script>
+
+    <!-- add min -->
+    <script type="text/javascript">
+        function add_min(field) {
+            field.value = field.value.replace(/[^\d]/g, '')
+            if (Number(field.value) > 480) {
+                field.value = '480';
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        function onlyNum() {
+            if(!(event.keyCode==46)&&!(event.keyCode==8)&&!(event.keyCode==37)&&!(event.keyCode==39))
+            if(!((event.keyCode>=48&&event.keyCode<=57)||(event.keyCode>=96&&event.keyCode<=105)))
+            event.returnValue=false;
+        }
+    </script>
+    
+    <!-- detail time submit button -->
+    <script type="text/javascript">
+        function detailtime_button() {
+
+        }
+    </script>
 </head>
 <body>
+
+
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -37,7 +76,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">心理学实验报名网</a>
+                <a class="navbar-brand" href="main.aspx">心理学实验报名网</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -75,7 +114,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Forms</h1>
+                    <h1 class="page-header">发布实验</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -84,21 +123,68 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Basic Form Elements
+
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form role="form" runat="server">
+
                                         <div class="form-group">
-                                            <label>Text Input</label>
-                                            <input class="form-control">
-                                            <p class="help-block">Example block-level help text here.</p>
+                                            <label class="font_exp_title">实验名称</label>
+                                            <asp:TextBox ID="Exp_Name" runat="server" CssClass="form-control" MaxLength="49" placeholder="请输入实验名称" autocomplete="off"></asp:TextBox>
+                                            <p class="help-block">请输入实验名称（50字以内），好的名称更能吸引大家来参加哦~</p>
                                         </div>
+                                        <br />
                                         <div class="form-group">
-                                            <label>Text Input with Placeholder</label>
-                                            <input class="form-control" placeholder="Enter text">
+                                            <label class="font_exp_title">实验简介</label>
+                                            <asp:TextBox ID="Exp_Intro" runat="server" CssClass="form-control input_asp_box_multiline" Rows="8" placeholder="请输入实验简介" autocomplete="off" TextMode="MultiLine"></asp:TextBox>
+                                            <p class="help-block">请输入实验简介（500字以内）~</p>
                                         </div>
+                                        <br />
+                                        <div class="form-group">
+                                            <label class="font_exp_title">起止时间与实验时长</label>
+                                            <br />
+                                            <div class="div_centerbox">
+                                            <asp:TextBox ID="Exp_Start" runat="server" value="" CssClass="form-control-timechoice1" autocomplete="off" onfocus="this.blur()" placeholder="请选择开始日期"></asp:TextBox>
+                                            <asp:TextBox ID="Exp_End" runat="server" value="" CssClass="form-control-timechoice2" autocomplete="off" onfocus="this.blur()" placeholder="请选择结束日期"></asp:TextBox>
+                                            <asp:TextBox ID="Exp_Time" runat="server" value="" CssClass="form-control-timechoice3" autocomplete="off" placeholder="请填写实验时长（分钟）" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeydown="onlyNum();" style="ime-mode:Disabled" MaxLength="3" TextMode="SingleLine"></asp:TextBox>
+                                            </div>
+                                            <p class="help-block">请选择实验的开始和结束日期，并输入实验时长（分钟）~</p>
+                                        </div>
+                                        <br />
+                                        <div class="form-group">
+                                            <label class="font_exp_title">每天实验安排</label>
+                                            <br />
+                                            <div class="div_centerbox">
+                                            <input id="Exp_choosetime" type="text" class="form-control-detail" autocomplete="off" onfocus="this.blur()" placeholder="每场实验开始时间" />
+                                            &nbsp;&nbsp;&nbsp;
+                                            <input type="button" class="form-control-buttondetail" value="提 交" onclick="detailtime_button()"/>
+                                            </div>
+                                            <br />
+                                            <p class="help-block">请选择每场实验的开始时间以及每场实验人数~</p>
+                                            <br />
+                                            <asp:TextBox ID="Exp_DetailTime" runat="server" value="" CssClass="form-control input_asp_box_multiline" Rows="8" autocomplete="off" onfocus="this.blur()" placeholder="" ReadOnly="True" TextMode="MultiLine"></asp:TextBox>                                     
+                                        </div>
+                                        <br />
+                                        <div class="form-group">
+                                            <label class="font_exp_title">实验地点</label>
+                                            <asp:TextBox ID="Exp_Pos" runat="server" CssClass="form-control" MaxLength="49" placeholder="请输入实验地点" autocomplete="off"></asp:TextBox>
+                                            <p class="help-block">请输入实验地点（50字以内）~</p>
+                                        </div>
+                                        <br />
+                                        <div class="form-group">
+                                            <label class="font_exp_title">报酬</label>
+                                            <asp:TextBox ID="Exp_Reward" runat="server" CssClass="form-control" MaxLength="49" placeholder="请输入实验报酬" autocomplete="off"></asp:TextBox>
+                                            <p class="help-block">请输入实验报酬（数字），其他非现金报酬请注明~</p>
+                                        </div>
+                                        <br />
+                                        <div class="form-group">
+                                            <label class="font_exp_title">注意事项</label>
+                                            <asp:TextBox ID="Exp_Warn" runat="server" CssClass="form-control input_asp_box_multiline" Rows="8" placeholder="请输入注意事项" autocomplete="off" TextMode="MultiLine"></asp:TextBox>
+                                            <p class="help-block">请输入实验的注意事项（500字以内）~</p>
+                                        </div>
+                                        <br />
                                         <div class="form-group">
                                             <label>Static Control</label>
                                             <p class="form-control-static">email@example.com</p>
@@ -291,5 +377,31 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
+    <!-- timepicker -->
+    <script src="../js/jquery.datetimepicker.full.js"></script>
+    <script>
+    $('#Exp_Start').datetimepicker({
+        todayButton: false,    //关闭选择今天按钮
+        yearStart: 2000,     //设置最小年份
+        yearEnd: 2050,        //设置最大年份
+        timepicker: false,    //关闭时间选项
+        format: 'Y/m/d',
+    });
+    $('#Exp_End').datetimepicker({
+        todayButton: false,    //关闭选择今天按钮
+        yearStart: 2000,     //设置最小年份
+        yearEnd: 2050,        //设置最大年份
+        timepicker: false,    //关闭时间选项
+        format: 'Y/m/d',
+    });
+    $('#Exp_choosetime').datetimepicker({
+        todayButton: false,    //关闭选择今天按钮
+        datepicker: false,    //关闭时间选项
+        format: 'H:i',
+        step: 10
+    });
+    </script>
+
 </body>
+
 </html>
