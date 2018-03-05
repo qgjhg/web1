@@ -58,7 +58,52 @@
     <!-- detail time submit button -->
     <script type="text/javascript">
         function detailtime_button() {
+            var detailtimebox = document.getElementById('<%=Exp_DetailTime.ClientID%>');
+            var starttime = document.getElementById('Exp_choosetime').value;
+            var contime = document.getElementById('<%=Exp_Time.ClientID%>').value;    
+            var num = document.getElementById('Exp_choosenumber').value;
+            if (Number(contime) > 0 && Number(contime) <= 480) {
+                var starttimehourvalue = Number(starttime.substring(0, 2));
+                var starttimeminvalue = Number(starttime.substring(3, 5));
+                var endtimehourvalue = starttimehourvalue + parseInt(contime / 60);
+                var endtimeminvalue = starttimeminvalue + (contime % 60);
+                if (endtimeminvalue >= 60) {
+                    endtimehourvalue = endtimehourvalue + 1;
+                    endtimeminvalue = endtimeminvalue - 60;
+                }
+                if (endtimehourvalue < 24 && endtimehourvalue >= 0 && endtimeminvalue >= 0 && endtimeminvalue < 60) {
+                    if (endtimehourvalue > 0 && endtimehourvalue < 10) {
+                        if (endtimeminvalue > 0 && endtimeminvalue < 10) {
+                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
+                        } else {
+                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
+                        }
 
+                    }
+                    else {
+                        if (endtimeminvalue > 0 && endtimeminvalue < 10) {
+                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
+                        } else {
+                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
+                        }
+                    }
+                }
+                if (endtimehourvalue >= 24) { alert('计算所得结束时间将超过当天！'); }
+            }
+        }
+        function detailtime_button_undo()
+        {
+            var detailtimebox = document.getElementById('<%=Exp_DetailTime.ClientID%>');
+            if (detailtimebox.value != "")
+            {
+                var detailtimeboxvaluelength=detailtimebox.value.length;
+                detailtimebox.value = detailtimebox.value.substring(0, detailtimeboxvaluelength - 22);
+            }
+        }
+        function detailtime_button_clear()
+        {
+            var detailtimebox = document.getElementById('<%=Exp_DetailTime.ClientID%>');
+            detailtimebox.value = "";
         }
     </script>
 </head>
@@ -127,7 +172,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <form role="form" runat="server">
 
                                         <div class="form-group">
@@ -158,8 +203,23 @@
                                             <br />
                                             <div class="div_centerbox">
                                             <input id="Exp_choosetime" type="text" class="form-control-detail" autocomplete="off" onfocus="this.blur()" placeholder="每场实验开始时间" />
-                                            &nbsp;&nbsp;&nbsp;
-                                            <input type="button" class="form-control-buttondetail" value="提 交" onclick="detailtime_button()"/>
+                                            <label class="help_label">人数：</label>
+                                            <select id="Exp_choosenumber" class="form-control-detail2">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                            </select>
+                                                <div class="div_threebutton">
+                                                    <input type="button" class="form-control-buttondetail" value="添 加" onclick="detailtime_button()"/>
+                                                    <input type="button" class="form-control-buttondetail2" value="撤 销" onclick="detailtime_button_undo()"/>
+                                                    <input type="button" class="form-control-buttondetail3" value="清 空" onclick="detailtime_button_clear()"/>
+                                                </div>
                                             </div>
                                             <br />
                                             <p class="help-block">请选择每场实验的开始时间以及每场实验人数~</p>
@@ -185,170 +245,11 @@
                                             <p class="help-block">请输入实验的注意事项（500字以内）~</p>
                                         </div>
                                         <br />
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p class="form-control-static">email@example.com</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>File input</label>
-                                            <input type="file">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Text area</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Checkboxes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 1
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 2
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Checkboxes</label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">1
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">2
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Radio Buttons</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Radio 1
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Radio Buttons</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>1
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Selects</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Multiple Selects</label>
-                                            <select multiple class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-default">Submit Button</button>
-                                        <button type="reset" class="btn btn-default">Reset Button</button>
+
+                                        <asp:Button ID="upload" runat="server" Text="上 传" class="btn btn-default" OnClick="upload_Click"/> &nbsp;&nbsp;&nbsp;
+                                        <button type="reset" class="btn btn-default">重 置</button>
                                     </form>
                                 </div>
-                                <!-- /.col-lg-6 (nested) -->
-                                <div class="col-lg-6">
-                                    <h1>Disabled Form States</h1>
-                                    <form role="form">
-                                        <fieldset disabled>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled input</label>
-                                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled select menu</label>
-                                                <select id="disabledSelect" class="form-control">
-                                                    <option>Disabled select</option>
-                                                </select>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">Disabled Checkbox
-                                                </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Disabled Button</button>
-                                        </fieldset>
-                                    </form>
-                                    <h1>Form Validation States</h1>
-                                    <form role="form">
-                                        <div class="form-group has-success">
-                                            <label class="control-label" for="inputSuccess">Input with success</label>
-                                            <input type="text" class="form-control" id="inputSuccess">
-                                        </div>
-                                        <div class="form-group has-warning">
-                                            <label class="control-label" for="inputWarning">Input with warning</label>
-                                            <input type="text" class="form-control" id="inputWarning">
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label" for="inputError">Input with error</label>
-                                            <input type="text" class="form-control" id="inputError">
-                                        </div>
-                                    </form>
-                                    <h1>Input Groups</h1>
-                                    <form role="form">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="text" class="form-control" placeholder="Username">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-eur"></i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
                             </div>
                             <!-- /.row (nested) -->
                         </div>
