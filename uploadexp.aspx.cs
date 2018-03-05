@@ -27,10 +27,11 @@ public partial class uploadexp : System.Web.UI.Page
         }
         else 
         {
-            Exp_Intro.Attributes.Add("onKeyDown", "textCounter(this,499);");
-            Exp_Intro.Attributes.Add("onKeyUp", "textCounter(this,499);");
+            Exp_Warn.Attributes.Add("onKeyDown", "textCounter(this,499);");
+            Exp_Warn.Attributes.Add("onKeyUp", "textCounter(this,499);");
             //Exp_Time.Attributes.Add("onKeyDown", "add_min(this);");
             Exp_Time.Attributes.Add("onKeyUp", "add_min(this);");
+            cn.ConnectionString = connString;
             if (Session["Type"].ToString() != "admin" && Session["Type"].ToString() != "exp")
             {
                 Response.Redirect("main.aspx");
@@ -113,16 +114,16 @@ public partial class uploadexp : System.Web.UI.Page
         {
             string Exp_Name_Value = Exp_Name.Text;
             string Exp_Start_Value = Exp_Start.Text;
-            string Exp_End_Value = Exp_End.Text;
+            //string Exp_End_Value = Exp_End.Text;
             string Exp_Pos_Value = Exp_Pos.Text;
             int Exp_Time_Value = Convert.ToInt16(Exp_Time.Text);
             string Exp_Reward_Value = Exp_Reward.Text;
             string Exp_Warn_Value = Exp_Warn.Text;
-            string Exp_DetailTime_Value = Exp_DetailTime.Text;
+            string Exp_DetailTime_Value = Request.Form["Exp_DetailTime"].Trim();
 
-            if (Exp_Name_Value == "" || Exp_Name_Value.Length > 50 || Exp_Start_Value.Length != 10 || Exp_End_Value.Length != 10 || Exp_Pos_Value.Length > 50 || Exp_Time_Value > 480 || Exp_Time_Value <= 0 || Exp_Reward_Value.Length > 50 || Exp_Warn_Value.Length > 255 || Exp_DetailTime_Value.Length > 255)
+            if (Exp_Name_Value == "" || Exp_Start_Value == "" || Exp_Pos_Value == "" || Exp_Warn_Value == "" || Exp_DetailTime_Value == "" || Exp_Name_Value.Length > 50 || Exp_Start_Value.Length != 10 || Exp_Pos_Value.Length > 50 || Exp_Time_Value > 480 || Exp_Time_Value <= 0 || Exp_Reward_Value.Length > 50 || Exp_Warn_Value.Length > 255 || Exp_DetailTime_Value.Length > 255)
             {
-                Response.Write("<script language=\"javascript\">alert(\"数据错误\")</script>");
+                Response.Write("<script language=\"javascript\">alert(\"数据错误或不完整！\")</script>");
             }
             else
             {
@@ -132,20 +133,40 @@ public partial class uploadexp : System.Web.UI.Page
                 }
                 else
                 {
-                    sqlstr = "SELECT id FROM dbo.login WHERE password='" + Session["UserPassword"] + "'";
+                    sqlstr = "SELECT id FROM dbo.login WHERE password='" + Session["UserPassword"].ToString() + "'";
                     cn.Open();
                     da.CommandText = sqlstr;
                     da.Connection = cn;
                     da.ExecuteScalar();
                     if (da.ExecuteScalar() != null)
                     {
-                        sqlstr = "SELECT type FROM dbo.login WHERE id='" + Session["UserId"] + "'";
+                        sqlstr = "SELECT type FROM dbo.login WHERE id='" + Session["UserId"].ToString() + "'";
                         da.CommandText = sqlstr;
                         da.ExecuteScalar();
                         Session["Type"] = da.ExecuteScalar().ToString();
                         if (Session["Type"].ToString() == "admin" || Session["Type"].ToString() == "exp")
                         {
-                            sqlstr = "insert into 实验情况 (实验名称,实验简介,日期,校区,地点,时长,报酬,注意事项,当前人数,总人数,主试,联系方式,账号) values " + "";
+                            int Exp_Time_Int = Convert.ToInt16(Exp_Time_Value);
+                            int Exp_Date_Int = Convert.ToInt16(Exp_Start_Value.Substring(0, 4)) * 10000 + Convert.ToInt16(Exp_Start_Value.Substring(5, 2)) * 100 + Convert.ToInt16(Exp_Start_Value.Substring(8, 2));
+                            sqlstr = "SELECT Name FROM dbo.Exp_Situation WHERE Date=" + Exp_Date_Int + "";
+                            da.CommandText = sqlstr;
+                            da.ExecuteScalar();
+                            if (da.ExecuteScalar() == null) {
+                                try
+                                {
+                                    sqlstr = "insert into Exp_Situation (Name,Date,Position,Time_min,Reward,Warning,Uploader,Detailtime) values ('" + Exp_Name_Value + "'," + Exp_Date_Int + ",'" + Exp_Pos_Value + "'," + Exp_Time_Int + ",'" + Exp_Reward_Value + "','" + Exp_Warn_Value + "','" + Session["UserId"].ToString() + "','" + Exp_DetailTime_Value + "')";
+                                    da.CommandText = sqlstr;
+                                    da.ExecuteNonQuery();
+                                    Response.Write("<script language=\"javascript\">alert(\"实验发布成功！\");location.href='uploadexp.aspx'</script>");
+                                }
+                                catch
+                                {
+                                    Response.Write("<script language=\"javascript\">alert(\"实验发布失败！\")</script>");
+                                }
+                            } else
+                            {
+                                Response.Write("<script language=\"javascript\">alert(\"当天已存在该实验名称！\")</script>");
+                            }
                         }
                         else
                         {
@@ -160,5 +181,10 @@ public partial class uploadexp : System.Web.UI.Page
         {
 
         }    
+    }
+
+    protected void reset_Click(object sender, EventArgs e)
+    {
+        Response.Write("<script language=\"javascript\">location.href='uploadexp.aspx'</script>");
     }
 }

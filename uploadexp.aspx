@@ -62,7 +62,8 @@
             var starttime = document.getElementById('Exp_choosetime').value;
             var contime = document.getElementById('<%=Exp_Time.ClientID%>').value;    
             var num = document.getElementById('Exp_choosenumber').value;
-            if (Number(contime) > 0 && Number(contime) <= 480) {
+            if (Number(contime) > 0 && Number(contime) <= 480 && starttime != "")
+            {
                 var starttimehourvalue = Number(starttime.substring(0, 2));
                 var starttimeminvalue = Number(starttime.substring(3, 5));
                 var endtimehourvalue = starttimehourvalue + parseInt(contime / 60);
@@ -72,8 +73,8 @@
                     endtimeminvalue = endtimeminvalue - 60;
                 }
                 if (endtimehourvalue < 24 && endtimehourvalue >= 0 && endtimeminvalue >= 0 && endtimeminvalue < 60) {
-                    if (endtimehourvalue > 0 && endtimehourvalue < 10) {
-                        if (endtimeminvalue > 0 && endtimeminvalue < 10) {
+                    if (endtimehourvalue >= 0 && endtimehourvalue < 10) {
+                        if (endtimeminvalue >= 0 && endtimeminvalue < 10) {
                             detailtimebox.value = detailtimebox.value + starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
                         } else {
                             detailtimebox.value = detailtimebox.value + starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
@@ -81,7 +82,7 @@
 
                     }
                     else {
-                        if (endtimeminvalue > 0 && endtimeminvalue < 10) {
+                        if (endtimeminvalue >= 0 && endtimeminvalue < 10) {
                             detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
                         } else {
                             detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
@@ -89,6 +90,8 @@
                     }
                 }
                 if (endtimehourvalue >= 24) { alert('计算所得结束时间将超过当天！'); }
+            } else {
+                alert('请输入合适的实验时长与开始时间！');
             }
         }
         function detailtime_button_undo()
@@ -182,24 +185,19 @@
                                         </div>
                                         <br />
                                         <div class="form-group">
-                                            <label class="font_exp_title">实验简介</label>
-                                            <asp:TextBox ID="Exp_Intro" runat="server" CssClass="form-control input_asp_box_multiline" Rows="8" placeholder="请输入实验简介" autocomplete="off" TextMode="MultiLine"></asp:TextBox>
-                                            <p class="help-block">请输入实验简介（500字以内）~</p>
-                                        </div>
-                                        <br />
-                                        <div class="form-group">
-                                            <label class="font_exp_title">起止时间与实验时长</label>
+                                            <label class="font_exp_title">实验日期与实验时长</label>
                                             <br />
                                             <div class="div_centerbox">
-                                            <asp:TextBox ID="Exp_Start" runat="server" value="" CssClass="form-control-timechoice1" autocomplete="off" onfocus="this.blur()" placeholder="请选择开始日期"></asp:TextBox>
-                                            <asp:TextBox ID="Exp_End" runat="server" value="" CssClass="form-control-timechoice2" autocomplete="off" onfocus="this.blur()" placeholder="请选择结束日期"></asp:TextBox>
-                                            <asp:TextBox ID="Exp_Time" runat="server" value="" CssClass="form-control-timechoice3" autocomplete="off" placeholder="请填写实验时长（分钟）" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeydown="onlyNum();" style="ime-mode:Disabled" MaxLength="3" TextMode="SingleLine"></asp:TextBox>
+                                            <asp:TextBox ID="Exp_Start" runat="server" value="" CssClass="form-control-timechoice1" autocomplete="off" onfocus="this.blur()" placeholder="请选择实验日期"></asp:TextBox>
+                                            <%--<asp:TextBox ID="Exp_End" runat="server" value="" CssClass="form-control-timechoice2" autocomplete="off" onfocus="this.blur()" placeholder="请选择结束日期"></asp:TextBox>--%>
+                                            <label class="help_label">时长：</label>
+                                            <asp:TextBox ID="Exp_Time" runat="server" value="" CssClass="form-control-detail2" autocomplete="off" placeholder="时长（分钟）" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeydown="onlyNum();" style="ime-mode:Disabled" MaxLength="3" TextMode="SingleLine"></asp:TextBox>
                                             </div>
-                                            <p class="help-block">请选择实验的开始和结束日期，并输入实验时长（分钟）~</p>
+                                            <p class="help-block">请选择实验日期，并输入实验时长（分钟）~</p>
                                         </div>
                                         <br />
                                         <div class="form-group">
-                                            <label class="font_exp_title">每天实验安排</label>
+                                            <label class="font_exp_title">实验安排</label>
                                             <br />
                                             <div class="div_centerbox">
                                             <input id="Exp_choosetime" type="text" class="form-control-detail" autocomplete="off" onfocus="this.blur()" placeholder="每场实验开始时间" />
@@ -240,14 +238,14 @@
                                         </div>
                                         <br />
                                         <div class="form-group">
-                                            <label class="font_exp_title">注意事项</label>
-                                            <asp:TextBox ID="Exp_Warn" runat="server" CssClass="form-control input_asp_box_multiline" Rows="8" placeholder="请输入注意事项" autocomplete="off" TextMode="MultiLine"></asp:TextBox>
-                                            <p class="help-block">请输入实验的注意事项（500字以内）~</p>
+                                            <label class="font_exp_title">实验介绍与注意事项</label>
+                                            <asp:TextBox ID="Exp_Warn" runat="server" CssClass="form-control input_asp_box_multiline" Rows="8" placeholder="请输入实验介绍和注意事项" autocomplete="off" TextMode="MultiLine"></asp:TextBox>
+                                            <p class="help-block">请输入实验介绍和注意事项（500字以内）~</p>
                                         </div>
                                         <br />
 
                                         <asp:Button ID="upload" runat="server" Text="上 传" class="btn btn-default" OnClick="upload_Click"/> &nbsp;&nbsp;&nbsp;
-                                        <button type="reset" class="btn btn-default">重 置</button>
+                                        <asp:Button ID="reset" runat="server" Text="重 置" class="btn btn-default" OnClick="reset_Click"/>
                                     </form>
                                 </div>
                             </div>
