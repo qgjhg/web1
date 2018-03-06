@@ -43,19 +43,16 @@ public partial class uploadexp : System.Web.UI.Page
                     StringBuilder type_html = new StringBuilder("");
                     type_html.Append("<ul class=\"nav\" id=\"side-menu\">");
                     type_html.Append("<li>");
-                    type_html.Append("<a href = \"main.aspx\"><i class=\"fa fa-dashboard fa-fw\"></i>主页</a>");
+                    type_html.Append("<a href = \"main.aspx\"><i class=\"fa fa-dashboard fa-fw\"></i> 主页</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
-                    type_html.Append("<a href = \"#\" ><i class=\"fa fa-bar-chart-o fa-fw\"></i> Charts</a>");
-                    type_html.Append("</li>");
-                    type_html.Append("<li>");
-                    type_html.Append("<a href = \"tables.html\" ><i class=\"fa fa-table fa-fw\"></i> Tables</a>");
+                    type_html.Append("<a href = \"Myexperiment.aspx\" ><i class=\"fa fa-table fa-fw\"></i> 我的实验</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
                     type_html.Append("<a href = \"uploadexp.aspx\" ><i class=\"fa fa-edit fa-fw\"></i> 发布实验</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
-                    type_html.Append("<a href = \"#\"><i class=\"fa fa-files-o fa-fw\"></i> Sample Pages</a>");
+                    type_html.Append("<a href = \"help.aspx\"><i class=\"fa fa-files-o fa-fw\"></i> 帮助</a>");
                     type_html.Append("</li>");
                     type_html.Append("</ul>");
                     type_diff.InnerHtml = type_html.ToString();
@@ -65,22 +62,19 @@ public partial class uploadexp : System.Web.UI.Page
                     StringBuilder type_html = new StringBuilder("");
                     type_html.Append("<ul class=\"nav\" id=\"side-menu\">");
                     type_html.Append("<li>");
-                    type_html.Append("<a href = \"main.aspx\"><i class=\"fa fa-dashboard fa-fw\"></i>主页</a>");
+                    type_html.Append("<a href = \"main.aspx\"><i class=\"fa fa-dashboard fa-fw\"></i> 主页</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
-                    type_html.Append("<a href = \"#\" ><i class=\"fa fa-bar-chart-o fa-fw\"></i> Charts</a>");
-                    type_html.Append("</li>");
-                    type_html.Append("<li>");
-                    type_html.Append("<a href = \"tables.html\" ><i class=\"fa fa-table fa-fw\"></i> Tables</a>");
+                    type_html.Append("<a href = \"Myexperiment.aspx\" ><i class=\"fa fa-table fa-fw\"></i> 我的实验</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
                     type_html.Append("<a href = \"uploadexp.aspx\" ><i class=\"fa fa-edit fa-fw\"></i> 发布实验</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
-                    type_html.Append("<a href = \"#\"><i class=\"fa fa-files-o fa-fw\"></i> Sample Pages</a>");
+                    type_html.Append("<a href = \"help.aspx\"><i class=\"fa fa-files-o fa-fw\"></i> 帮助</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
-                    type_html.Append("<a href = \"#\"><i class=\"fa fa-wrench fa-fw\"></i>管理</a>");
+                    type_html.Append("<a href = \"management.aspx\"><i class=\"fa fa-wrench fa-fw\"></i> 管理</a>");
                     type_html.Append("</li>");
                     type_html.Append("</ul>");
                     type_diff.InnerHtml = type_html.ToString();
@@ -90,23 +84,25 @@ public partial class uploadexp : System.Web.UI.Page
                     StringBuilder type_html = new StringBuilder("");
                     type_html.Append("<ul class=\"nav\" id=\"side-menu\">");
                     type_html.Append("<li>");
-                    type_html.Append("<a href = \"main.aspx\"><i class=\"fa fa-dashboard fa-fw\"></i>主页</a>");
+                    type_html.Append("<a href = \"main.aspx\"><i class=\"fa fa-dashboard fa-fw\"></i> 主页</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
-                    type_html.Append("<a href = \"#\" ><i class=\"fa fa-bar-chart-o fa-fw\"></i> Charts</a>");
+                    type_html.Append("<a href = \"Myexperiment.aspx\" ><i class=\"fa fa-table fa-fw\"></i> 我的实验</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
-                    type_html.Append("<a href = \"tables.html\" ><i class=\"fa fa-table fa-fw\"></i> Tables</a>");
-                    type_html.Append("</li>");
-                    type_html.Append("<li>");
-                    type_html.Append("<a href = \"#\"><i class=\"fa fa-files-o fa-fw\"></i> Sample Pages</a>");
+                    type_html.Append("<a href = \"help.aspx\"><i class=\"fa fa-files-o fa-fw\"></i> 帮助</a>");
                     type_html.Append("</li>");
                     type_html.Append("</ul>");
                     type_diff.InnerHtml = type_html.ToString();
                 }
             }
         }
-    }
+        if (!IsPostBack)
+        {
+            //前端先验证
+            upload.Attributes.Add("onclick", "return UserInputIsOk()");
+        }
+        }
 
     protected void upload_Click(object sender, EventArgs e)
     {
@@ -116,14 +112,23 @@ public partial class uploadexp : System.Web.UI.Page
             string Exp_Start_Value = Exp_Start.Text;
             //string Exp_End_Value = Exp_End.Text;
             string Exp_Pos_Value = Exp_Pos.Text;
-            int Exp_Time_Value = Convert.ToInt16(Exp_Time.Text);
+            int Exp_Time_Value;
+            if (Exp_Time.Text != "")
+            {
+                Exp_Time_Value = Convert.ToInt32(Exp_Time.Text);
+            }
+            else
+            {
+                Exp_Time_Value = 0;
+            }
             string Exp_Reward_Value = Exp_Reward.Text;
             string Exp_Warn_Value = Exp_Warn.Text;
             string Exp_DetailTime_Value = Request.Form["Exp_DetailTime"].Trim();
+            string Exp_School_Value = Exp_School.SelectedItem.Text;
 
-            if (Exp_Name_Value == "" || Exp_Start_Value == "" || Exp_Pos_Value == "" || Exp_Warn_Value == "" || Exp_DetailTime_Value == "" || Exp_Name_Value.Length > 50 || Exp_Start_Value.Length != 10 || Exp_Pos_Value.Length > 50 || Exp_Time_Value > 480 || Exp_Time_Value <= 0 || Exp_Reward_Value.Length > 50 || Exp_Warn_Value.Length > 255 || Exp_DetailTime_Value.Length > 255)
+            if (Exp_School_Value==""||Exp_Name_Value == "" || Exp_Start_Value == "" || Exp_Pos_Value == "" || Exp_Warn_Value == "" || Exp_DetailTime_Value == "" || Exp_Name_Value.Length > 50 || Exp_Start_Value.Length != 10 || Exp_Pos_Value.Length > 50 || Exp_Time_Value > 480 || Exp_Time_Value <= 0 || Exp_Reward_Value.Length > 50 || Exp_Warn_Value.Length > 255 || Exp_DetailTime_Value.Length > 255)
             {
-                Response.Write("<script language=\"javascript\">alert(\"数据错误或不完整！\")</script>");
+                Response.Write("<script type=\"text/javascript\">alert(\"数据错误或不完整！\")</script>");
             }
             else
             {
@@ -146,15 +151,15 @@ public partial class uploadexp : System.Web.UI.Page
                         Session["Type"] = da.ExecuteScalar().ToString();
                         if (Session["Type"].ToString() == "admin" || Session["Type"].ToString() == "exp")
                         {
-                            int Exp_Time_Int = Convert.ToInt16(Exp_Time_Value);
-                            int Exp_Date_Int = Convert.ToInt16(Exp_Start_Value.Substring(0, 4)) * 10000 + Convert.ToInt16(Exp_Start_Value.Substring(5, 2)) * 100 + Convert.ToInt16(Exp_Start_Value.Substring(8, 2));
+                            int Exp_Time_Int = Convert.ToInt32(Exp_Time_Value);
+                            int Exp_Date_Int = Convert.ToInt32(Exp_Start_Value.Substring(0, 4)) * 10000 + Convert.ToInt16(Exp_Start_Value.Substring(5, 2)) * 100 + Convert.ToInt16(Exp_Start_Value.Substring(8, 2));
                             sqlstr = "SELECT Name FROM dbo.Exp_Situation WHERE Date=" + Exp_Date_Int + "";
                             da.CommandText = sqlstr;
                             da.ExecuteScalar();
                             if (da.ExecuteScalar() == null) {
                                 try
                                 {
-                                    sqlstr = "insert into Exp_Situation (Name,Date,Position,Time_min,Reward,Warning,Uploader,Detailtime) values ('" + Exp_Name_Value + "'," + Exp_Date_Int + ",'" + Exp_Pos_Value + "'," + Exp_Time_Int + ",'" + Exp_Reward_Value + "','" + Exp_Warn_Value + "','" + Session["UserId"].ToString() + "','" + Exp_DetailTime_Value + "')";
+                                    sqlstr = "insert into Exp_Situation (Name,Date,School,Position,Time_min,Reward,Warning,Uploader,Detailtime) values ('" + Exp_Name_Value + "'," + Exp_Date_Int + ",'" + Exp_School_Value + "','" + Exp_Pos_Value + "'," + Exp_Time_Int + ",'" + Exp_Reward_Value + "','" + Exp_Warn_Value + "','" + Session["UserId"].ToString() + "','" + Exp_DetailTime_Value + "')";
                                     da.CommandText = sqlstr;
                                     da.ExecuteNonQuery();
                                     Response.Write("<script language=\"javascript\">alert(\"实验发布成功！\");location.href='uploadexp.aspx'</script>");

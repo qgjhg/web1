@@ -5,11 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
     <title>心理学实验报名网</title>
 
@@ -31,10 +31,38 @@
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
+
+    <link href="../css/MainCss.css" rel="stylesheet" type="text/css" />
+    
+    <!-- check input -->
+    <script type="text/javascript">
+        function UserInputIsOk()
+        {
+            var Start_Date = document.getElementById("<%=Check_Start.ClientID%>").value;
+            var End_Date = document.getElementById("<%=Check_End.ClientID%>").value;
+            var stastr = 0;
+            var endstr = 0;
+            stastr = Number(Start_Date.replace(/[^\d]/g, ''));
+            endstr = Number(End_Date.replace(/[^\d]/g, ''));
+            if (stastr > 0 && endstr > 0 && stastr <= endstr) {
+                if (endstr - stastr > 10) {
+                    alert('查询时间最长10天');
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            } else
+            {
+                alert('查询时间选择错误');
+                return false;
+            }
+        }
+    </script>
 </head>
 
 <body>
-
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -46,7 +74,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="main.html">心理学实验报名网</a>
+                <a class="navbar-brand" href="main.aspx">心理学实验报名网</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -93,10 +121,16 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
+                            <form  runat="server">
+                            <label>输入起止日期查询：</label>
+                            <asp:TextBox ID="Check_Start" runat="server" value="" CssClass="form-control-timechoice1" autocomplete="off" onfocus="this.blur()" placeholder="开始日期"></asp:TextBox>
+                            <asp:TextBox ID="Check_End" runat="server" value="" CssClass="form-control-timechoice2" autocomplete="off" onfocus="this.blur()" placeholder="结束日期"></asp:TextBox>
+                                &nbsp;&nbsp;&nbsp;
+                            <asp:Button ID="Check_Exp" runat="server" class="btn btn-default" Text="查 询" />
+                            </form>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body" runat="server" id="table_div">
-                            
 
                         </div>
                         <!-- /.panel-body -->
@@ -130,7 +164,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-        <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
     <script>
        
     $(document).ready(function() {
@@ -140,6 +174,26 @@
     });
     </script>
 
+    <!-- time picker -->
+    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css" />
+    <!-- timepicker -->
+    <script src="../js/jquery.datetimepicker.full.js"></script>
+    <script>
+    $('#Check_Start').datetimepicker({
+        todayButton: false,    //关闭选择今天按钮
+        yearStart: 2000,     //设置最小年份
+        yearEnd: 2050,        //设置最大年份
+        timepicker: false,    //关闭时间选项
+        format: 'Y/m/d',
+    });
+    $('#Check_End').datetimepicker({
+        todayButton: false,    //关闭选择今天按钮
+        yearStart: 2000,     //设置最小年份
+        yearEnd: 2050,        //设置最大年份
+        timepicker: false,    //关闭时间选项
+        format: 'Y/m/d',
+    });
+    </script>
 </body>
 </html>
 

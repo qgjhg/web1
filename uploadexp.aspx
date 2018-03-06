@@ -75,17 +75,17 @@
                 if (endtimehourvalue < 24 && endtimehourvalue >= 0 && endtimeminvalue >= 0 && endtimeminvalue < 60) {
                     if (endtimehourvalue >= 0 && endtimehourvalue < 10) {
                         if (endtimeminvalue >= 0 && endtimeminvalue < 10) {
-                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
+                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：0/' + num + ';\n';
                         } else {
-                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
+                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：0/' + num + ';\n';
                         }
 
                     }
                     else {
                         if (endtimeminvalue >= 0 && endtimeminvalue < 10) {
-                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
+                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：0/' + num + ';\n';
                         } else {
-                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：' + num + ';\n';
+                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：0/' + num + ';\n';
                         }
                     }
                 }
@@ -107,6 +107,68 @@
         {
             var detailtimebox = document.getElementById('<%=Exp_DetailTime.ClientID%>');
             detailtimebox.value = "";
+        }
+    </script>
+    <script type="text/javascript">
+        function UserInputIsOk() {
+            var Exp_Name_Value = document.getElementById('<%=Exp_Name.ClientID%>').value;
+            var Exp_Start_Value = document.getElementById('<%=Exp_Start.ClientID%>').value;
+            var Exp_Time_Value = document.getElementById('<%=Exp_Time.ClientID%>').value;
+            var Exp_Detail_Value = document.getElementById('<%=Exp_DetailTime.ClientID%>').value;
+            var Exp_School_Value = document.getElementById('<%=Exp_School.ClientID%>').value; //?
+            var Exp_Pos_Value = document.getElementById('<%=Exp_Pos.ClientID%>').value;
+            var Exp_Reward_Value = document.getElementById('<%=Exp_Reward.ClientID%>').value;
+            var Exp_Warn_Value = document.getElementById('<%=Exp_Warn.ClientID%>').value;
+            var returnvalue = true;
+            if (Exp_Name_Value == '' || Exp_Name_Value.length > 10) {
+                document.getElementById('<%=Exp_Name.ClientID%>').style.borderColor = '#B0171F';
+                returnvalue = false
+            }
+            else { document.getElementById('<%=Exp_Name.ClientID%>').style.borderColor = '#ccc'; }
+            if (Exp_Start_Value == '')
+            {
+                document.getElementById('<%=Exp_Start.ClientID%>').style.borderColor = '#B0171F';
+                returnvalue = false
+            }
+            else { document.getElementById('<%=Exp_Start.ClientID%>').style.borderColor = '#ccc'; }
+            if (Exp_Time_Value = '' || Number(Exp_Time_Value) <= 0 || Number(Exp_Time_Value) > 480)
+            {
+                document.getElementById('<%=Exp_Time.ClientID%>').style.borderColor = '#B0171F';
+                returnvalue = false
+            }
+            else { document.getElementById('<%=Exp_Time.ClientID%>').style.borderColor = '#ccc'; }
+            if (Exp_Detail_Value == '')
+            {
+                document.getElementById('<%=Exp_DetailTime.ClientID%>').style.borderColor = '#B0171F';
+                returnvalue = false
+            }
+            else { document.getElementById('<%=Exp_DetailTime.ClientID%>').style.borderColor = '#ccc'; }
+            if (Exp_School_Value == '')
+            {
+                document.getElementById('<%=Exp_School.ClientID%>').style.borderColor = '#B0171F';
+                returnvalue = false
+            }
+            else { document.getElementById('<%=Exp_School.ClientID%>').style.borderColor = '#ccc'; }
+            if (Exp_Pos_Value == '')
+            {
+                document.getElementById('<%=Exp_Pos.ClientID%>').style.borderColor = '#B0171F';
+                returnvalue = false
+            }
+            else { document.getElementById('<%=Exp_Pos.ClientID%>').style.borderColor = '#ccc'; }
+            if (Exp_Reward_Value == '')
+            {
+                document.getElementById('<%=Exp_Reward.ClientID%>').style.borderColor = '#B0171F';
+                returnvalue = false
+            }
+            else { document.getElementById('<%=Exp_Reward.ClientID%>').style.borderColor = '#ccc'; }
+            if (Exp_Warn_Value == '')
+            {
+                document.getElementById('<%=Exp_Warn.ClientID%>').style.borderColor = '#B0171F';
+                returnvalue = false
+            }
+            else { document.getElementById('<%=Exp_Warn.ClientID%>').style.borderColor = '#ccc'; }
+
+            return returnvalue;
         }
     </script>
 </head>
@@ -180,8 +242,8 @@
 
                                         <div class="form-group">
                                             <label class="font_exp_title">实验名称</label>
-                                            <asp:TextBox ID="Exp_Name" runat="server" CssClass="form-control" MaxLength="49" placeholder="请输入实验名称" autocomplete="off"></asp:TextBox>
-                                            <p class="help-block">请输入实验名称（50字以内），好的名称更能吸引大家来参加哦~</p>
+                                            <asp:TextBox ID="Exp_Name" runat="server" CssClass="form-control" MaxLength="10" placeholder="请输入实验名称" autocomplete="off"></asp:TextBox>
+                                            <p class="help-block">请输入实验名称（10字以内），好的名称更能吸引大家来参加哦~</p>
                                         </div>
                                         <br />
                                         <div class="form-group">
@@ -226,6 +288,18 @@
                                         </div>
                                         <br />
                                         <div class="form-group">
+                                            <label class="font_exp_title">实验校区</label>
+                                            <asp:DropDownList ID="Exp_School" runat="server" CssClass="form-control">
+                                                <asp:ListItem Selected="True" disabled="True"></asp:ListItem>
+                                                <asp:ListItem>西溪</asp:ListItem>
+                                                <asp:ListItem>紫金港</asp:ListItem>
+                                                <asp:ListItem>玉泉</asp:ListItem>
+                                                <asp:ListItem>其它</asp:ListItem>
+                                            </asp:DropDownList>
+                                            <p class="help-block">请选择实验校区所在~</p>
+                                        </div>
+                                        <br />
+                                        <div class="form-group">
                                             <label class="font_exp_title">实验地点</label>
                                             <asp:TextBox ID="Exp_Pos" runat="server" CssClass="form-control" MaxLength="49" placeholder="请输入实验地点" autocomplete="off"></asp:TextBox>
                                             <p class="help-block">请输入实验地点（50字以内）~</p>
@@ -233,7 +307,7 @@
                                         <br />
                                         <div class="form-group">
                                             <label class="font_exp_title">报酬</label>
-                                            <asp:TextBox ID="Exp_Reward" runat="server" CssClass="form-control" MaxLength="49" placeholder="请输入实验报酬" autocomplete="off"></asp:TextBox>
+                                            <asp:TextBox ID="Exp_Reward" runat="server" CssClass="form-control" MaxLength="10" placeholder="请输入实验报酬" autocomplete="off"></asp:TextBox>
                                             <p class="help-block">请输入实验报酬（数字），其他非现金报酬请注明~</p>
                                         </div>
                                         <br />

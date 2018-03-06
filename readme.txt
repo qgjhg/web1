@@ -1,8 +1,10 @@
 
 SYW
 
-2018.3.3
---main page done
---login page change input background
---change the menu to avoid crash
---different id_type have different menu
+
+
+
+
+
+--待写：发布实验后前段按钮检测标红，后端检测已完成。done
+--待写：session时长安排。
