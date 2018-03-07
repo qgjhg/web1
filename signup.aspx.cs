@@ -101,10 +101,26 @@ public partial class signup : System.Web.UI.Page
                 {
                     SqlDataAdapter arolltable = new SqlDataAdapter("select * from dbo.Exp_Situation WHERE id='" + exp_id_int + "'", cn);
                     arolltable.Fill(ds);
-                    if (ds!= null)
+                    if (ds != null)
                     {
-                        Exp_Info.Text ="名称："+ ds.Rows[0][1].ToString() + ";\n日期：" + ds.Rows[0][2].ToString() + ";\n校区：" + ds.Rows[0][3].ToString()+";\n地址："+ds.Rows[0][4].ToString()+";\n时长："+ds.Rows[0][5].ToString() + " min;\n报酬：" + ds.Rows[0][6].ToString();
-                        Exp_Warn.Text= ds.Rows[0][7].ToString();
+                        Exp_Info.Text = "名称：" + ds.Rows[0][1].ToString() + ";\n日期：" + ds.Rows[0][2].ToString() + ";\n校区：" + ds.Rows[0][3].ToString() + ";\n地址：" + ds.Rows[0][4].ToString() + ";\n时长：" + ds.Rows[0][5].ToString() + " min;\n报酬：" + ds.Rows[0][6].ToString();
+                        Exp_Warn.Text = ds.Rows[0][7].ToString();
+                        string Exp_DetailTime = ds.Rows[0][9].ToString();
+                        Exp_DetailTime = Exp_DetailTime.Replace("\n", "");
+                        string[] Exp_Detail = Exp_DetailTime.Split(';');
+                        for (int i = 0; i < Exp_Detail.Length - 1; i = i + 2)
+                        {
+                            if (Convert.ToInt16(Exp_Detail[i+1][5]) < Convert.ToInt16(Exp_Detail[i+1][7]))
+                            {
+                                ListItem Timechoose = new ListItem();
+                                Timechoose.Text = Exp_Detail[i] + ";" + Exp_Detail[i + 1];
+                                Exp_TimeChoose.Items.Add(Timechoose);
+                            }
+                            else
+                            {
+
+                            }
+                        }
                     }
                 }
                 catch

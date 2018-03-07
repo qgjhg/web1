@@ -112,17 +112,13 @@
                                         </div>
                                         <br />
                                         <div class="form-group">
-                                            <label class="font_exp_title">实验日期与实验时长</label>
-                                            <br />
-                                            <div class="div_centerbox">
-                                            <asp:TextBox ID="Exp_Start" runat="server" value="" CssClass="form-control-timechoice1" autocomplete="off" onfocus="this.blur()" placeholder="请选择实验日期"></asp:TextBox>
-                                            <%--<asp:TextBox ID="Exp_End" runat="server" value="" CssClass="form-control-timechoice2" autocomplete="off" onfocus="this.blur()" placeholder="请选择结束日期"></asp:TextBox>--%>
-                                            <label class="help_label">时长：</label>
-                                            <asp:TextBox ID="Exp_Time" runat="server" value="" CssClass="form-control-detail2" autocomplete="off" placeholder="时长（分钟）" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeydown="onlyNum();" style="ime-mode:Disabled" MaxLength="3" TextMode="SingleLine"></asp:TextBox>
+                                            <div id="Exp_TimeChoose">
+                                                <asp:DropDownList ID = "Exp_TimeChoose" runat = "server" CssClass = "form-control">
+                                                    <asp:ListItem Selected = "True" disabled = "True" ></asp:ListItem >
+
+                                                </asp:DropDownList>
                                             </div>
-                                            <p class="help-block">请选择实验日期，并输入实验时长（分钟）~</p>
                                         </div>
-                                        <br />
                                         <div class="form-group">
                                             <label class="font_exp_title">实验安排</label>
                                             <br />
