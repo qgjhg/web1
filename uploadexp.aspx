@@ -100,7 +100,7 @@
             if (detailtimebox.value != "")
             {
                 var detailtimeboxvaluelength=detailtimebox.value.length;
-                detailtimebox.value = detailtimebox.value.substring(0, detailtimeboxvaluelength - 22);
+                detailtimebox.value = detailtimebox.value.substring(0, detailtimeboxvaluelength - 24);
             }
         }
         function detailtime_button_clear()

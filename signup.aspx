@@ -94,17 +94,27 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <form role="form" runat="server">
-
+                                    <div class="col-lg-12">
                                         <div class="form-group">
                                             <label class="font_exp_title">实验ID</label>
                                             <asp:TextBox ID="Exp_Id" runat="server" CssClass="form-control" onfocus="this.blur()" ReadOnly="True" autocomplete="off"></asp:TextBox>
                                         </div>
-                                        <br />
+                                    </div>
+                                    <br />
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="font_exp_title">实验信息</label>
                                             <asp:TextBox ID="Exp_Info" runat="server" Rows="6" CssClass="form-control input_asp_box_multiline" onfocus="this.blur()" ReadOnly="True" autocomplete="off" TextMode="MultiLine"></asp:TextBox>
                                         </div>
-                                        <br />
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="font_exp_title">个人信息</label>
+                                            <asp:TextBox ID="Part_Info" runat="server" Rows="6" CssClass="form-control input_asp_box_multiline" onfocus="this.blur()" ReadOnly="True" autocomplete="off" TextMode="MultiLine"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="col-lg-12">
                                         <div class="form-group">
                                             <label class="font_exp_title">详情与注意事项</label>
                                             <asp:TextBox ID="Exp_Warn" runat="server" Rows="6" CssClass="form-control input_asp_box_multiline" onfocus="this.blur()" ReadOnly="True" autocomplete="off" TextMode="MultiLine"></asp:TextBox>
@@ -112,51 +122,15 @@
                                         </div>
                                         <br />
                                         <div class="form-group">
-                                            <div id="Exp_TimeChoose">
-                                                <asp:DropDownList ID = "Exp_TimeChoose" runat = "server" CssClass = "form-control">
-                                                    <asp:ListItem Selected = "True" disabled = "True" ></asp:ListItem >
+                                            <label class="font_exp_title">请选择参加实验时段</label>
+                                            <asp:DropDownList ID = "Exp_TimeChoose" runat = "server" CssClass = "form-control">
+                                                <asp:ListItem Selected = "True" disabled = "True" ></asp:ListItem >
 
-                                                </asp:DropDownList>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="font_exp_title">实验安排</label>
-                                            <br />
-                                            <div class="div_centerbox">
-                                            <input id="Exp_choosetime" type="text" class="form-control-detail" autocomplete="off" onfocus="this.blur()" placeholder="每场实验开始时间" />
-                                            <label class="help_label">人数：</label>
-                                            <select id="Exp_choosenumber" class="form-control-detail2">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                                <option value="6">6</option>
-                                                <option value="7">7</option>
-                                                <option value="8">8</option>
-                                                <option value="9">9</option>
-                                            </select>
-                                                <div class="div_threebutton">
-                                                    <input type="button" class="form-control-buttondetail" value="添 加" onclick="detailtime_button()"/>
-                                                    <input type="button" class="form-control-buttondetail2" value="撤 销" onclick="detailtime_button_undo()"/>
-                                                    <input type="button" class="form-control-buttondetail3" value="清 空" onclick="detailtime_button_clear()"/>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <p class="help-block">请选择每场实验的开始时间以及每场实验人数~</p>
-                                            <br />
-                                            <asp:TextBox ID="Exp_DetailTime" runat="server" value="" CssClass="form-control input_asp_box_multiline" Rows="8" autocomplete="off" onfocus="this.blur()" placeholder="" ReadOnly="True" TextMode="MultiLine"></asp:TextBox>                                     
+                                            </asp:DropDownList>
                                         </div>
                                         <br />
-                                        <div class="form-group">
-                                            <label class="font_exp_title">报酬</label>
-                                            <asp:TextBox ID="Exp_Reward" runat="server" CssClass="form-control" MaxLength="10" placeholder="请输入实验报酬" autocomplete="off"></asp:TextBox>
-                                            <p class="help-block">请输入实验报酬（数字），其他非现金报酬请注明~</p>
-                                        </div>
-                                        <br />
-
-                                        <asp:Button ID="upload" runat="server" Text="上 传" class="btn btn-default"/> &nbsp;&nbsp;&nbsp;
-                                        <asp:Button ID="reset" runat="server" Text="重 置" class="btn btn-default"/>
+                                        <asp:Button ID="apply_button" runat="server" Text="报 名" class="btn btn-default" OnClick="apply_button_Click"/> &nbsp;&nbsp;&nbsp;
+                                    </div>
                                     </form>
                                 </div>
                             </div>
