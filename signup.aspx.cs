@@ -10,13 +10,14 @@ using System.Data.SqlClient;
 
 public partial class signup : System.Web.UI.Page
 {
-    string connString = "Server=.;Initial Catalog=PSYcollection;Integrated Security=False;User ID=sa;Password=shiyanwei123;";
-    SqlConnection cn = new SqlConnection();
-    SqlCommand da = new SqlCommand();
-    string sqlstr = "";
     protected void Page_Load(object sender, EventArgs e)
     {
+        string connString = "Server=.;Initial Catalog=PSYcollection;Integrated Security=False;User ID=sa;Password=shiyanwei123;";
+        SqlConnection cn = new SqlConnection();
+        SqlCommand da = new SqlCommand();
+        string sqlstr = "";
         string str = Request.QueryString["id"];
+        //string str = "18000013";
         int exp_id_int = Convert.ToInt32(str);
         if (str == null)
         {
@@ -96,40 +97,41 @@ public partial class signup : System.Web.UI.Page
                     type_html.Append("</ul>");
                     type_diff.InnerHtml = type_html.ToString();
                 }
-                try
+                if (!IsPostBack)
                 {
-                    SqlDataAdapter arolltable = new SqlDataAdapter("select * from dbo.Exp_Situation WHERE id='" + exp_id_int + "'", cn);
-                    DataTable ds = new DataTable();
-                    arolltable.Fill(ds);
-                    if (ds != null)
+                    try
                     {
-                        Exp_Info.Text = "名称：" + ds.Rows[0][1].ToString() + ";\n日期：" + ds.Rows[0][2].ToString() + ";\n校区：" + ds.Rows[0][3].ToString() + ";\n地址：" + ds.Rows[0][4].ToString() + ";\n时长：" + ds.Rows[0][5].ToString() + " min;\n报酬：" + ds.Rows[0][6].ToString();
-                        Exp_Warn.Text = ds.Rows[0][7].ToString();
-                        string Exp_DetailTime = ds.Rows[0][9].ToString();
-                        Exp_DetailTime = Exp_DetailTime.Replace("\n", "");
-                        string[] Exp_Detail = Exp_DetailTime.Split(';');
-                        for (int i = 0; i < Exp_Detail.Length - 1; i = i + 2)
+                        SqlDataAdapter arolltable = new SqlDataAdapter("select * from dbo.Exp_Situation WHERE id='" + exp_id_int + "'", cn);
+                        DataTable ds = new DataTable();
+                        arolltable.Fill(ds);
+                        if (ds != null)
                         {
-                            if (Convert.ToInt16(Exp_Detail[i+1][5]) < Convert.ToInt16(Exp_Detail[i+1][7]))
-                            {
-                                ListItem Timechoose = new ListItem();
-                                Timechoose.Text = Exp_Detail[i] + ";" + Exp_Detail[i + 1];
-                                Exp_TimeChoose.Items.Add(Timechoose);
-                            }
-                            else
-                            {
+                            Exp_Info.Text = "名称：" + ds.Rows[0][1].ToString() + ";\n日期：" + ds.Rows[0][2].ToString() + ";\n校区：" + ds.Rows[0][3].ToString() + ";\n地址：" + ds.Rows[0][4].ToString() + ";\n时长：" + ds.Rows[0][5].ToString() + " min;\n报酬：" + ds.Rows[0][6].ToString();
+                            Exp_Warn.Text = ds.Rows[0][7].ToString();
 
+                            Exp_TimeChoose.Items.Clear();
+                            Exp_TimeChoose.Items.Add(new ListItem("", " "));
+                            string strDetail = "";
+                            for(int mm = 9;mm < 53; mm = mm + 3){
+                                if (ds.Rows[0][mm].ToString() != "-1" && Convert.ToInt16(ds.Rows[0][mm + 1].ToString()) < Convert.ToInt16(ds.Rows[0][mm + 2].ToString())) 
+                                {
+                                    strDetail = ds.Rows[0][mm].ToString() + "  人数：" + ds.Rows[0][mm + 1].ToString() + "/" + ds.Rows[0][mm + 2].ToString();
+                                    ListItem Timechoose = new ListItem();
+                                    Timechoose.Text = strDetail;
+                                    Timechoose.Value = mm.ToString();
+                                    Exp_TimeChoose.Items.Add(Timechoose);
+                                }
                             }
                         }
                     }
-                }
-                catch
-                {
-                    Response.Write("<script language=\"javascript\">alert(\"实验信息获取失败！\");location.href='main.aspx'</script>");
+                    catch
+                    {
+                        Response.Write("<script language=\"javascript\">alert(\"实验信息获取失败！\");location.href='main.aspx'</script>");
+                    }
                 }
                 try
                 {
-                    SqlDataAdapter arolltable = new SqlDataAdapter("select * from dbo.login WHERE id='" + Session["UserId"].ToString() + "'", cn);
+                    SqlDataAdapter arolltable = new SqlDataAdapter("select * from dbo.login WHERE id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AI", cn);
                     DataTable dp = new DataTable();
                     arolltable.Fill(dp);
                     if (dp != null)
@@ -145,87 +147,114 @@ public partial class signup : System.Web.UI.Page
         }
         if (!IsPostBack)
         {
+
             //前端先验证
             //upload.Attributes.Add("onclick", "return UserInputIsOk()");
         }
-}
+    }
 
     protected void apply_button_Click(object sender, EventArgs e)
     {
+        string connString = "Server=.;Initial Catalog=PSYcollection;Integrated Security=False;User ID=sa;Password=shiyanwei123;";
+        SqlConnection cn = new SqlConnection();
+        SqlCommand da = new SqlCommand();
+        string sqlstr = "";
         string expid = Exp_Id.Text;
-        if (Exp_Id.Text!="" && Exp_Info.Text!="" && Exp_Warn.Text!="" &&Exp_TimeChoose.Text!="" && Part_Info.Text != "")
+        if (Exp_Id.Text != "" && Exp_Info.Text != "" && Exp_Warn.Text != "" && Exp_TimeChoose.Value != " " && Part_Info.Text != "")
         {
-            sqlstr = "SELECT id FROM dbo.login WHERE password='" + Session["UserPassword"].ToString() + "'";
+            sqlstr = "SELECT password FROM dbo.login WHERE id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+            cn.ConnectionString = connString;
             cn.Open();
             da.CommandText = sqlstr;
             da.Connection = cn;
             //检测权限
             if (da.ExecuteScalar() != null)
             {
-                //try
-                //{
-                    SqlDataAdapter arolltable = new SqlDataAdapter("select * from dbo.Exp_Situation WHERE id='" + Convert.ToInt32(expid) + "'", cn);
-                    DataTable ds = new DataTable();
-                    arolltable.Fill(ds);
-                    SqlDataAdapter arolltable2=new SqlDataAdapter("select * from dbo.login WHERE id='" + Session["UserId"].ToString() + "'", cn);
-                    DataTable dp = new DataTable();
-                    arolltable2.Fill(dp);
-                    if (ds != null && dp != null) 
+                if (da.ExecuteScalar().ToString() == Session["UserPassword"].ToString())
+                {
+                    try
                     {
-                        string Exp_DetailTime = ds.Rows[0][9].ToString();
-                        Exp_DetailTime = Exp_DetailTime.Replace("\r", "");
-                        string[] Exp_Detail = Exp_DetailTime.Split(';');
-                        string[] Select_Time = Exp_TimeChoose.Text.Split(';');
-                        string Detailtime = "";
-                        bool ischange = false;
-                        for (int i = 0; i < Exp_Detail.Length - 1; i = i + 2)
+                        int nowtime = DateTime.Now.Year * 10000 + DateTime.Now.Month * 100 + DateTime.Now.Day;
+                        sqlstr = "SELECT COUNT(*) FROM dbo.applytable WHERE status in ('signing','pass') and id= '" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+                        da.CommandText = sqlstr;
+                        da.Connection = cn;
+                        int timeline = Convert.ToInt32(da.ExecuteScalar().ToString());
+                        if (timeline <= 1)
                         {
-                            if (Select_Time[0] == Exp_Detail[i] && Convert.ToInt16(Exp_Detail[i + 1][5]) < Convert.ToInt16(Exp_Detail[i + 1][7]))
+
+                            SqlDataAdapter arolltable = new SqlDataAdapter("select * from dbo.Exp_Situation WHERE id=" + Convert.ToInt32(expid), cn);
+                            DataTable ds = new DataTable();
+                            arolltable.Fill(ds);
+                            SqlDataAdapter arolltable2 = new SqlDataAdapter("select * from dbo.login WHERE id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS", cn);
+                            DataTable dp = new DataTable();
+                            arolltable2.Fill(dp);
+                            if (ds != null && dp != null)
                             {
-                                Detailtime = Detailtime + Exp_Detail[i] + ";" + Exp_Detail[i + 1].Substring(0, 5) + (Convert.ToInt16(Exp_Detail[i + 1][5])+1).ToString() + Exp_Detail[i + 1].Substring(6, 2) + ";\r";
-                                ischange = true;
-                            }
-                            else
-                            {
-                                Detailtime = Detailtime + Exp_Detail[i] + ";" + Exp_Detail[i + 1] + ";\r";
-                            }
-                        }
-                        if (ischange == true)
-                        {
-                            sqlstr = "SELECT Detailtime FROM dbo.Exp_Situation WHERE id='" + Convert.ToInt32(expid) + "'";
-                            da.CommandText = sqlstr;
-                            if (da.ExecuteScalar().ToString() == ds.Rows[0][9].ToString())
-                            {
-                                sqlstr = "UPDATE dbo.Exp_Situation SET Detailtime='" + Detailtime + "' WHERE id=" + Convert.ToInt32(expid);
-                                da.CommandText = sqlstr;
-                                int line1 = da.ExecuteNonQuery();
-                                sqlstr = "insert into dbo.applytable (id,password,expid,expname,expdate,exptime,partname,partage,partsex,partcomment,expcomment,status) values ('" + Session["UserId"].ToString() + "','" + Session["UserPassword"].ToString() + "','" + expid + "','" + ds.Rows[0][1].ToString() + "'," + Convert.ToInt32(ds.Rows[0][2].ToString()) + ",'" + Select_Time[0].ToString() + "','" + dp.Rows[0][2].ToString() + "','" + (DateTime.Now.Year - Convert.ToInt32(dp.Rows[0][5].ToString().Substring(0, 4))).ToString() + "','" + dp.Rows[0][4].ToString() + "','" + " " + "','" + " " + "','" + "signing" + "')";
+                                sqlstr = "SELECT COUNT(*) FROM dbo.applytable WHERE status in ('signing','pass') and expdate= " + Convert.ToInt32(ds.Rows[0][2].ToString()) + " and id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
                                 da.CommandText = sqlstr;
                                 da.Connection = cn;
-                                int line2 = da.ExecuteNonQuery();
-                                if (line1 != 0 && line2 != 0) 
+                                if ((int)da.ExecuteScalar() == 0)
                                 {
-                                    Response.Write("<script language=\"javascript\">alert(\"报名成功，请等待实验发布者确认~\");location.href='main.aspx'</script>");
+                                    int Select_Time = Convert.ToInt16(Exp_TimeChoose.Value.ToString());
+                                    string changenum = "N" + (((Select_Time - 9) / 3 + 1)).ToString();
+
+                                    if (Convert.ToInt16(ds.Rows[0][Select_Time + 1].ToString()) < Convert.ToInt16(ds.Rows[0][Select_Time + 2].ToString()))
+                                    {
+                                        System.Diagnostics.Debug.WriteLine((int)ds.Rows[0][Select_Time + 1]);
+                                        int uptime = (int)ds.Rows[0][Select_Time + 1] + 1;
+                                        sqlstr = "UPDATE dbo.Exp_Situation SET " + changenum + "=" + uptime + " WHERE id=" + Convert.ToInt32(expid);
+                                        da.CommandText = sqlstr;
+                                        int line1 = da.ExecuteNonQuery();
+                                        sqlstr = "insert into dbo.applytable (id,expid,expname,expdate,exptime,partname,partage,partsex,partcomment,expcomment,status) values ('" + Session["UserId"].ToString() + "','" + expid + "','" + ds.Rows[0][1].ToString() + "'," + Convert.ToInt32(ds.Rows[0][2].ToString()) + ",'" + ds.Rows[0][Select_Time].ToString() + "','" + dp.Rows[0][2].ToString() + "','" + (DateTime.Now.Year - Convert.ToInt32(dp.Rows[0][5].ToString().Substring(0, 4))).ToString() + "','" + dp.Rows[0][4].ToString() + "','" + " " + "','" + " " + "','" + "signing" + "')";
+                                        da.CommandText = sqlstr;
+                                        da.Connection = cn;
+                                        int line2 = da.ExecuteNonQuery();
+                                        if (line1 != 0 && line2 != 0)
+                                        {
+                                            Response.Write("<script language=\"javascript\">alert(\"报名成功，请等待实验发布者确认~\");location.href='main.aspx'</script>");
+                                        }
+                                        else if (line1 == 0)
+                                        {
+                                            Response.Write("<script language=\"javascript\">alert(\"报名失败1：刷新实验数据失败\");location.href='main.aspx'</script>");
+                                        }
+                                        else
+                                        {
+                                            Response.Write("<script language=\"javascript\">alert(\"报名失败2:数据添加失败\");location.href='main.aspx'</script>");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Response.Write("<script language=\"javascript\">alert(\"报名冲突，请重新报名！\");location.href='main.aspx'</script>");
+                                    }
                                 }
                                 else
                                 {
-                                    Response.Write("<script language=\"javascript\">alert(\"报名失败1\");location.href='main.aspx'</script>");
+                                    Response.Write("<script language=\"javascript\">alert(\"每天最多报名参加一项实验~\");location.href='main.aspx'</script>");
                                 }
                             }
-                            else
-                            {
-                                Response.Write("<script language=\"javascript\">alert(\"报名冲突，请重新报名！\");location.href='main.aspx'</script>");
-                            }
+
                         }
+                        else
+                        {
+                            Response.Write("<script language=\"javascript\">alert(\"最多同时报名两项实验~\");location.href='main.aspx'</script>");
+                        }
+
                     }
-                //}
-                //catch
-                //{
-                //   Response.Write("<script language=\"javascript\">alert(\"报名失败\");location.href='main.aspx'</script>");
-                //}
+                    catch
+                    {
+                        Response.Write("<script language=\"javascript\">alert(\"报名失败\");location.href='main.aspx'</script>");
+                    }
+
+                }
+                cn.Close();
 
             }
-            cn.Close();
+        }
+        else
+        {
+            //Response.Write("<script language=\"javascript\">alert(\"" + Exp_Id.Text + ";" + Exp_Info.Text + "\")</script>");
+            Response.Write("<script language=\"javascript\">alert(\"信息不全，请选择实验时间\");location.href='main.aspx'</script>");
         }
     }
+
 }

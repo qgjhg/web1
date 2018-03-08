@@ -1,11 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="signup.aspx.cs" Inherits="signup" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="signup.aspx.cs" Inherits="signup"%>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -123,10 +122,12 @@
                                         <br />
                                         <div class="form-group">
                                             <label class="font_exp_title">请选择参加实验时段</label>
-                                            <asp:DropDownList ID = "Exp_TimeChoose" runat = "server" CssClass = "form-control">
-                                                <asp:ListItem Selected = "True" disabled = "True" ></asp:ListItem >
+<%--                                            <asp:DropDownList ID = "Exp_TimeChoose" runat = "server" CssClass = "form-control">
 
-                                            </asp:DropDownList>
+                                            </asp:DropDownList>--%>
+                                            <select id="Exp_TimeChoose" runat="server" class = "form-control">
+
+                                            </select>
                                         </div>
                                         <br />
                                         <asp:Button ID="apply_button" runat="server" Text="报 名" class="btn btn-default" OnClick="apply_button_Click"/> &nbsp;&nbsp;&nbsp;

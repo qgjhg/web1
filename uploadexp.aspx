@@ -55,15 +55,29 @@
         }
     </script>
     
+    <script type="text/javascript">
+        function getselect() {
+            var n = document.getElementById('<%=Exp_DetailTime.ClientID%>');
+            var v = '';
+            for (var i = 0; i < n.options.length; i++) {
+                if (i == 0) {
+                    v = n.options[i].value;
+                } else {
+                    v += '|' + n.options[i].value;
+                }
+            }
+            var choosetimefield = document.getElementById('<%=ChooseTime.ClientID%>');
+            choosetimefield.value = v;
+        }
+</script>
     <!-- detail time submit button -->
     <script type="text/javascript">
         function detailtime_button() {
             var detailtimebox = document.getElementById('<%=Exp_DetailTime.ClientID%>');
             var starttime = document.getElementById('Exp_choosetime').value;
-            var contime = document.getElementById('<%=Exp_Time.ClientID%>').value;    
+            var contime = document.getElementById('<%=Exp_Time.ClientID%>').value;
             var num = document.getElementById('Exp_choosenumber').value;
-            if (Number(contime) > 0 && Number(contime) <= 480 && starttime != "")
-            {
+            if (Number(contime) > 0 && Number(contime) <= 480 && starttime != "") {
                 var starttimehourvalue = Number(starttime.substring(0, 2));
                 var starttimeminvalue = Number(starttime.substring(3, 5));
                 var endtimehourvalue = starttimehourvalue + parseInt(contime / 60);
@@ -72,24 +86,38 @@
                     endtimehourvalue = endtimehourvalue + 1;
                     endtimeminvalue = endtimeminvalue - 60;
                 }
-                if (endtimehourvalue < 24 && endtimehourvalue >= 0 && endtimeminvalue >= 0 && endtimeminvalue < 60) {
-                    if (endtimehourvalue >= 0 && endtimehourvalue < 10) {
-                        if (endtimeminvalue >= 0 && endtimeminvalue < 10) {
-                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：0/' + num + ';\n';
-                        } else {
-                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：0/' + num + ';\n';
-                        }
+                if (detailtimebox.options.length < 15) {
+                    if (endtimehourvalue < 24 && endtimehourvalue >= 0 && endtimeminvalue >= 0 && endtimeminvalue < 60) {
+                        if (endtimehourvalue >= 0 && endtimehourvalue < 10) {
+                            if (endtimeminvalue >= 0 && endtimeminvalue < 10) {
+                                var optiontxt = starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：0/' + num;
+                                var optionval = starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';0;' + num;
+                                detailtimebox.options.add(new Option(optiontxt, optionval));
+                            } else {
+                                var optiontxt = starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：0/' + num;
+                                var optionval = starttime + ' - ' + '0' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';0;' + num;
+                                detailtimebox.options.add(new Option(optiontxt, optionval));
+                            }
 
-                    }
-                    else {
-                        if (endtimeminvalue >= 0 && endtimeminvalue < 10) {
-                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：0/' + num + ';\n';
-                        } else {
-                            detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：0/' + num + ';\n';
+                        }
+                        else {
+                            if (endtimeminvalue >= 0 && endtimeminvalue < 10) {
+                                detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：0/' + num + ';\n';
+                                var optiontxt = starttime + ' - ' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';  人数：0/' + num;
+                                var optionval = starttime + ' - ' + endtimehourvalue.toString() + ':' + '0' + endtimeminvalue.toString() + ';0;' + num;
+                                detailtimebox.options.add(new Option(optiontxt, optionval));
+                            } else {
+                                detailtimebox.value = detailtimebox.value + starttime + ' - ' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：0/' + num + ';\n';
+                                var optiontxt = starttime + ' - ' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';  人数：0/' + num;
+                                var optionval = starttime + ' - ' + endtimehourvalue.toString() + ':' + endtimeminvalue.toString() + ';0;' + num;
+                                detailtimebox.options.add(new Option(optiontxt, optionval));
+                            }
                         }
                     }
+                    if (endtimehourvalue >= 24) { alert('计算所得结束时间将超过当天！'); }
+                } else {
+                    alert('要多休息~一天最多做15条实验哇~');
                 }
-                if (endtimehourvalue >= 24) { alert('计算所得结束时间将超过当天！'); }
             } else {
                 alert('请输入合适的实验时长与开始时间！');
             }
@@ -99,14 +127,14 @@
             var detailtimebox = document.getElementById('<%=Exp_DetailTime.ClientID%>');
             if (detailtimebox.value != "")
             {
-                var detailtimeboxvaluelength=detailtimebox.value.length;
-                detailtimebox.value = detailtimebox.value.substring(0, detailtimeboxvaluelength - 24);
+                var index=detailtimebox.selectedIndex;
+                detailtimebox.options.remove(index);
             }
         }
         function detailtime_button_clear()
         {
             var detailtimebox = document.getElementById('<%=Exp_DetailTime.ClientID%>');
-            detailtimebox.value = "";
+            detailtimebox.options.length = 0;
         }
     </script>
     <script type="text/javascript">
@@ -114,7 +142,6 @@
             var Exp_Name_Value = document.getElementById('<%=Exp_Name.ClientID%>').value;
             var Exp_Start_Value = document.getElementById('<%=Exp_Start.ClientID%>').value;
             var Exp_Time_Value = document.getElementById('<%=Exp_Time.ClientID%>').value;
-            var Exp_Detail_Value = document.getElementById('<%=Exp_DetailTime.ClientID%>').value;
             var Exp_School_Value = document.getElementById('<%=Exp_School.ClientID%>').value; //?
             var Exp_Pos_Value = document.getElementById('<%=Exp_Pos.ClientID%>').value;
             var Exp_Reward_Value = document.getElementById('<%=Exp_Reward.ClientID%>').value;
@@ -137,12 +164,6 @@
                 returnvalue = false
             }
             else { document.getElementById('<%=Exp_Time.ClientID%>').style.borderColor = '#ccc'; }
-            if (Exp_Detail_Value == '')
-            {
-                document.getElementById('<%=Exp_DetailTime.ClientID%>').style.borderColor = '#B0171F';
-                returnvalue = false
-            }
-            else { document.getElementById('<%=Exp_DetailTime.ClientID%>').style.borderColor = '#ccc'; }
             if (Exp_School_Value == '')
             {
                 document.getElementById('<%=Exp_School.ClientID%>').style.borderColor = '#B0171F';
@@ -168,6 +189,24 @@
             }
             else { document.getElementById('<%=Exp_Warn.ClientID%>').style.borderColor = '#ccc'; }
 
+            if (returnvalue) {
+                var n = document.getElementById('<%=Exp_DetailTime.ClientID%>');
+                var v = '';
+                for (var i = 0; i < n.options.length; i++) {
+                    if (i == 0) {
+                        v = n.options[i].value;
+                    } else {
+                        v += '|' + n.options[i].value;
+                    }
+                }
+                var choosetimefield = document.getElementById('<%=ChooseTime.ClientID%>');
+                choosetimefield.value = v;
+            }
+            else
+            {
+                alert("内容未填写完成~");
+                return false;
+            }
             return returnvalue;
         }
     </script>
@@ -277,14 +316,14 @@
                                             </select>
                                                 <div class="div_threebutton">
                                                     <input type="button" class="form-control-buttondetail" value="添 加" onclick="detailtime_button()"/>
-                                                    <input type="button" class="form-control-buttondetail2" value="撤 销" onclick="detailtime_button_undo()"/>
+                                                    <input type="button" class="form-control-buttondetail2" value="删 除" onclick="detailtime_button_undo()"/>
                                                     <input type="button" class="form-control-buttondetail3" value="清 空" onclick="detailtime_button_clear()"/>
                                                 </div>
                                             </div>
                                             <br />
                                             <p class="help-block">请选择每场实验的开始时间以及每场实验人数~</p>
                                             <br />
-                                            <asp:TextBox ID="Exp_DetailTime" runat="server" value="" CssClass="form-control input_asp_box_multiline" Rows="8" autocomplete="off" onfocus="this.blur()" placeholder="" ReadOnly="True" TextMode="MultiLine"></asp:TextBox>                                     
+                                            <asp:ListBox ID="Exp_DetailTime" Rows="6" runat="server" CssClass="form-control"></asp:ListBox>
                                         </div>
                                         <br />
                                         <div class="form-group">
@@ -308,18 +347,20 @@
                                         <div class="form-group">
                                             <label class="font_exp_title">报酬</label>
                                             <asp:TextBox ID="Exp_Reward" runat="server" CssClass="form-control" MaxLength="10" placeholder="请输入实验报酬" autocomplete="off"></asp:TextBox>
-                                            <p class="help-block">请输入实验报酬（数字），其他非现金报酬请注明~</p>
+                                            <p class="help-block">请输入实验报酬，其他非现金报酬请注明~</p>
                                         </div>
                                         <br />
                                         <div class="form-group">
                                             <label class="font_exp_title">实验介绍与注意事项</label>
                                             <asp:TextBox ID="Exp_Warn" runat="server" CssClass="form-control input_asp_box_multiline" Rows="8" placeholder="请输入实验介绍和注意事项" autocomplete="off" TextMode="MultiLine"></asp:TextBox>
-                                            <p class="help-block">请输入实验介绍和注意事项（500字以内）~</p>
+                                            <p class="help-block">请输入实验介绍和注意事项（254字以内）~</p>
                                         </div>
                                         <br />
 
                                         <asp:Button ID="upload" runat="server" Text="上 传" class="btn btn-default" OnClick="upload_Click"/> &nbsp;&nbsp;&nbsp;
                                         <asp:Button ID="reset" runat="server" Text="重 置" class="btn btn-default" OnClick="reset_Click"/>
+                                        
+                                        <asp:HiddenField ID="ChooseTime" runat="server" />
                                     </form>
                                 </div>
                             </div>
@@ -337,6 +378,7 @@
 
     </div>
     <!-- /#wrapper -->
+
 
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
