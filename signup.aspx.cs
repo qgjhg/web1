@@ -134,7 +134,7 @@ public partial class signup : System.Web.UI.Page
                     SqlDataAdapter arolltable = new SqlDataAdapter("select * from dbo.login WHERE id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AI", cn);
                     DataTable dp = new DataTable();
                     arolltable.Fill(dp);
-                    if (dp != null)
+                    if (dp.Rows.Count != 0)
                     {
                         Part_Info.Text = "姓名：" + dp.Rows[0][2].ToString() + ";\n性别：" + dp.Rows[0][4].ToString() + ";\n年龄：" + (DateTime.Now.Year - Convert.ToInt32(dp.Rows[0][5].ToString().Substring(0, 4))).ToString() + ";\n联系方式：" + dp.Rows[0][3].ToString().Substring(0, 3) + "****" + dp.Rows[0][3].ToString().Substring(6, 4) + ";";
                     }
@@ -188,7 +188,7 @@ public partial class signup : System.Web.UI.Page
                             SqlDataAdapter arolltable2 = new SqlDataAdapter("select * from dbo.login WHERE id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS", cn);
                             DataTable dp = new DataTable();
                             arolltable2.Fill(dp);
-                            if (ds != null && dp != null)
+                            if (ds.Rows.Count != 0 && dp.Rows.Count != 0)
                             {
                                 sqlstr = "SELECT COUNT(*) FROM dbo.applytable WHERE status in ('signing','pass') and expdate= " + Convert.ToInt32(ds.Rows[0][2].ToString()) + " and id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
                                 da.CommandText = sqlstr;

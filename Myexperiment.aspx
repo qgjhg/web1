@@ -18,6 +18,12 @@
     <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet" />
 
+    <!-- DataTables CSS -->
+    <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <!-- DataTables Responsive CSS -->
+    <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet" />
 
@@ -28,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css" />
 
     <!-- time picker -->
-    <link href="../css/timepickerbox.css" rel="stylesheet" type="text/css"/>
+    <link href="css/timepickerbox.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
@@ -95,11 +101,33 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <form role="form" runat="server">
+                                        <div class="col-lg-6" >
+                                            <div class="form-group">
+                                                <label class="font_exp_title">进行中</label>
+                                                <asp:TextBox Visible="false" ID="Exp_ID_1" runat="server" CssClass="input_asp_box_single_noborder" onfocus="this.blur()" autocomplete="off"></asp:TextBox>                                            
+                                                <asp:TextBox ID="Exp_Info_1" runat="server" Rows="6" CssClass="input_asp_box_multiline_noborder" onfocus="this.blur()" autocomplete="off" TextMode="MultiLine"></asp:TextBox>                                            
+                                                <br />
+                                                <asp:Button Visible="false" ID="undo1" runat="server" Text="取消报名" class="btn btn-default" OnClick="undo1_Click" />
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="col-lg-6">
+                                            <label class="font_exp_title"> </label>
+                                            <div class="form-group">
+                                                <asp:TextBox Visible="false" ID="Exp_ID_2" runat="server" CssClass="input_asp_box_single_noborder" onfocus="this.blur()" autocomplete="off"></asp:TextBox>                                            
+                                                <asp:TextBox Visible="false" ID="Exp_Info_2" runat="server" Rows="6" CssClass="input_asp_box_multiline_noborder" onfocus="this.blur()" autocomplete="off" TextMode="MultiLine"></asp:TextBox>                                            
+                                                <br />
+                                                <asp:Button Visible="false" ID="undo2" runat="server" Text="取消报名" class="btn btn-default" OnClick="undo2_Click" />
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <br />
+                                            <div class="panel-body" runat="server" id="table_div">
 
-                                        待写，希望就在前方~
+                                            </div>
 
-
-
+                                        <asp:HiddenField ID="HiddenThings" runat="server" />
 
 
                                     </form>
@@ -127,11 +155,25 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
+    <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
+
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
     <!-- timepicker -->
     <script src="../js/jquery.datetimepicker.full.js"></script>
+
+    <script>
+       
+    $(document).ready(function() {
+        $("#expdataTables").DataTable({
+            responsive: true
+        });
+    });
+    </script>
 </body>
 
 </html>

@@ -50,7 +50,7 @@
         <div class="loginpage">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">暂未开放注册（其实是还没写页面）</h1>
+                    <h1 class="page-header">暂未开放注册（）</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
