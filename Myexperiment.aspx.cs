@@ -49,6 +49,9 @@ public partial class Myexperiment : System.Web.UI.Page
                         type_html.Append("<a href = \"Myexperiment.aspx\" ><i class=\"fa fa-table fa-fw\"></i> 我的实验</a>");
                         type_html.Append("</li>");
                         type_html.Append("<li>");
+                        type_html.Append("<a href = \"myuploadexp.aspx\" ><i class=\"fa fa-sitemap fa-fw\"></i> 实验管理</a>");
+                        type_html.Append("</li>");
+                        type_html.Append("<li>");
                         type_html.Append("<a href = \"uploadexp.aspx\" ><i class=\"fa fa-edit fa-fw\"></i> 发布实验</a>");
                         type_html.Append("</li>");
                         type_html.Append("<li>");
@@ -66,6 +69,9 @@ public partial class Myexperiment : System.Web.UI.Page
                         type_html.Append("</li>");
                         type_html.Append("<li>");
                         type_html.Append("<a href = \"Myexperiment.aspx\" ><i class=\"fa fa-table fa-fw\"></i> 我的实验</a>");
+                        type_html.Append("</li>");
+                        type_html.Append("<li>");
+                        type_html.Append("<a href = \"myuploadexp.aspx\" ><i class=\"fa fa-sitemap fa-fw\"></i> 实验管理</a>");
                         type_html.Append("</li>");
                         type_html.Append("<li>");
                         type_html.Append("<a href = \"uploadexp.aspx\" ><i class=\"fa fa-edit fa-fw\"></i> 发布实验</a>");
@@ -98,6 +104,8 @@ public partial class Myexperiment : System.Web.UI.Page
                 }
                 if (!IsPostBack)//验证账户
                 {
+                    undo1.Attributes["OnClick"] = "return confirm('确定取消该次实验报名?')";
+                    undo2.Attributes["OnClick"] = "return confirm('确定取消该次实验报名?')";
                     sqlstr = "SELECT password FROM dbo.login WHERE id = '" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
                     cn.ConnectionString = connString;
                     cn.Open();
@@ -125,31 +133,38 @@ public partial class Myexperiment : System.Web.UI.Page
                     string status = changestatus(nowexp.Rows[0][11].ToString());
                     Exp_ID_1.Visible = true;
                     undo1.Visible = true;
-
-                    Exp_ID_1.Text = nowexp.Rows[0][2].ToString() + " - " + status;
+                    Exp_Detail_1.Visible = true;
+                    Exp_Status_1.Visible = true;
+                    Exp_ID_1.Text = nowexp.Rows[0][2].ToString() + " - " + nowexp.Rows[0][3].ToString();
+                    Exp_Status_1.Text = status;
                     sqlstr = "SELECT * FROM [PSYcollection].[dbo].[Exp_Situation] WHERE id = " + Convert.ToInt32(nowexp.Rows[0][2].ToString());
                     dtable = new SqlDataAdapter(sqlstr, cn);
                     DataTable firstexp = new DataTable();
                     dtable.Fill(firstexp);
-                    HiddenThings.Value = HiddenThings.Value + nowexp.Rows[0][2].ToString() + ";" + nowexp.Rows[0][5].ToString();
-                    Exp_Info_1.Text = " 名称：" + nowexp.Rows[0][3].ToString() + "\n 日期：" + firstexp.Rows[0][2].ToString() + "\n 时间：" +
+                    HiddenThings.Value = HiddenThings.Value + nowexp.Rows[0][2].ToString();
+                    Exp_Info_1.Text =" 日期：" + firstexp.Rows[0][2].ToString() + "\n 时间：" +
                         nowexp.Rows[0][5].ToString() + "\n 时长：" + firstexp.Rows[0][5].ToString() + " min \n 校区：" + firstexp.Rows[0][3].ToString() + "\n 地址：" +
-                        firstexp.Rows[0][4].ToString() + "\n 报酬：" + firstexp.Rows[0][6].ToString() + "\n 注意事项：\n" + firstexp.Rows[0][7];
+                        firstexp.Rows[0][4].ToString() + "\n 报酬：" + firstexp.Rows[0][6].ToString();
+                    Exp_Detail_1.Text= "注意事项：" + firstexp.Rows[0][7];
                     if (nowexp.Rows.Count > 1)
                     {
                         string status2 = changestatus(nowexp.Rows[0][11].ToString());
                         Exp_ID_2.Visible = true;
                         Exp_Info_2.Visible = true;
+                        Exp_Detail_2.Visible = true;
+                        Exp_Status_2.Visible = true;
                         undo2.Visible = true;
-                        Exp_ID_2.Text = nowexp.Rows[1][2].ToString() + " - " + status2;
+                        Exp_ID_2.Text = nowexp.Rows[1][2].ToString() + " - " + nowexp.Rows[1][3].ToString();
+                        Exp_Status_2.Text = status2;
                         sqlstr = "SELECT * FROM [PSYcollection].[dbo].[Exp_Situation] WHERE id = " + Convert.ToInt32(nowexp.Rows[1][2].ToString());
                         dtable = new SqlDataAdapter(sqlstr, cn);
                         DataTable secondexp = new DataTable();
                         dtable.Fill(secondexp);
-                        HiddenThings.Value = HiddenThings.Value + ";" + nowexp.Rows[1][2].ToString() + ";" + nowexp.Rows[0][5].ToString();
-                        Exp_Info_2.Text = " 名称：" + nowexp.Rows[1][3].ToString() + "\n 日期：" + secondexp.Rows[0][2].ToString() + "\n 时间：" +
+                        HiddenThings.Value = HiddenThings.Value + ";" + nowexp.Rows[1][2].ToString();
+                        Exp_Info_2.Text = " 日期：" + secondexp.Rows[0][2].ToString() + "\n 时间：" +
                             nowexp.Rows[1][4].ToString() + "\n 时长：" + secondexp.Rows[0][5].ToString() + " min \n 校区：" + secondexp.Rows[0][3].ToString() + "\n 地址：" +
-                            secondexp.Rows[0][5].ToString() + "\n 报酬：" + secondexp.Rows[0][6].ToString() + "\n 注意事项：\n" + secondexp.Rows[0][7];
+                            secondexp.Rows[0][5].ToString() + "\n 报酬：" + secondexp.Rows[0][6].ToString();
+                        Exp_Detail_2.Text= "注意事项：" + secondexp.Rows[0][7];
                     }
                 }
                 else
@@ -162,7 +177,7 @@ public partial class Myexperiment : System.Web.UI.Page
                 DataTable allexp = new DataTable();
                 dtable.Fill(allexp);
                 StringBuilder table_html = new StringBuilder();
-                table_html.Append("<table width = \"100 %\" class=\"table table-striped table-bordered table-hover\" id=\"expdataTables\"><thead><tr><th>日期</th><th>名称</th><th>状态</th><th>备注</th></tr></thead><tbody>");
+                table_html.Append("<table width = \"100 %\" class=\"table table-striped table-bordered table-hover table-condensed table-responsive\" id=\"expdataTables\"><thead><tr><th>日期</th><th>名称</th><th>状态</th><th>备注</th></tr></thead><tbody>");
                 string status1 = "";
                 for (int i = 0; i < allexp.Rows.Count; i++)
                 {
@@ -212,7 +227,7 @@ public partial class Myexperiment : System.Web.UI.Page
                 status = "已取消";
                 break;
             case "harddelete":
-                status = "已关闭";
+                status = "强制关闭";
                 break;
             default:
                 status = "null";
@@ -242,7 +257,7 @@ public partial class Myexperiment : System.Web.UI.Page
                 status = "已取消";
                 break;
             case "harddelete":
-                status = "已关闭";
+                status = "强制关闭";
                 break;
             default:
                 status = "null";
@@ -255,10 +270,142 @@ public partial class Myexperiment : System.Web.UI.Page
     protected void undo1_Click(object sender, EventArgs e)
     {
         string[] str = HiddenThings.Value.Split(';');
+        try
+        {
+            cn.ConnectionString = connString;
+            cn.Open();
+            sqlstr = "SELECT password FROM dbo.login WHERE id = '" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+            da.CommandText = sqlstr;
+            da.Connection = cn;
+            if (da.ExecuteScalar().ToString() == Session["UserPassword"].ToString())
+            {
+                sqlstr= "SELECT status,changenum FROM [PSYcollection].[dbo].[applytable] WHERE expid='" + str[0] + "' and id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+                da.CommandText = sqlstr;
+                da.Connection = cn;
+                SqlDataReader read = da.ExecuteReader();
+                string statusnow = "";
+                string changenum = "";
+                while (read.Read())
+                {
+                    statusnow = read["status"].ToString();
+                    changenum = read["changenum"].ToString();
+                }
+                read.Close();
+                if (statusnow == "signing" && changenum != "")
+                {
+                    sqlstr = "UPDATE [PSYcollection].[dbo].[applytable] SET status='delete' WHERE expid='" + str[0] + "' and id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+                    da.CommandText = sqlstr;
+                    da.Connection = cn;
+                    int line = da.ExecuteNonQuery();
+                    if (line > 0)
+                    {
+                        string changenumber = "N" + changenum;
+                        sqlstr = "UPDATE [PSYcollection].[dbo].[Exp_Situation] SET " + changenumber + " = " + changenumber + "-1 WHERE id='" + str[0] + "' collate Chinese_PRC_CS_AS";
+                        da.CommandText = sqlstr;
+                        da.Connection = cn;
+                        int line2 = da.ExecuteNonQuery();
+                        if (line2 > 0)
+                        {
+                            Response.Write("<script language=\"javascript\">alert(\"删除成功！\");location.href='Myexperiment.aspx'</script>");
+                        }
+                    }
+                }
+                else if (statusnow == "pass" && changenum != "")
+                {
+                    sqlstr = "UPDATE [PSYcollection].[dbo].[applytable] SET status='harddelete' WHERE expid='" + str[0] + "' and id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+                    da.CommandText = sqlstr;
+                    da.Connection = cn;
+                    int line = da.ExecuteNonQuery();
+                    if (line > 0)
+                    {
+                        string changenumber = "N" + changenum;
+                        sqlstr = "UPDATE [PSYcollection].[dbo].[Exp_Situation] SET " + changenumber + " = " + changenumber + "-1 WHERE id='" + str[0] + "' collate Chinese_PRC_CS_AS";
+                        da.CommandText = sqlstr;
+                        da.Connection = cn;
+                        int line2 = da.ExecuteNonQuery();
+                        if (line2 > 0)
+                        {
+                            Response.Write("<script language=\"javascript\">alert(\"强制删除成功！\");location.href='Myexperiment.aspx'</script>");
+                        }
+                    }
+                }
+            }
+            cn.Close();
+        }
+        catch
+        {
+            Response.Redirect("login.aspx");
+        }
     }
 
     protected void undo2_Click(object sender, EventArgs e)
     {
         string[] str = HiddenThings.Value.Split(';');
+        try
+        {
+            cn.ConnectionString = connString;
+            cn.Open();
+            sqlstr = "SELECT password FROM dbo.login WHERE id = '" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+            da.CommandText = sqlstr;
+            da.Connection = cn;
+            if (da.ExecuteScalar().ToString() == Session["UserPassword"].ToString())
+            {
+                sqlstr = "SELECT status,changenum FROM [PSYcollection].[dbo].[applytable] WHERE expid='" + str[1] + "' and id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+                da.CommandText = sqlstr;
+                da.Connection = cn;
+                SqlDataReader read = da.ExecuteReader();
+                string statusnow = "";
+                string changenum = "";
+                while (read.Read())
+                {
+                    statusnow = read["status"].ToString();
+                    changenum = read["changenum"].ToString();
+                }
+                read.Close();
+                if (statusnow == "signing" && changenum != "")
+                {
+                    sqlstr = "UPDATE [PSYcollection].[dbo].[applytable] SET status='delete' WHERE expid='" + str[1] + "' and id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+                    da.CommandText = sqlstr;
+                    da.Connection = cn;
+                    int line = da.ExecuteNonQuery();
+                    if (line > 0)
+                    {
+                        string changenumber = "N" + changenum;
+                        sqlstr = "UPDATE [PSYcollection].[dbo].[Exp_Situation] SET " + changenumber + " = " + changenumber + "-1 WHERE id='" + str[1] + "' collate Chinese_PRC_CS_AS";
+                        da.CommandText = sqlstr;
+                        da.Connection = cn;
+                        int line2 = da.ExecuteNonQuery();
+                        if (line2 > 0)
+                        {
+                            Response.Write("<script language=\"javascript\">alert(\"删除成功！\");location.href='Myexperiment.aspx'</script>");
+                        }
+                    }
+                }
+                else if (statusnow == "pass" && changenum != "")
+                {
+                    sqlstr = "UPDATE [PSYcollection].[dbo].[applytable] SET status='harddelete' WHERE expid='" + str[1] + "' and id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+                    da.CommandText = sqlstr;
+                    da.Connection = cn;
+                    int line = da.ExecuteNonQuery();
+                    if (line > 0)
+                    {
+                        string changenumber = "N" + changenum;
+                        sqlstr = "UPDATE [PSYcollection].[dbo].[Exp_Situation] SET " + changenumber + " = " + changenumber + "-1 WHERE id='" + str[1] + "' collate Chinese_PRC_CS_AS";
+                        da.CommandText = sqlstr;
+                        da.Connection = cn;
+                        int line2 = da.ExecuteNonQuery();
+                        if (line2 > 0)
+                        {
+                            Response.Write("<script language=\"javascript\">alert(\"强制删除成功！\");location.href='Myexperiment.aspx'</script>");
+                        }
+                    }
+                }
+            }
+            cn.Close();
+        }
+        catch
+        {
+            Response.Redirect("login.aspx");
+        }
     }
 }

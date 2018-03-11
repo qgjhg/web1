@@ -51,6 +51,9 @@ public partial class signup : System.Web.UI.Page
                     type_html.Append("<a href = \"Myexperiment.aspx\" ><i class=\"fa fa-table fa-fw\"></i> 我的实验</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
+                    type_html.Append("<a href = \"myuploadexp.aspx\" ><i class=\"fa fa-sitemap fa-fw\"></i> 实验管理</a>");
+                    type_html.Append("</li>");
+                    type_html.Append("<li>");
                     type_html.Append("<a href = \"uploadexp.aspx\" ><i class=\"fa fa-edit fa-fw\"></i> 发布实验</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
@@ -68,6 +71,9 @@ public partial class signup : System.Web.UI.Page
                     type_html.Append("</li>");
                     type_html.Append("<li>");
                     type_html.Append("<a href = \"Myexperiment.aspx\" ><i class=\"fa fa-table fa-fw\"></i> 我的实验</a>");
+                    type_html.Append("</li>");
+                    type_html.Append("<li>");
+                    type_html.Append("<a href = \"myuploadexp.aspx\" ><i class=\"fa fa-sitemap fa-fw\"></i> 实验管理</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
                     type_html.Append("<a href = \"uploadexp.aspx\" ><i class=\"fa fa-edit fa-fw\"></i> 发布实验</a>");
@@ -205,7 +211,8 @@ public partial class signup : System.Web.UI.Page
                                         sqlstr = "UPDATE dbo.Exp_Situation SET " + changenum + "=" + uptime + " WHERE id=" + Convert.ToInt32(expid);
                                         da.CommandText = sqlstr;
                                         int line1 = da.ExecuteNonQuery();
-                                        sqlstr = "insert into dbo.applytable (id,expid,expname,expdate,exptime,partname,partage,partsex,partcomment,expcomment,status) values ('" + Session["UserId"].ToString() + "','" + expid + "','" + ds.Rows[0][1].ToString() + "'," + Convert.ToInt32(ds.Rows[0][2].ToString()) + ",'" + ds.Rows[0][Select_Time].ToString() + "','" + dp.Rows[0][2].ToString() + "','" + (DateTime.Now.Year - Convert.ToInt32(dp.Rows[0][5].ToString().Substring(0, 4))).ToString() + "','" + dp.Rows[0][4].ToString() + "','" + " " + "','" + " " + "','" + "signing" + "')";
+                                        int changenumline = ((Select_Time - 9) / 3 + 1);
+                                        sqlstr = "insert into dbo.applytable (id,expid,expname,expdate,exptime,partname,partage,partsex,partcomment,expcomment,status,changenum,partphone) values ('" + Session["UserId"].ToString() + "','" + expid + "','" + ds.Rows[0][1].ToString() + "'," + Convert.ToInt32(ds.Rows[0][2].ToString()) + ",'" + ds.Rows[0][Select_Time].ToString() + "','" + dp.Rows[0][2].ToString() + "','" + (DateTime.Now.Year - Convert.ToInt32(dp.Rows[0][5].ToString().Substring(0, 4))).ToString() + "','" + dp.Rows[0][4].ToString() + "','" + " " + "','" + " " + "','" + "signing" + "',"+changenumline+",'"+dp.Rows[0][3].ToString()+"')";
                                         da.CommandText = sqlstr;
                                         da.Connection = cn;
                                         int line2 = da.ExecuteNonQuery();

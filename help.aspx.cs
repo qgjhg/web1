@@ -45,6 +45,9 @@ public partial class help : System.Web.UI.Page
                     type_html.Append("<a href = \"Myexperiment.aspx\" ><i class=\"fa fa-table fa-fw\"></i> 我的实验</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
+                    type_html.Append("<a href = \"myuploadexp.aspx\" ><i class=\"fa fa-sitemap fa-fw\"></i> 实验管理</a>");
+                    type_html.Append("</li>");
+                    type_html.Append("<li>");
                     type_html.Append("<a href = \"uploadexp.aspx\" ><i class=\"fa fa-edit fa-fw\"></i> 发布实验</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
@@ -62,6 +65,9 @@ public partial class help : System.Web.UI.Page
                     type_html.Append("</li>");
                     type_html.Append("<li>");
                     type_html.Append("<a href = \"Myexperiment.aspx\" ><i class=\"fa fa-table fa-fw\"></i> 我的实验</a>");
+                    type_html.Append("</li>");
+                    type_html.Append("<li>");
+                    type_html.Append("<a href = \"myuploadexp.aspx\" ><i class=\"fa fa-sitemap fa-fw\"></i> 实验管理</a>");
                     type_html.Append("</li>");
                     type_html.Append("<li>");
                     type_html.Append("<a href = \"uploadexp.aspx\" ><i class=\"fa fa-edit fa-fw\"></i> 发布实验</a>");

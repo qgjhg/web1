@@ -98,42 +98,66 @@
 
                         </div>
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
                                     <form role="form" runat="server">
-                                        <div class="col-lg-6" >
+                                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                             <div class="form-group">
                                                 <label class="font_exp_title">进行中</label>
-                                                <asp:TextBox Visible="false" ID="Exp_ID_1" runat="server" CssClass="input_asp_box_single_noborder" onfocus="this.blur()" autocomplete="off"></asp:TextBox>                                            
-                                                <asp:TextBox ID="Exp_Info_1" runat="server" Rows="6" CssClass="input_asp_box_multiline_noborder" onfocus="this.blur()" autocomplete="off" TextMode="MultiLine"></asp:TextBox>                                            
-                                                <br />
-                                                <asp:Button Visible="false" ID="undo1" runat="server" Text="取消报名" class="btn btn-default" OnClick="undo1_Click" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
+                                            <div class="form-group">     
+                                                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">                                               
+                                                    <asp:TextBox ReadOnly="true" Visible="false" ID="Exp_ID_1" runat="server" CssClass="input_asp_box_single_noborder" autocomplete="off"></asp:TextBox>   
+                                                </div>
+                                                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">                                               
+                                                    <asp:TextBox ReadOnly="true" Visible="false" ID="Exp_Status_1" runat="server" CssClass="input_asp_box_single_noborder" autocomplete="off"></asp:TextBox>   
+                                                </div>                                           
+                                                <div class="col-lg-5 col-sm-12 col-md-12 col-xs-12"> 
+                                                    <asp:TextBox ID="Exp_Info_1" runat="server" Rows="6" CssClass="input_asp_box_multiline_noborder" onfocus="this.blur()" autocomplete="off" TextMode="MultiLine"></asp:TextBox>   
+                                                </div>
+                                                <div class="col-lg-5 col-sm-12 col-md-12 col-xs-12"> 
+                                                    <asp:TextBox Visible="false" ID="Exp_Detail_1" runat="server" Rows="6" CssClass="input_asp_box_multiline_noborder" onfocus="this.blur()" autocomplete="off" TextMode="MultiLine"></asp:TextBox>   
+                                                </div>    
+                                                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                                    <asp:Button Visible="false" ID="undo1" runat="server" Text="取消报名" class="btn btn-default" OnClick="undo1_Click" />
+                                                </div>
                                             </div>
                                         </div>
                                         <br />
-                                        <div class="col-lg-6">
-                                            <label class="font_exp_title"> </label>
+                                        <div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
                                             <div class="form-group">
-                                                <asp:TextBox Visible="false" ID="Exp_ID_2" runat="server" CssClass="input_asp_box_single_noborder" onfocus="this.blur()" autocomplete="off"></asp:TextBox>                                            
-                                                <asp:TextBox Visible="false" ID="Exp_Info_2" runat="server" Rows="6" CssClass="input_asp_box_multiline_noborder" onfocus="this.blur()" autocomplete="off" TextMode="MultiLine"></asp:TextBox>                                            
-                                                <br />
-                                                <asp:Button Visible="false" ID="undo2" runat="server" Text="取消报名" class="btn btn-default" OnClick="undo2_Click" />
+                                                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">                                               
+                                                    <asp:TextBox ReadOnly="true" Visible="false" ID="Exp_ID_2" runat="server" CssClass="input_asp_box_single_noborder" autocomplete="off"></asp:TextBox>   
+                                                </div>
+                                                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">                                               
+                                                    <asp:TextBox ReadOnly="true" Visible="false" ID="Exp_Status_2" runat="server" CssClass="input_asp_box_single_noborder" autocomplete="off"></asp:TextBox>   
+                                                </div>
+                                                <div class="col-lg-5 col-sm-12 col-md-12 col-xs-12"> 
+                                                    <asp:TextBox Visible="false" ID="Exp_Info_2" runat="server" Rows="6" CssClass="input_asp_box_multiline_noborder" onfocus="this.blur()" autocomplete="off" TextMode="MultiLine"></asp:TextBox>   
+                                                </div>
+                                                <div class="col-lg-5 col-sm-12 col-md-12 col-xs-12"> 
+                                                    <asp:TextBox Visible="false" ID="Exp_Detail_2" runat="server" Rows="6" CssClass="input_asp_box_multiline_noborder" onfocus="this.blur()" autocomplete="off" TextMode="MultiLine"></asp:TextBox>   
+                                                </div>    
+                                                <div class="col-lg-6 col-sm-12 col-md-12 col-xs-12">
+                                                    <asp:Button Visible="false" ID="undo2" runat="server" Text="取消报名" class="btn btn-default" OnClick="undo2_Click" />
+                                                </div>
                                             </div>
                                         </div>
                                         <br />
+                                        <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
+                                        <hr style=" height:1px;border:none;border-top:1px solid lightgray;" />
                                         <br />
-                                        <br />
-                                            <div class="panel-body" runat="server" id="table_div">
+                                            <label class="font_exp_title">历史记录</label>
+                                            <div class="form-group">
+                                                <div class="panel-body" runat="server" id="table_div">
 
+                                                </div>
                                             </div>
-
+                                        </div>
                                         <asp:HiddenField ID="HiddenThings" runat="server" />
 
 
                                     </form>
-                                </div>
-                            </div>
-                            <!-- /.row (nested) -->
                         </div>
                         <!-- /.panel-body -->
                     </div>
