@@ -24,7 +24,7 @@
                 <asp:TextBox ID="password" runat="server" autocomplete="off" class="form-control form-input" placeholder="密   码" type="password"></asp:TextBox>
 			</div>
             <asp:Button ID="login_btn" runat="server" class="btn btn-primary btn-submit" Text="登&nbsp;&nbsp;录" OnClick="login_btn_Click" />
-        <span class="signup">还没有账户？立即<a class="signup-a" href="Register">注册</a></span>
+        <span class="signup">还没有账户？立即<a class="signup-a" href="Register.aspx">注册</a></span>
 		</form>
 	</div>
 </div>
