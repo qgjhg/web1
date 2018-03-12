@@ -31,7 +31,7 @@ public partial class Myexperiment : System.Web.UI.Page
             else
             {
                 cn.ConnectionString = connString;
-                if (Session["Type"].ToString() != "admin" && Session["Type"].ToString() != "exp")
+                if (Session["Type"].ToString() != "admin" && Session["Type"].ToString() != "exp" && Session["Type"].ToString() != "part")
                 {
                     Response.Redirect("main.aspx");
                     return;

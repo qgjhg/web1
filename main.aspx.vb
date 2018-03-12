@@ -58,7 +58,7 @@ Partial Class main
 
             End Try
 
-            If (Session("Type") = "exp") Then
+            If (Session("Type").ToString = "exp") Then
                 Dim type_html As New StringBuilder
                 type_html.Append("<ul class=" & Chr(34) & "nav" & Chr(34) & " id=" & Chr(34) & "side-menu" & Chr(34) & ">")
                 type_html.Append("<li>")
@@ -78,7 +78,7 @@ Partial Class main
                 type_html.Append("</li>")
                 type_html.Append("</ul>")
                 type_diff.InnerHtml = type_html.ToString
-            ElseIf (Session("Type") = "admin") Then
+            ElseIf (Session("Type").ToString = "admin") Then
                 Dim type_html As New StringBuilder
                 type_html.Append("<ul class=" & Chr(34) & "nav" & Chr(34) & " id=" & Chr(34) & "side-menu" & Chr(34) & ">")
                 type_html.Append("<li>")
@@ -109,7 +109,7 @@ Partial Class main
                 type_html.Append("<a href = " & Chr(34) & "main.aspx" & Chr(34) & "><i class=" & Chr(34) & "fa fa-dashboard fa-fw" & Chr(34) & "></i> 主页</a>")
                 type_html.Append("</li>")
                 type_html.Append("<li>")
-                type_html.Append("<a href = " & Chr(34) & "Myexperiment.aspx" & Chr(34) & " ><i class=" & Chr(34) & "fa fa-table fa-fw" & Chr(34) & "></i> Tables</a>")
+                type_html.Append("<a href = " & Chr(34) & "Myexperiment.aspx" & Chr(34) & " ><i class=" & Chr(34) & "fa fa-table fa-fw" & Chr(34) & "></i> 我的实验</a>")
                 type_html.Append("</li>")
                 type_html.Append("<li>")
                 type_html.Append("<a href = " & Chr(34) & "help.aspx" & Chr(34) & "><i class=" & Chr(34) & "fa fa-files-o fa-fw" & Chr(34) & "></i> 帮助</a>")
