@@ -99,8 +99,8 @@ public partial class myuploadexp : System.Web.UI.Page
                 }
                 cn.Close();
             }
-            //try
-            //{
+            try
+            {
                 int todaydate = DateTime.Now.Year * 10000 + DateTime.Now.Month * 100 + DateTime.Now.Day;
                 sqlstr = "SELECT id FROM [PSYcollection].[dbo].[Exp_Situation] WHERE Date>= " + todaydate + " and Uploader ='" + Session["UserId"].ToString() + "' collate CHINESE_PRC_CS_AS";
                 cn.ConnectionString = connString;
@@ -122,62 +122,104 @@ public partial class myuploadexp : System.Web.UI.Page
                     }
                 }
                 reader.Close();
-            if (HiddenThings.Value != "")
-            {
-                string[] allexpid = HiddenThings.Value.Split(';');
-                if (allexpid.Length != 0)
-                {//多试验情况未写；考虑是否允许多实验
-                    sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE status in ('signing','pass') and expid= '" + allexpid[0].ToString() + "'";
-                    SqlDataAdapter dtable = new SqlDataAdapter(sqlstr, cn);
-                    DataTable dp = new DataTable();
-                    dtable.Fill(dp);
-                    if (dp.Rows.Count > 0)
-                    {
-                        Exp_Name1.Visible = true;
-                        Exp_Name1.Text = dp.Rows[0][2].ToString() + " - " + dp.Rows[0][3].ToString();
-                        StringBuilder table_html = new StringBuilder();
-                        table_html.Append("<table width = \"100 %\" class=\"table table-striped table-bordered table-hover table-condensed table-responsive\"><thead><tr><th>时段</th><th>姓名</th><th>性别</th><th>年龄</th><th>phone</th><th>操作</th></tr></thead><tbody>");
-
-                        for (int i = 0; i < dp.Rows.Count; i++)
+                if (HiddenThings.Value != "")
+                {
+                    string[] allexpid = HiddenThings.Value.Split(';');
+                    if (allexpid.Length != 0)
+                    {//多试验情况未写；考虑是否允许多实验；目前考虑最多两条实验
+                        sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE status in ('signing','pass') and expid= '" + allexpid[0].ToString() + "'";
+                        SqlDataAdapter dtable = new SqlDataAdapter(sqlstr, cn);
+                        DataTable dp = new DataTable();
+                        dtable.Fill(dp);
+                        if (dp.Rows.Count > 0)
                         {
-                            if (dp.Rows[i][11].ToString() == "signing")
+                            Exp_Name1.Visible = true;
+                            Exp_Name1.Text = dp.Rows[0][2].ToString() + " - " + dp.Rows[0][3].ToString();
+                            StringBuilder table_html = new StringBuilder();
+                            table_html.Append("<table width = \"100 %\" class=\"table table-striped table-bordered table-hover table-condensed table-responsive\"><thead><tr><th>时段</th><th>姓名</th><th>性别</th><th>年龄</th><th>phone</th><th>操作</th></tr></thead><tbody>");
+
+                            for (int i = 0; i < dp.Rows.Count; i++)
                             {
-                                table_html.Append("<tr>");
-                                table_html.Append("<td>" + dp.Rows[i][5].ToString() + "</td>");
-                                table_html.Append("<td>" + dp.Rows[i][6].ToString() + "</td>");
-                                table_html.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
-                                table_html.Append("<td>" + dp.Rows[i][7].ToString() + "</td>");
-                                table_html.Append("<td>" + dp.Rows[i][13].ToString() + "</td>");
-                                table_html.Append("<td><a onclick=\"return confirm('确定接受该名被试?')\" href=\"doingthings.aspx?oprate=true&num=" + dp.Rows[i][0].ToString() + "\">接受</a><br /><a onclick=\"return confirm('确定拒绝该名被试?')\" href=\"doingthings.aspx?oprate=false&num=" + dp.Rows[i][0].ToString() + "\">拒绝</a></td>");
-                                table_html.Append("</tr>");
+                                if (dp.Rows[i][11].ToString() == "signing")
+                                {
+                                    table_html.Append("<tr>");
+                                    table_html.Append("<td>" + dp.Rows[i][5].ToString() + "</td>");
+                                    table_html.Append("<td>" + dp.Rows[i][6].ToString() + "</td>");
+                                    table_html.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
+                                    table_html.Append("<td>" + dp.Rows[i][7].ToString() + "</td>");
+                                    table_html.Append("<td>" + dp.Rows[i][13].ToString() + "</td>");
+                                    table_html.Append("<td><a onclick=\"return confirm('确定接受该名被试?')\" href=\"doingthings.aspx?oprate=true&num=" + dp.Rows[i][0].ToString() + "\">接受</a><br /><a onclick=\"return confirm('确定拒绝该名被试?')\" href=\"doingthings.aspx?oprate=false&num=" + dp.Rows[i][0].ToString() + "\">拒绝</a></td>");
+                                    table_html.Append("</tr>");
+                                }
+                                else if (dp.Rows[i][11].ToString() == "pass")
+                                {
+                                    table_html.Append("<tr>");
+                                    table_html.Append("<td>" + dp.Rows[i][5].ToString() + "</td>");
+                                    table_html.Append("<td>" + dp.Rows[i][6].ToString() + "</td>");
+                                    table_html.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
+                                    table_html.Append("<td>" + dp.Rows[i][7].ToString() + "</td>");
+                                    table_html.Append("<td>" + dp.Rows[i][13].ToString() + "</td>");
+                                    table_html.Append("<td>已接受<br /></td>");
+                                    table_html.Append("</tr>");
+                                }
                             }
-                            else if (dp.Rows[i][11].ToString() == "pass")
+                            table_html.Append("</table>");
+                            table_div.InnerHtml = table_html.ToString();
+                        }
+                        else
+                        {
+                            Info.Visible = true;
+                            Info.Text = "尚无人报名参加您的实验~";
+                        }
+                        if (allexpid.Length > 1)
+                        {
+                            sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE status in ('signing','pass') and expid= '" + allexpid[1].ToString() + "'";
+                            SqlDataAdapter dtable2 = new SqlDataAdapter(sqlstr, cn);
+                            DataTable dp2 = new DataTable();
+                            dtable2.Fill(dp2);
+                            if (dp2.Rows.Count > 0)
                             {
-                                table_html.Append("<tr>");
-                                table_html.Append("<td>" + dp.Rows[i][5].ToString() + "</td>");
-                                table_html.Append("<td>" + dp.Rows[i][6].ToString() + "</td>");
-                                table_html.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
-                                table_html.Append("<td>" + dp.Rows[i][7].ToString() + "</td>");
-                                table_html.Append("<td>" + dp.Rows[i][13].ToString() + "</td>");
-                                table_html.Append("<td>已接受<br /></td>");
-                                table_html.Append("</tr>");
+                                Exp_Name2.Visible = true;
+                                Exp_Name2.Text = dp2.Rows[0][2].ToString() + " - " + dp2.Rows[0][3].ToString();
+                                StringBuilder table_html2 = new StringBuilder();
+                                table_html2.Append("<table width = \"100 %\" class=\"table table-striped table-bordered table-hover table-condensed table-responsive\"><thead><tr><th>时段</th><th>姓名</th><th>性别</th><th>年龄</th><th>phone</th><th>操作</th></tr></thead><tbody>");
+
+                                for (int i = 0; i < dp2.Rows.Count; i++)
+                                {
+                                    if (dp2.Rows[i][11].ToString() == "signing")
+                                    {
+                                        table_html2.Append("<tr>");
+                                        table_html2.Append("<td>" + dp2.Rows[i][5].ToString() + "</td>");
+                                        table_html2.Append("<td>" + dp2.Rows[i][6].ToString() + "</td>");
+                                        table_html2.Append("<td>" + dp2.Rows[i][8].ToString() + "</td>");
+                                        table_html2.Append("<td>" + dp2.Rows[i][7].ToString() + "</td>");
+                                        table_html2.Append("<td>" + dp2.Rows[i][13].ToString() + "</td>");
+                                        table_html2.Append("<td><a onclick=\"return confirm('确定接受该名被试?')\" href=\"doingthings.aspx?oprate=true&num=" + dp2.Rows[i][0].ToString() + "\">接受</a><br /><a onclick=\"return confirm('确定拒绝该名被试?')\" href=\"doingthings.aspx?oprate=false&num=" + dp2.Rows[i][0].ToString() + "\">拒绝</a></td>");
+                                        table_html2.Append("</tr>");
+                                    }
+                                    else if (dp2.Rows[i][11].ToString() == "pass")
+                                    {
+                                        table_html2.Append("<tr>");
+                                        table_html2.Append("<td>" + dp2.Rows[i][5].ToString() + "</td>");
+                                        table_html2.Append("<td>" + dp2.Rows[i][6].ToString() + "</td>");
+                                        table_html2.Append("<td>" + dp2.Rows[i][8].ToString() + "</td>");
+                                        table_html2.Append("<td>" + dp2.Rows[i][7].ToString() + "</td>");
+                                        table_html2.Append("<td>" + dp2.Rows[i][13].ToString() + "</td>");
+                                        table_html2.Append("<td>已接受<br /></td>");
+                                        table_html2.Append("</tr>");
+                                    }
+                                }
+                                table_html2.Append("</table>");
+                                table_div2.InnerHtml = table_html2.ToString();
                             }
                         }
-                        table_html.Append("</table>");
-                        table_div.InnerHtml = table_html.ToString();
-                    }
-                    else
-                    {
-                        Info.Visible = true;
-                        Info.Text = "目前仅支持一个实验，正在考虑是否允许多实验~";
                     }
                 }
-            }
-            else
-            {
-                Info.Visible = true;
-                Info.Text = "您没有正在进行的实验~";
-            }
+                else
+                {
+                    Info.Visible = true;
+                    Info.Text = "您没有正在进行的实验~";
+                }
 
 
                 //sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE expdate >= " + todaydate + " and status in ('signing','pass') and id='" + Session["UserId"].ToString() + "' collate CHINESE_PRC_CS_AS";
@@ -187,11 +229,11 @@ public partial class myuploadexp : System.Web.UI.Page
                 //dtable.Fill(nowexp);
 
                 cn.Close();
-            //}
-            //catch
-            //{
+            }
+            catch
+            {
 
-            //}
+            }
         }
     }
     private string changestatus(string dbstatus)//转换状态

@@ -42,13 +42,18 @@ public partial class login : System.Web.UI.Page
                     if (da.ExecuteScalar().ToString() == userpassword)
                     {
                         response.InnerHtml = "登陆成功，跳转中···";
-                        sqlstr = "SELECT type FROM dbo.login WHERE id='" + userid + "'";
+                        sqlstr = "SELECT type FROM dbo.login WHERE id='" + userid + "' collate Chinese_PRC_CS_AS";
                         da.Connection = cn;
                         da.CommandText = sqlstr;
                         da.ExecuteScalar();
                         Session["UserId"] = userid;
                         Session["UserPassword"] = userpassword;
                         Session["Type"] = da.ExecuteScalar().ToString();
+                        string nowtime = DateTime.Now.Year.ToString()+"/"+ DateTime.Now.Month.ToString()+"/" +DateTime.Now.Day.ToString()+"  "+DateTime.Now.Hour.ToString()+":"+ DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString();
+                        sqlstr = "UPDATE dbo.login SET LastLogin = GETDATE() WHERE id='" + userid + "' collate Chinese_PRC_CS_AS";
+                        da.Connection = cn;
+                        da.CommandText = sqlstr;
+                        da.ExecuteScalar();
                         Response.Redirect("main.aspx");
                     }
                     else
