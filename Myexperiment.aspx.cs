@@ -136,6 +136,14 @@ public partial class Myexperiment : System.Web.UI.Page
                     Exp_Detail_1.Visible = true;
                     Exp_Status_1.Visible = true;
                     Exp_ID_1.Text = nowexp.Rows[0][2].ToString() + " - " + nowexp.Rows[0][3].ToString();
+                    if (nowexp.Rows[0][11].ToString() == "signing")
+                    {
+                        Exp_Status_1.ForeColor = System.Drawing.Color.OrangeRed;
+                    }
+                    else if(nowexp.Rows[0][11].ToString() == "pass")
+                    {
+                        Exp_Status_1.ForeColor = System.Drawing.Color.Green;
+                    }
                     Exp_Status_1.Text = status;
                     sqlstr = "SELECT * FROM [PSYcollection].[dbo].[Exp_Situation] WHERE id = " + Convert.ToInt32(nowexp.Rows[0][2].ToString());
                     dtable = new SqlDataAdapter(sqlstr, cn);
@@ -148,12 +156,20 @@ public partial class Myexperiment : System.Web.UI.Page
                     Exp_Detail_1.Text= "注意事项：" + firstexp.Rows[0][7];
                     if (nowexp.Rows.Count > 1)
                     {
-                        string status2 = changestatus(nowexp.Rows[0][11].ToString());
+                        string status2 = changestatus(nowexp.Rows[1][11].ToString());
                         Exp_ID_2.Visible = true;
                         Exp_Info_2.Visible = true;
                         Exp_Detail_2.Visible = true;
                         Exp_Status_2.Visible = true;
                         undo2.Visible = true;
+                        if (nowexp.Rows[1][11].ToString() == "signing")
+                        {
+                            Exp_Status_2.ForeColor = System.Drawing.Color.OrangeRed;
+                        }
+                        else if (nowexp.Rows[1][11].ToString() == "pass")
+                        {
+                            Exp_Status_2.ForeColor = System.Drawing.Color.Green;
+                        }
                         Exp_ID_2.Text = nowexp.Rows[1][2].ToString() + " - " + nowexp.Rows[1][3].ToString();
                         Exp_Status_2.Text = status2;
                         sqlstr = "SELECT * FROM [PSYcollection].[dbo].[Exp_Situation] WHERE id = " + Convert.ToInt32(nowexp.Rows[1][2].ToString());

@@ -143,31 +143,27 @@
                                         <div class="form-group">
                                             <label class="font_exp_title">账号</label>
                                             <asp:TextBox ID="Part_Id" runat="server" CssClass="form-control" MaxLength="49" placeholder="请输入账号" autocomplete="off"></asp:TextBox>
-                                            <p class="help-block">请输入账号~</p>
+                                            <p class="help-block">请输入账号，可由数字、字母、汉字组成~</p>
                                         </div>
                                         <br />
                                         <div class="form-group">
                                             <label class="font_exp_title">密码</label>
-                                            <asp:TextBox ID="Part_password1" runat="server" CssClass="form-control" MaxLength="49" placeholder="请输入密码" autocomplete="off" TextMode="Password"></asp:TextBox>
-                                            <p class="help-block">请输入密码~</p>
-                                        </div>
+                                            <asp:TextBox ID="Part_password1" runat="server" CssClass="form-control" MaxLength="49" placeholder="请输入密码" autocomplete="off" TextMode="Password"></asp:TextBox>                                        </div>
                                         <br />
                                         <div class="form-group">
                                             <label class="font_exp_title">确认密码</label>
-                                            <asp:TextBox ID="Part_password2" runat="server" CssClass="form-control" MaxLength="49" placeholder="请再次输入密码" autocomplete="off" TextMode="Password"></asp:TextBox>
-                                            <p class="help-block">请再次输入密码~</p>
-                                        </div>
+                                            <asp:TextBox ID="Part_password2" runat="server" CssClass="form-control" MaxLength="49" placeholder="请再次输入密码" autocomplete="off" TextMode="Password"></asp:TextBox>                                        </div>
                                         <br />
                                         <div class="form-group">
                                             <label class="font_exp_title">姓名</label>
                                             <asp:TextBox ID="Part_Name" runat="server" CssClass="form-control" MaxLength="10" placeholder="请输入姓名" autocomplete="off" ></asp:TextBox>
-                                            <p class="help-block">请输入姓名~</p>
+                                            <p class="help-block">请输入您的真实姓名~</p>
                                         </div>
                                         <br />
                                         <div class="form-group">
                                             <label class="font_exp_title">联系方式</label>
                                             <asp:TextBox ID="Part_Phone" runat="server" CssClass="form-control" MaxLength="12" placeholder="请输入联系方式" autocomplete="off" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeydown="onlyNum();" style="ime-mode:Disabled"></asp:TextBox>
-                                            <p class="help-block">请输入联系方式~</p>
+                                            <p class="help-block">请输入常用的手机号码（11位），不要使用短号~</p>
                                         </div>
                                         <br />
                                         <div class="form-group">
@@ -223,7 +219,7 @@
     <script>
         $('#Part_Birthday').datetimepicker({
             todayButton: false,    //关闭选择今天按钮
-            yearStart: 2000,     //设置最小年份
+            yearStart: 1950,     //设置最小年份
             yearEnd: 2050,        //设置最大年份
             timepicker: false,    //关闭时间选项
             format: 'Y/m/d',

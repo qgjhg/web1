@@ -181,7 +181,7 @@ public partial class signup : System.Web.UI.Page
                     try
                     {
                         int nowtime = DateTime.Now.Year * 10000 + DateTime.Now.Month * 100 + DateTime.Now.Day;
-                        sqlstr = "SELECT COUNT(*) FROM dbo.applytable WHERE status in ('signing','pass') and id= '" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+                        sqlstr = "SELECT COUNT(*) FROM dbo.applytable WHERE expdate>=" + nowtime + " and status in ('signing','pass') and id= '" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
                         da.CommandText = sqlstr;
                         da.Connection = cn;
                         int timeline = Convert.ToInt32(da.ExecuteScalar().ToString());

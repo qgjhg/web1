@@ -107,6 +107,7 @@ public partial class uploadexp : System.Web.UI.Page
         {
             //前端先验证
             upload.Attributes.Add("onclick", "return UserInputIsOk()");
+            reset.Attributes["OnClick"] = "return confirm('确定重置?')";
             Exp_DetailTime.Items.Clear();
         }
         }
