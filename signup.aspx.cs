@@ -249,7 +249,7 @@ public partial class signup : System.Web.UI.Page
                     }
                     catch
                     {
-                        Response.Write("<script language=\"javascript\">alert(\"报名失败\");location.href='main.aspx'</script>");
+                       Response.Write("<script language=\"javascript\">alert(\"报名失败\");location.href='main.aspx'</script>");
                     }
 
                 }

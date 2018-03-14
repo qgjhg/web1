@@ -122,11 +122,23 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <form  runat="server">
-                            <label>输入起止日期查询：</label>
-                            <asp:TextBox ID="Check_Start" runat="server" value="" CssClass="form-control-timechoice1" autocomplete="off" onfocus="this.blur()" placeholder="开始日期"></asp:TextBox>
-                            <asp:TextBox ID="Check_End" runat="server" value="" CssClass="form-control-timechoice2" autocomplete="off" onfocus="this.blur()" placeholder="结束日期"></asp:TextBox>
-                                &nbsp;&nbsp;&nbsp;
-                            <asp:Button ID="Check_Exp" runat="server" class="btn btn-default" Text="查 询" />
+                                <div class="col-lg-1 col-md-12 col-xs-12 col-sm-12">
+                                    <label>输入起止日期：</label>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-xs-4 col-sm-4">
+                                    <asp:TextBox ID="Check_Start" runat="server" value="" CssClass="form-control" autocomplete="off" onfocus="this.blur()" placeholder="开始日期"></asp:TextBox>
+                                <br />  
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-xs-4 col-sm-4">
+                                    <asp:TextBox ID="Check_End" runat="server" value="" CssClass="form-control" autocomplete="off" onfocus="this.blur()" placeholder="结束日期"></asp:TextBox>
+                                <br />  
+                                </div>    
+                                <div class="col-lg-2 col-md-4 col-xs-4 col-sm-4">
+                                    <asp:Button ID="Check_Exp" runat="server" class="btn btn-default" Text="查 询" />
+                                </div>          
+                                <br />       
+                                <br /> 
+                                <br />               
                             </form>
                         </div>
                         <!-- /.panel-heading -->

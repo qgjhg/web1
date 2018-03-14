@@ -205,10 +205,15 @@ body {
   border-radius: 4px;
 }
 
+.updown_phone 
+{
+    margin-top:10px;
+}
+
 .form-control-buttondetail2 {
   width: 30%;
   height: 34px;
-  margin-left:2%;
+  margin-left:4%;
   padding: 6px 6px;
   text-align:center;
   font-size: 14px;

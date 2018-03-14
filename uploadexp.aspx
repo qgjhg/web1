@@ -276,34 +276,47 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <form role="form" runat="server">
-
+                                <form role="form" runat="server">
+                                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                         <div class="form-group">
                                             <label class="font_exp_title">实验名称</label>
                                             <asp:TextBox ID="Exp_Name" runat="server" CssClass="form-control" MaxLength="10" placeholder="请输入实验名称" autocomplete="off"></asp:TextBox>
                                             <p class="help-block">请输入实验名称（10字以内），好的名称更能吸引大家来参加哦~</p>
                                         </div>
                                         <br />
-                                        <div class="form-group">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                             <label class="font_exp_title">实验日期与实验时长</label>
-                                            <br />
-                                            <div class="div_centerbox">
-                                            <asp:TextBox ID="Exp_Start" runat="server" value="" CssClass="form-control-timechoice1" autocomplete="off" onfocus="this.blur()" placeholder="请选择实验日期"></asp:TextBox>
-                                            <%--<asp:TextBox ID="Exp_End" runat="server" value="" CssClass="form-control-timechoice2" autocomplete="off" onfocus="this.blur()" placeholder="请选择结束日期"></asp:TextBox>--%>
-                                            <label class="help_label">时长：</label>
-                                            <asp:TextBox ID="Exp_Time" runat="server" value="" CssClass="form-control-detail2" autocomplete="off" placeholder="时长（分钟）" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeydown="onlyNum();" style="ime-mode:Disabled" MaxLength="3" TextMode="SingleLine"></asp:TextBox>
-                                            </div>
-                                            <p class="help-block">请选择实验日期，并输入实验时长（分钟）~</p>
                                         </div>
-                                        <br />
-                                        <div class="form-group">
-                                            <label class="font_exp_title">实验安排</label>
+                                        <div class="col-lg-4 col-md-12 col-xs-12 col-sm-12 updown_phone">
+                                            <asp:TextBox ID="Exp_Start" runat="server" value="" CssClass="form-control" autocomplete="off" onfocus="this.blur()" placeholder="请选择实验日期"></asp:TextBox>
+                                        </div>
+                                            <%--<asp:TextBox ID="Exp_End" runat="server" value="" CssClass="form-control-timechoice2" autocomplete="off" onfocus="this.blur()" placeholder="请选择结束日期"></asp:TextBox>--%>
+                                        <div class="col-lg-1 col-md-3 col-xs-3 col-sm-3 updown_phone">    
+                                            <label class="help-block">时长：</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-9 col-xs-9 col-sm-9 updown_phone">
+                                            <asp:TextBox ID="Exp_Time" runat="server" value="" CssClass="form-control" autocomplete="off" placeholder="时长（分钟）" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeydown="onlyNum();" style="ime-mode:Disabled" MaxLength="3" TextMode="SingleLine"></asp:TextBox>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                            <p class="help-block">请选择实验日期，并输入实验时长（分钟）~</p>
                                             <br />
-                                            <div class="div_centerbox">
-                                            <input id="Exp_choosetime" type="text" class="form-control-detail" autocomplete="off" onfocus="this.blur()" placeholder="每场实验开始时间" />
-                                            <label class="help_label">人数：</label>
-                                            <select id="Exp_choosenumber" class="form-control-detail2">
+                                            <br />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                            <label class="font_exp_title">实验安排</label>
+                                        </div>
+                                        <div class="col-lg-4 col-md-12 col-xs-12 col-sm-12 updown_phone">
+                                            <input id="Exp_choosetime" type="text" class="form-control" autocomplete="off" onfocus="this.blur()" placeholder="每场实验开始时间" />
+                                        </div>    
+                                        <div class="col-lg-1 col-md-4 col-xs-4 col-sm-4 updown_phone">
+                                            <label class="help-block">人数：</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-8 col-xs-8 col-sm-8 updown_phone">
+                                            <select id="Exp_choosenumber" class="form-control">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -314,19 +327,23 @@
                                                 <option value="8">8</option>
                                                 <option value="9">9</option>
                                             </select>
-                                                <div class="div_threebutton">
+                                        </div>
+                                        <div class="col-lg-4 col-md-12 col-xs-12 col-sm-12 updown_phone">
                                                     <input type="button" class="form-control-buttondetail" value="添 加" onclick="detailtime_button()"/>
                                                     <input type="button" class="form-control-buttondetail2" value="删 除" onclick="detailtime_button_undo()"/>
                                                     <input type="button" class="form-control-buttondetail3" value="清 空" onclick="detailtime_button_clear()"/>
-                                                </div>
-                                            </div>
-                                            <br />
-                                            <p class="help-block">请选择每场实验的开始时间以及每场实验人数~</p>
-                                            <br />
-                                            <asp:ListBox ID="Exp_DetailTime" Rows="6" runat="server" CssClass="form-control"></asp:ListBox>
                                         </div>
+                                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                            <p class="help-block">请选择每场实验的开始时间以及每场实验人数并添加，会自动生成实验时间~</p>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                            <asp:ListBox ID="Exp_DetailTime" Rows="6" runat="server" CssClass="form-control"></asp:ListBox>
                                         <br />
-                                        <div class="form-group">
+                                        <br />
+                                        </div>
+                                    </div>       
+                                    <div class="form-group">
+                                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                             <label class="font_exp_title">实验校区</label>
                                             <asp:DropDownList ID="Exp_School" runat="server" CssClass="form-control">
                                                 <asp:ListItem Selected="True" disabled="True"></asp:ListItem>
@@ -336,33 +353,41 @@
                                                 <asp:ListItem>其它</asp:ListItem>
                                             </asp:DropDownList>
                                             <p class="help-block">请选择实验校区所在~</p>
+                                            <br />
+                                            <br />
                                         </div>
-                                        <br />
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                         <div class="form-group">
                                             <label class="font_exp_title">实验地点</label>
                                             <asp:TextBox ID="Exp_Pos" runat="server" CssClass="form-control" MaxLength="49" placeholder="请输入实验地点" autocomplete="off"></asp:TextBox>
                                             <p class="help-block">请输入实验地点（50字以内）~</p>
+                                            <br />
                                         </div>
-                                        <br />
+                                    </div>
+                                        
+                                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                         <div class="form-group">
                                             <label class="font_exp_title">报酬</label>
                                             <asp:TextBox ID="Exp_Reward" runat="server" CssClass="form-control" MaxLength="10" placeholder="请输入实验报酬" autocomplete="off"></asp:TextBox>
                                             <p class="help-block">请输入实验报酬，其他非现金报酬请注明~</p>
                                         </div>
                                         <br />
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                         <div class="form-group">
                                             <label class="font_exp_title">实验介绍与注意事项</label>
                                             <asp:TextBox ID="Exp_Warn" runat="server" CssClass="form-control input_asp_box_multiline" Rows="8" placeholder="请输入实验介绍和注意事项" autocomplete="off" TextMode="MultiLine"></asp:TextBox>
                                             <p class="help-block">请输入实验介绍和注意事项（254字以内）~</p>
                                         </div>
                                         <br />
-
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                         <asp:Button ID="upload" runat="server" Text="上 传" class="btn btn-default" OnClick="upload_Click"/> &nbsp;&nbsp;&nbsp;
                                         <asp:Button ID="reset" runat="server" Text="重 置" class="btn btn-default" OnClick="reset_Click"/>
-                                        
+                                    </div>
                                         <asp:HiddenField ID="ChooseTime" runat="server" />
-                                    </form>
-                                </div>
+                                </form>
                             </div>
                             <!-- /.row (nested) -->
                         </div>

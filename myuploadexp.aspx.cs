@@ -136,7 +136,7 @@ public partial class myuploadexp : System.Web.UI.Page
                             Exp_Name1.Visible = true;
                             Exp_Name1.Text = dp.Rows[0][2].ToString() + " - " + dp.Rows[0][3].ToString();
                             StringBuilder table_html = new StringBuilder();
-                            table_html.Append("<table width = \"100 %\" class=\"table table-striped table-bordered table-hover table-condensed table-responsive\"><thead><tr><th>时段</th><th>姓名</th><th>性别</th><th>年龄</th><th>phone</th><th>操作</th></tr></thead><tbody>");
+                            table_html.Append("<table width = \"100%\" class=\"table table-striped table-bordered table-hover table-condensed table-responsive\"><thead><tr><th>时段</th><th>姓名</th><th>性别</th><th>年龄</th><th>phone</th><th>操作</th></tr></thead><tbody>");
 
                             for (int i = 0; i < dp.Rows.Count; i++)
                             {
@@ -163,7 +163,7 @@ public partial class myuploadexp : System.Web.UI.Page
                                     table_html.Append("</tr>");
                                 }
                             }
-                            table_html.Append("</table>");
+                            table_html.Append("</tbody></table>");
                             table_div.InnerHtml = table_html.ToString();
                         }
                         else
