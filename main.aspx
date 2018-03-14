@@ -34,6 +34,20 @@
 
     <link href="../css/MainCss.css" rel="stylesheet" type="text/css" />
     
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    
+
+    <!-- time picker -->
+    <script src="js/mobiscroll_002.js" type="text/javascript"></script>
+	<script src="js/mobiscroll_004.js" type="text/javascript"></script>
+	<link href="css/mobiscroll_002.css" rel="stylesheet" type="text/css" />
+	<link href="css/mobiscroll.css" rel="stylesheet" type="text/css" />
+	<script src="js/mobiscroll.js" type="text/javascript"></script>
+	<script src="js/mobiscroll_003.js" type="text/javascript"></script>
+	<script src="js/mobiscroll_005.js" type="text/javascript"></script>
+	<link href="css/mobiscroll_003.css" rel="stylesheet" type="text/css" />
+
     <!-- check input -->
     <script type="text/javascript">
         function UserInputIsOk()
@@ -160,9 +174,6 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
@@ -186,26 +197,31 @@
     });
     </script>
 
-    <!-- time picker -->
-    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css" />
-    <!-- timepicker -->
-    <script src="../js/jquery.datetimepicker.full.js"></script>
     <script>
-    $('#Check_Start').datetimepicker({
-        todayButton: false,    //关闭选择今天按钮
-        yearStart: 2000,     //设置最小年份
-        yearEnd: 2050,        //设置最大年份
-        timepicker: false,    //关闭时间选项
-        format: 'Y/m/d',
-    });
-    $('#Check_End').datetimepicker({
-        todayButton: false,    //关闭选择今天按钮
-        yearStart: 2000,     //设置最小年份
-        yearEnd: 2050,        //设置最大年份
-        timepicker: false,    //关闭时间选项
-        format: 'Y/m/d',
+
+    $(function () {
+        var currYear = (new Date()).getFullYear();
+        var opt = {};
+        opt.date = { preset: 'date' };
+        opt.datetime = { preset: 'datetime' };
+        opt.time = { preset: 'time' };
+        opt.default = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'modal', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy/mm/dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 80, //开始年份
+            endYear: currYear + 80 //结束年份
+        };
+        $("#Check_Start").mobiscroll($.extend(opt['date'], opt['default']));//年月日型
+        var optDateTime = $.extend(opt['datetime'], opt['default']);
+        $("#Check_End").mobiscroll($.extend(opt['date'], opt['default']));//年月日型
     });
     </script>
+
 </body>
 </html>
 

@@ -24,11 +24,48 @@
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
-    <!-- time picker -->
-    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css" />
+    <!-- css -->
+    <link href="../css/timepickerbox.css" rel="stylesheet" type="text/css"/>
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    
 
     <!-- time picker -->
-    <link href="../css/timepickerbox.css" rel="stylesheet" type="text/css"/>
+    <script src="js/mobiscroll_002.js" type="text/javascript"></script>
+	<script src="js/mobiscroll_004.js" type="text/javascript"></script>
+	<link href="css/mobiscroll_002.css" rel="stylesheet" type="text/css" />
+	<link href="css/mobiscroll.css" rel="stylesheet" type="text/css" />
+	<script src="js/mobiscroll.js" type="text/javascript"></script>
+	<script src="js/mobiscroll_003.js" type="text/javascript"></script>
+	<script src="js/mobiscroll_005.js" type="text/javascript"></script>
+	<link href="css/mobiscroll_003.css" rel="stylesheet" type="text/css" />
+
+    <script>
+
+    $(function () {
+        var currYear = (new Date()).getFullYear();
+        var opt = {};
+        opt.date = { preset: 'date' };
+        opt.datetime = { preset: 'datetime' };
+        opt.time = { preset: 'time' };
+        opt.default = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'modal', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy/mm/dd',
+            lang: 'zh',
+            startYear: currYear - 80, //开始年份
+            endYear: currYear + 80 //结束年份
+        };
+        $("#Exp_Start").mobiscroll($.extend(opt['date'], opt['default']));//年月日型
+        var optDateTime = $.extend(opt['datetime'], opt['default']);
+        var optTime = $.extend(opt['time'], opt['default']);
+        $("#Exp_choosetime").mobiscroll(optTime).time(optTime);//时分型
+
+    });
+
+    </script>
 
     <!-- line control -->
     <script type="text/javascript">
@@ -405,8 +442,6 @@
     <!-- /#wrapper -->
 
 
-    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -417,30 +452,6 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
-    <!-- timepicker -->
-    <script src="../js/jquery.datetimepicker.full.js"></script>
-    <script>
-    $('#Exp_Start').datetimepicker({
-        todayButton: false,    //关闭选择今天按钮
-        yearStart: 2000,     //设置最小年份
-        yearEnd: 2050,        //设置最大年份
-        timepicker: false,    //关闭时间选项
-        format: 'Y/m/d',
-    });
-    $('#Exp_End').datetimepicker({
-        todayButton: false,    //关闭选择今天按钮
-        yearStart: 2000,     //设置最小年份
-        yearEnd: 2050,        //设置最大年份
-        timepicker: false,    //关闭时间选项
-        format: 'Y/m/d',
-    });
-    $('#Exp_choosetime').datetimepicker({
-        todayButton: false,    //关闭选择今天按钮
-        datepicker: false,    //关闭时间选项
-        format: 'H:i',
-        step: 10
-    });
-    </script>
 
 </body>
 
