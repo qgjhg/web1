@@ -221,6 +221,35 @@ public partial class myuploadexp : System.Web.UI.Page
                     Info.Text = "您没有正在进行的实验~";
                 }
 
+                int ntime = DateTime.Today.Year * 10000 + DateTime.Today.Month * 100 + DateTime.Today.Day;
+                string table_html3 = " <!-- /.table-responsive --> <table width=\"100%\" class=\"table table-striped table-bordered table-hover\" id=\"expdataTables\"><thead><tr><th>名称</th><th>日期</th><th>校区</th><th>时长</th><th>报酬</th></tr></thead><tbody>";
+                sqlstr= "SELECT * FROM [PSYcollection].[dbo].[Exp_Situation] WHERE Uploader='" + Session["UserId"].ToString() + "' collate CHINESE_PRC_CS_AS";
+                SqlDataAdapter stable = new SqlDataAdapter(sqlstr, cn);
+                DataTable ds = new DataTable();
+                stable.Fill(ds);
+                int k = 0;
+                int cuttime = 0;
+                while (k < ds.Rows.Count) {
+                    cuttime =Convert.ToInt32(ds.Rows[k][2].ToString());
+                        string str = "";
+                        for (int mm = 9; mm < 53; mm = mm + 3) {
+                            if (ds.Rows[k][mm].ToString() != "-1") {
+                                str = str + ds.Rows[k][mm].ToString() + "  人数：" + ds.Rows[k][mm + 1].ToString() + "/" + ds.Rows[k][mm + 2].ToString() + " &#13";
+                            }
+                        }
+                        table_html3 = table_html3 + "<tr title=\"详细地址：&#13 " + ds.Rows[k][4].ToString() + "&#13&#13简介与注意事项：&#13 " + ds.Rows[k][7].ToString() + "&#13&#13报名情况：&#13 " + str + "\">";
+                    table_html3 = table_html3 + "<td>" + ds.Rows[k][1].ToString() + "</td>";
+                    table_html3 = table_html3 + "<td>" + cuttime.ToString() + "</td>";
+                    table_html3 = table_html3 + "<td>" + ds.Rows[k][3].ToString() + "</td>";
+                    table_html3 = table_html3 + "<td>" + ds.Rows[k][5].ToString() + "min</td>";
+                    table_html3 = table_html3 + "<td>" + ds.Rows[k][6].ToString() + "</td>";
+                    table_html3 = table_html3 + "</tr>";
+                    k = k + 1;
+                            
+                }
+                table_html3 = table_html3 + "</tbody></table>";
+                history_div.InnerHtml = table_html3;
+
 
                 //sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE expdate >= " + todaydate + " and status in ('signing','pass') and id='" + Session["UserId"].ToString() + "' collate CHINESE_PRC_CS_AS";
                 //cn.ConnectionString = connString;

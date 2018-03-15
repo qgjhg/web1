@@ -116,8 +116,15 @@
                                 <div id="table_div2" runat="server">
 
                                 </div>
-                                <div class="list-group col-lg-12">
+                                <div class="col-lg-12 col-xs-12 col-md-12 col-sm-12">
+                                    <hr style=" height:1px;border:none;border-top:1px solid lightgray;" />
+                                    <br />
+                                    <label class="font_exp_title">我的历史记录</label>
+                                    <div class="form-group">
+                                        <div class="panel-body" runat="server" id="history_div">
 
+                                        </div>
+                                    </div>
                                 </div>
 
 

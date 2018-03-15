@@ -161,65 +161,73 @@ public partial class uploadexp : System.Web.UI.Page
                             if (Session["Type"].ToString() == "admin" || Session["Type"].ToString() == "exp")
                             {
                                 int todaydate = DateTime.Now.Year * 10000 + DateTime.Now.Month * 100 + DateTime.Now.Day;
-                                sqlstr = "SELECT COUNT(*) FROM dbo.Exp_Situation WHERE Date>=" + todaydate + " and Uploader = '" + Session["UserId"].ToString()+ "' collate Chinese_PRC_CS_AS";
-                                da.CommandText = sqlstr;
-                                int line = Convert.ToInt16(da.ExecuteScalar().ToString());
-                                if (line < 2)
+                                int Exp_Time_Int = Convert.ToInt32(Exp_Time_Value);
+                                int Exp_Date_Int = Convert.ToInt32(Exp_Start_Value.Substring(0, 4)) * 10000 + Convert.ToInt16(Exp_Start_Value.Substring(5, 2)) * 100 + Convert.ToInt16(Exp_Start_Value.Substring(8, 2));
+                                if (Exp_Date_Int > todaydate)
                                 {
-                                    int Exp_Time_Int = Convert.ToInt32(Exp_Time_Value);
-                                    int Exp_Date_Int = Convert.ToInt32(Exp_Start_Value.Substring(0, 4)) * 10000 + Convert.ToInt16(Exp_Start_Value.Substring(5, 2)) * 100 + Convert.ToInt16(Exp_Start_Value.Substring(8, 2));
-                                    sqlstr = "SELECT Name FROM dbo.Exp_Situation WHERE Date=" + Exp_Date_Int + "";
+                                    sqlstr = "SELECT COUNT(*) FROM dbo.Exp_Situation WHERE Date>=" + todaydate + " and Uploader = '" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
                                     da.CommandText = sqlstr;
-                                    da.ExecuteScalar();
-                                    if (da.ExecuteScalar() == null)
+                                    int line = Convert.ToInt16(da.ExecuteScalar().ToString());
+                                    if (line < 2)
                                     {
-                                        try
+                                        sqlstr = "SELECT COUNT(*) FROM dbo.Exp_Situation WHERE Date=" + Exp_Date_Int + " and Name = '" + Exp_Name_Value + "'";
+                                        da.CommandText = sqlstr;
+                                        int countnum = Convert.ToInt32(da.ExecuteScalar().ToString());
+                                        if (countnum == 0)
                                         {
-                                            string[,] Detail_All = new string[15, 3];
-                                            string[] Detail_All_Line = Hidden_Value.Split('|');
-                                            for (int i = 0; i < Detail_All_Line.Length; i++)
+                                            try
                                             {
-                                                if (i < 15)
+                                                string[,] Detail_All = new string[15, 3];
+                                                string[] Detail_All_Line = Hidden_Value.Split('|');
+                                                for (int i = 0; i < Detail_All_Line.Length; i++)
                                                 {
-                                                    string[] Detail_Item = Detail_All_Line[i].Split(';');
-                                                    Detail_All[i, 0] = Detail_Item[0];
-                                                    Detail_All[i, 1] = Detail_Item[1];
-                                                    Detail_All[i, 2] = Detail_Item[2];
+                                                    if (i < 15)
+                                                    {
+                                                        string[] Detail_Item = Detail_All_Line[i].Split(';');
+                                                        Detail_All[i, 0] = Detail_Item[0];
+                                                        Detail_All[i, 1] = Detail_Item[1];
+                                                        Detail_All[i, 2] = Detail_Item[2];
+                                                    }
                                                 }
+                                                for (int i = Detail_All_Line.Length; i < 15; i++)
+                                                {
+                                                    if (i < 15)
+                                                    {
+                                                        Detail_All[i, 0] = "-1";
+                                                        Detail_All[i, 1] = "-1";
+                                                        Detail_All[i, 2] = "-1";
+                                                    }
+                                                }
+                                                sqlstr = "insert into Exp_Situation (Name,Date,School,Position,Time_min,Reward,Warning,Uploader,Detail1,N1,T1,Detail2,N2,T2,Detail3,N3,T3,Detail4,N4,T4,Detail5,N5,T5,Detail6,N6,T6,Detail7,N7,T7,Detail8,N8,T8,Detail9,N9,T9,Detail10,N10,T10,Detail11,N11,T11,Detail12,N12,T12,Detail13,N13,T13,Detail14,N14,T14,Detail15,N15,T15) values ('" +
+                                                        Exp_Name_Value + "'," + Exp_Date_Int + ",'" + Exp_School_Value + "','" + Exp_Pos_Value + "'," + Exp_Time_Int + ",'" + Exp_Reward_Value + "','" + Exp_Warn_Value + "','" + Session["UserId"].ToString() + "','" + Detail_All[0, 0] + "'," + Convert.ToInt16(Detail_All[0, 1].ToString()) + "," + Convert.ToInt16(Detail_All[0, 2].ToString()) + ",'" +
+                                                        Detail_All[1, 0] + "'," + Convert.ToInt16(Detail_All[1, 1].ToString()) + "," + Convert.ToInt16(Detail_All[1, 2].ToString()) + ",'" + Detail_All[2, 0] + "'," + Convert.ToInt16(Detail_All[2, 1].ToString()) + "," + Convert.ToInt16(Detail_All[2, 2].ToString()) + ",'" + Detail_All[3, 0] + "'," + Convert.ToInt16(Detail_All[3, 1].ToString()) + "," + Convert.ToInt16(Detail_All[3, 2].ToString()) + ",'" +
+                                                        Detail_All[4, 0] + "'," + Convert.ToInt16(Detail_All[4, 1].ToString()) + "," + Convert.ToInt16(Detail_All[4, 2].ToString()) + ",'" + Detail_All[5, 0] + "'," + Convert.ToInt16(Detail_All[5, 1].ToString()) + "," + Convert.ToInt16(Detail_All[5, 2].ToString()) + ",'" + Detail_All[6, 0] + "'," + Convert.ToInt16(Detail_All[6, 1].ToString()) + "," + Convert.ToInt16(Detail_All[6, 2].ToString()) + ",'" +
+                                                        Detail_All[7, 0] + "'," + Convert.ToInt16(Detail_All[7, 1].ToString()) + "," + Convert.ToInt16(Detail_All[7, 2].ToString()) + ",'" + Detail_All[8, 0] + "'," + Convert.ToInt16(Detail_All[8, 1].ToString()) + "," + Convert.ToInt16(Detail_All[8, 2].ToString()) + ",'" + Detail_All[9, 0] + "'," + Convert.ToInt16(Detail_All[9, 1].ToString()) + "," + Convert.ToInt16(Detail_All[9, 2].ToString()) + ",'" +
+                                                        Detail_All[10, 0] + "'," + Convert.ToInt16(Detail_All[10, 1].ToString()) + "," + Convert.ToInt16(Detail_All[10, 2].ToString()) + ",'" + Detail_All[11, 0] + "'," + Convert.ToInt16(Detail_All[11, 1].ToString()) + "," + Convert.ToInt16(Detail_All[11, 2].ToString()) + ",'" + Detail_All[12, 0] + "'," + Convert.ToInt16(Detail_All[12, 1].ToString()) + "," + Convert.ToInt16(Detail_All[12, 2].ToString()) + ",'" +
+                                                        Detail_All[13, 0] + "'," + Convert.ToInt16(Detail_All[13, 1].ToString()) + "," + Convert.ToInt16(Detail_All[13, 2].ToString()) + ",'" + Detail_All[14, 0] + "'," + Convert.ToInt16(Detail_All[14, 1].ToString()) + "," + Convert.ToInt16(Detail_All[14, 2].ToString()) + ")";
+                                                da.CommandText = sqlstr;
+                                                da.ExecuteNonQuery();
+                                                Response.Write("<script language=\"javascript\">alert(\"实验发布成功！\");location.href='uploadexp.aspx'</script>");
                                             }
-                                            for (int i = Detail_All_Line.Length; i < 15; i++)
+                                            catch
                                             {
-                                                if (i < 15)
-                                                {
-                                                    Detail_All[i, 0] = "-1";
-                                                    Detail_All[i, 1] = "-1";
-                                                    Detail_All[i, 2] = "-1";
-                                                }
+                                                Response.Write("<script language=\"javascript\">alert(\"实验发布失败！\")</script>");
                                             }
-                                            sqlstr = "insert into Exp_Situation (Name,Date,School,Position,Time_min,Reward,Warning,Uploader,Detail1,N1,T1,Detail2,N2,T2,Detail3,N3,T3,Detail4,N4,T4,Detail5,N5,T5,Detail6,N6,T6,Detail7,N7,T7,Detail8,N8,T8,Detail9,N9,T9,Detail10,N10,T10,Detail11,N11,T11,Detail12,N12,T12,Detail13,N13,T13,Detail14,N14,T14,Detail15,N15,T15) values ('" +
-                                                    Exp_Name_Value + "'," + Exp_Date_Int + ",'" + Exp_School_Value + "','" + Exp_Pos_Value + "'," + Exp_Time_Int + ",'" + Exp_Reward_Value + "','" + Exp_Warn_Value + "','" + Session["UserId"].ToString() + "','" + Detail_All[0, 0] + "'," + Convert.ToInt16(Detail_All[0, 1].ToString()) + "," + Convert.ToInt16(Detail_All[0, 2].ToString()) + ",'" +
-                                                    Detail_All[1, 0] + "'," + Convert.ToInt16(Detail_All[1, 1].ToString()) + "," + Convert.ToInt16(Detail_All[1, 2].ToString()) + ",'" + Detail_All[2, 0] + "'," + Convert.ToInt16(Detail_All[2, 1].ToString()) + "," + Convert.ToInt16(Detail_All[2, 2].ToString()) + ",'" + Detail_All[3, 0] + "'," + Convert.ToInt16(Detail_All[3, 1].ToString()) + "," + Convert.ToInt16(Detail_All[3, 2].ToString()) + ",'" +
-                                                    Detail_All[4, 0] + "'," + Convert.ToInt16(Detail_All[4, 1].ToString()) + "," + Convert.ToInt16(Detail_All[4, 2].ToString()) + ",'" + Detail_All[5, 0] + "'," + Convert.ToInt16(Detail_All[5, 1].ToString()) + "," + Convert.ToInt16(Detail_All[5, 2].ToString()) + ",'" + Detail_All[6, 0] + "'," + Convert.ToInt16(Detail_All[6, 1].ToString()) + "," + Convert.ToInt16(Detail_All[6, 2].ToString()) + ",'" +
-                                                    Detail_All[7, 0] + "'," + Convert.ToInt16(Detail_All[7, 1].ToString()) + "," + Convert.ToInt16(Detail_All[7, 2].ToString()) + ",'" + Detail_All[8, 0] + "'," + Convert.ToInt16(Detail_All[8, 1].ToString()) + "," + Convert.ToInt16(Detail_All[8, 2].ToString()) + ",'" + Detail_All[9, 0] + "'," + Convert.ToInt16(Detail_All[9, 1].ToString()) + "," + Convert.ToInt16(Detail_All[9, 2].ToString()) + ",'" +
-                                                    Detail_All[10, 0] + "'," + Convert.ToInt16(Detail_All[10, 1].ToString()) + "," + Convert.ToInt16(Detail_All[10, 2].ToString()) + ",'" + Detail_All[11, 0] + "'," + Convert.ToInt16(Detail_All[11, 1].ToString()) + "," + Convert.ToInt16(Detail_All[11, 2].ToString()) + ",'" + Detail_All[12, 0] + "'," + Convert.ToInt16(Detail_All[12, 1].ToString()) + "," + Convert.ToInt16(Detail_All[12, 2].ToString()) + ",'" +
-                                                    Detail_All[13, 0] + "'," + Convert.ToInt16(Detail_All[13, 1].ToString()) + "," + Convert.ToInt16(Detail_All[13, 2].ToString()) + ",'" + Detail_All[14, 0] + "'," + Convert.ToInt16(Detail_All[14, 1].ToString()) + "," + Convert.ToInt16(Detail_All[14, 2].ToString()) + ")";
-                                            da.CommandText = sqlstr;
-                                            da.ExecuteNonQuery();
-                                            Response.Write("<script language=\"javascript\">alert(\"实验发布成功！\");location.href='uploadexp.aspx'</script>");
                                         }
-                                        catch
+                                        else
                                         {
-                                            Response.Write("<script language=\"javascript\">alert(\"实验发布失败！\")</script>");
+                                            Response.Write(Exp_Date_Int);
+                                            Response.Write("<script language=\"javascript\">alert(\"当天已存在该实验名称！\")</script>");
                                         }
                                     }
                                     else
                                     {
-                                        Response.Write("<script language=\"javascript\">alert(\"当天已存在该实验名称！\")</script>");
+                                        Response.Write("<script language=\"javascript\">alert(\"最多仅能有两条进行中的实验！\")</script>");
                                     }
                                 }
                                 else
                                 {
-                                    Response.Write("<script language=\"javascript\">alert(\"最多仅能有两条进行中的实验！\")</script>");
+                                    Response.Write("<script language=\"javascript\">alert(\"实验时间不能早于今天\")</script>");
                                 }
                             }
                             else
