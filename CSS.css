@@ -144,15 +144,29 @@ input::-webkit-input-placeholder {
 	border-color: rgba(59,137,245, 0.5);
 	outline: 0;
 	box-shadow: inset 0 0 4px rgba(255,255,255,0.2),0 0 4px rgba(255,255,255,0.2);
-    -webkit-box-shadow: 0 0 0 1000px white inset;
 }
 .form-input{
 	background: transparent;
 	border: 2px solid rgba(255,255,255,0.3);
 	box-shadow: inset 0 0 4px rgba(255,255,255,0.2),0 0 4px rgba(255,255,255,0.2);
     margin-top:40px;
-    -webkit-box-shadow: 0 0 0 1000px white inset;
-    
+    color:white;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+color:white;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+color:white;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+color:white;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+color:white;
 }
 
 .save-div{
