@@ -234,7 +234,7 @@ public partial class myuploadexp : System.Web.UI.Page
                         string str = "";
                         for (int mm = 9; mm < 53; mm = mm + 3) {
                             if (ds.Rows[k][mm].ToString() != "-1") {
-                                str = str + ds.Rows[k][mm].ToString() + "  人数：" + ds.Rows[k][mm + 1].ToString() + "/" + ds.Rows[k][mm + 2].ToString() + " &#13";
+                                str = str + ds.Rows[k][mm].ToString() + "  人数：" + ds.Rows[k][mm + 1].ToString() + "/" + ds.Rows[k][mm + 2].ToString() + " &#13 ";
                             }
                         }
                         table_html3 = table_html3 + "<tr title=\"详细地址：&#13 " + ds.Rows[k][4].ToString() + "&#13&#13简介与注意事项：&#13 " + ds.Rows[k][7].ToString() + "&#13&#13报名情况：&#13 " + str + "\">";
