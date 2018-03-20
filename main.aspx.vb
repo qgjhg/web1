@@ -36,10 +36,10 @@ Partial Class main
                         Dim str As String = ""
                         For mm = 9 To 53 Step 3
                             If (ds.Rows(k + j).Item(mm).ToString <> "-1") Then
-                                str = str + ds.Rows(k + j).Item(mm).ToString & "  人数：" & ds.Rows(k + j).Item(mm + 1).ToString & "/" & ds.Rows(k + j).Item(mm + 2).ToString & Chr(13)
+                                str = str + ds.Rows(k + j).Item(mm).ToString & "  人数：" & ds.Rows(k + j).Item(mm + 1).ToString & "/" & ds.Rows(k + j).Item(mm + 2).ToString & "<br />"
                             End If
                         Next
-                        table_html = table_html + "<tr title=" & Chr(34) & "详细地址：&#13 " & ds.Rows(k + j).Item(4).ToString & "&#13&#13简介与注意事项：&#13 " & ds.Rows(k + j).Item(7).ToString & "&#13&#13报名情况：&#13 " & str & Chr(34) & ">"
+                        table_html = table_html + "<tr data-toggle=" & Chr(34) & "tooltip" & Chr(34) & " data-html=" & Chr(34) & "true" & Chr(34) & " title=" & Chr(34) & "详细地址：<br /> " & ds.Rows(k + j).Item(4).ToString & "<br /><br />简介与注意事项：<br /> " & ds.Rows(k + j).Item(7).ToString & "<br /><br />报名情况：<br /> " & str & Chr(34) & ">"
                         table_html = table_html + "<td>" & ds.Rows(k + j).Item(1).ToString & "</td>"
                         table_html = table_html + "<td>" & cuttime.ToString & "</td>"
                         table_html = table_html + "<td>" & ds.Rows(k + j).Item(3).ToString & "</td>"

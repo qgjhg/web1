@@ -245,6 +245,9 @@ public partial class Myexperiment : System.Web.UI.Page
             case "harddelete":
                 status = "强制关闭";
                 break;
+            case "tipoff":
+                status = "放鸽子";
+                break;
             default:
                 status = "null";
                 break;
@@ -274,6 +277,9 @@ public partial class Myexperiment : System.Web.UI.Page
                 break;
             case "harddelete":
                 status = "强制关闭";
+                break;
+            case "tipoff":
+                status = "放鸽子";
                 break;
             default:
                 status = "null";

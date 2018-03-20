@@ -99,8 +99,9 @@ public partial class myuploadexp : System.Web.UI.Page
                 }
                 cn.Close();
             }
-            try
-            {
+
+            //try
+            //{
                 int todaydate = DateTime.Now.Year * 10000 + DateTime.Now.Month * 100 + DateTime.Now.Day;
                 sqlstr = "SELECT id FROM [PSYcollection].[dbo].[Exp_Situation] WHERE Date>= " + todaydate + " and Uploader ='" + Session["UserId"].ToString() + "' collate CHINESE_PRC_CS_AS";
                 cn.ConnectionString = connString;
@@ -159,7 +160,7 @@ public partial class myuploadexp : System.Web.UI.Page
                                     table_html.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
                                     table_html.Append("<td>" + dp.Rows[i][7].ToString() + "</td>");
                                     table_html.Append("<td>" + dp.Rows[i][13].ToString() + "</td>");
-                                    table_html.Append("<td>已接受<br /></td>");
+                                    table_html.Append("<td>已接受<br /><a onclick=\"return confirm('确定举报该被试放鸽子?')\" href=\"doingthings.aspx?oprate=tipoff&num=" + dp.Rows[i][0].ToString() + "\">举报毁约</a></td>");
                                     table_html.Append("</tr>");
                                 }
                             }
@@ -205,7 +206,7 @@ public partial class myuploadexp : System.Web.UI.Page
                                         table_html2.Append("<td>" + dp2.Rows[i][8].ToString() + "</td>");
                                         table_html2.Append("<td>" + dp2.Rows[i][7].ToString() + "</td>");
                                         table_html2.Append("<td>" + dp2.Rows[i][13].ToString() + "</td>");
-                                        table_html2.Append("<td>已接受<br /></td>");
+                                        table_html2.Append("<td>已接受<br /><a onclick=\"return confirm('确定举报该被试放鸽子?')\" href=\"doingthings.aspx?oprate=tipoff&num=" + dp2.Rows[i][0].ToString() + "\">举报毁约</a></td>");
                                         table_html2.Append("</tr>");
                                     }
                                 }
@@ -234,10 +235,10 @@ public partial class myuploadexp : System.Web.UI.Page
                         string str = "";
                         for (int mm = 9; mm < 53; mm = mm + 3) {
                             if (ds.Rows[k][mm].ToString() != "-1") {
-                                str = str + ds.Rows[k][mm].ToString() + "  人数：" + ds.Rows[k][mm + 1].ToString() + "/" + ds.Rows[k][mm + 2].ToString() + " &#13 ";
+                                str = str + ds.Rows[k][mm].ToString() + "  人数：" + ds.Rows[k][mm + 1].ToString() + "/" + ds.Rows[k][mm + 2].ToString() + " <br /> ";
                             }
                         }
-                        table_html3 = table_html3 + "<tr title=\"详细地址：&#13 " + ds.Rows[k][4].ToString() + "&#13&#13简介与注意事项：&#13 " + ds.Rows[k][7].ToString() + "&#13&#13报名情况：&#13 " + str + "\">";
+                        table_html3 = table_html3 + "<tr data-toggle=\"tooltip\" data-html=\"true\" title =\"详细地址：<br /> " + ds.Rows[k][4].ToString() + "<br /><br />简介与注意事项：<br /> " + ds.Rows[k][7].ToString() + "<br /><br />报名情况：<br /> " + str + "\">";
                     table_html3 = table_html3 + "<td>" + ds.Rows[k][1].ToString() + "</td>";
                     table_html3 = table_html3 + "<td>" + cuttime.ToString() + "</td>";
                     table_html3 = table_html3 + "<td>" + ds.Rows[k][3].ToString() + "</td>";
@@ -258,11 +259,11 @@ public partial class myuploadexp : System.Web.UI.Page
                 //dtable.Fill(nowexp);
 
                 cn.Close();
-            }
-            catch
-            {
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
     }
     private string changestatus(string dbstatus)//转换状态
@@ -287,6 +288,9 @@ public partial class myuploadexp : System.Web.UI.Page
                 break;
             case "harddelete":
                 status = "强制关闭";
+                break;
+            case "tipoff":
+                status = "放鸽子";
                 break;
             default:
                 status = "null";

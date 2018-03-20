@@ -210,7 +210,7 @@
                                         <br />
                                         <div class="form-group">
                                             <label class="font_exp_title">生日</label>
-                                            <asp:TextBox ID="Part_Birthday" runat="server" value="" CssClass="form-control" autocomplete="off" onfocus="this.blur()" placeholder="请选择实验日期"></asp:TextBox>
+                                            <asp:TextBox ID="Part_Birthday" runat="server" value="" CssClass="form-control" autocomplete="off" onfocus="this.blur()" placeholder="请选择出生日期"></asp:TextBox>
                                             <p class="help-block">请选择出生日期~</p>
                                         </div>
                                         <br />
@@ -240,5 +240,10 @@
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
+    <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+    </script>
 </body>
 </html>

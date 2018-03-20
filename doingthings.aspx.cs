@@ -29,7 +29,7 @@ public partial class doingthings : System.Web.UI.Page
         {
             if (Session["Type"].ToString() == "admin" || Session["Type"].ToString() == "exp")
             {
-                ///try
+                //try
                 //{
 
                 string oprate = Request.QueryString["oprate"];
@@ -70,6 +70,17 @@ public partial class doingthings : System.Web.UI.Page
                                     {
                                         TextBox1.Visible = true;
                                         Button1.Visible = true;
+                                    }
+                                }
+                                if (oprate == "tipoff")
+                                {
+                                    sqlstr = "UPDATE [PSYcollection].[dbo].[applytable] SET status='tipoff' WHERE Num = " + num;
+                                    da.CommandText = sqlstr;
+                                    da.Connection = cn;
+                                    int line = da.ExecuteNonQuery();
+                                    if (line > 0)
+                                    {
+                                        Response.Redirect("myuploadexp.aspx");
                                     }
                                 }
                             }

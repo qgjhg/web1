@@ -221,7 +221,11 @@
         $("#Check_End").mobiscroll($.extend(opt['date'], opt['default']));//年月日型
     });
     </script>
-
+    <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+    </script>
 </body>
 </html>
 
