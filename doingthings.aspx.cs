@@ -125,7 +125,7 @@ public partial class doingthings : System.Web.UI.Page
                             fi.Delete();
                             StreamWriter sw = fi.CreateText();
                             sw.WriteLine("日期\t实验时间段\t主试\t被试姓名\t被试性别\t联系方式\t实验名称\t年龄\t地点");
-                            sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE expid = " + Convert.ToInt32(num);
+                            sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE expid = " + Convert.ToInt32(num) + "and status = 'pass'";
                             da.CommandText = sqlstr;
                             SqlDataReader reader = da.ExecuteReader();
                             while (reader.Read())
@@ -143,7 +143,7 @@ public partial class doingthings : System.Web.UI.Page
                         {
                             StreamWriter sw = fi.CreateText();
                             sw.WriteLine("日期\t实验时间段\t主试\t被试姓名\t被试性别\t联系方式\t实验名称\t年龄\t地点");
-                            sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE expid = " + Convert.ToInt32(num);
+                            sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE expid = " + Convert.ToInt32(num) + "and status = 'pass'";
                             da.CommandText = sqlstr;
                             SqlDataReader reader = da.ExecuteReader();
                             while (reader.Read())
