@@ -345,9 +345,13 @@ public partial class Myexperiment : System.Web.UI.Page
                         da.CommandText = sqlstr;
                         da.Connection = cn;
                         int line2 = da.ExecuteNonQuery();
-                        if (line2 > 0)
+                        sqlstr= "UPDATE [PSYcollection].[dbo].[login] SET point=point+1 WHERE id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+                        da.CommandText = sqlstr;
+                        da.Connection = cn;
+                        int line3 = da.ExecuteNonQuery();
+                        if (line2 > 0 && line3 > 0)
                         {
-                            Response.Write("<script language=\"javascript\">alert(\"强制删除成功！\");location.href='Myexperiment.aspx'</script>");
+                            Response.Write("<script language=\"javascript\">alert(\"强制删除成功！多次强制取消实验可能导致封禁。\");location.href='Myexperiment.aspx'</script>");
                         }
                     }
                 }

@@ -209,6 +209,16 @@
                                         </div>
                                         <br />
                                         <div class="form-group">
+                                            <label class="font_exp_title">左右利手</label>
+                                            <asp:DropDownList ID="Part_Hand" runat="server" CssClass="form-control">
+                                                <asp:ListItem Selected="True" disabled="True"></asp:ListItem>
+                                                <asp:ListItem>左利手</asp:ListItem>
+                                                <asp:ListItem>右利手</asp:ListItem>
+                                            </asp:DropDownList>
+                                            <p class="help-block">左利手：平时习惯使用左手（某些地方称为左撇子）；右利手：平时习惯使用右手（某些地方称为右撇子）</p>
+                                        </div>
+                                        <br />
+                                        <div class="form-group">
                                             <label class="font_exp_title">生日</label>
                                             <asp:TextBox ID="Part_Birthday" runat="server" value="" CssClass="form-control" autocomplete="off" onfocus="this.blur()" placeholder="请选择出生日期"></asp:TextBox>
                                             <p class="help-block">请选择出生日期~</p>

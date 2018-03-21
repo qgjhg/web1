@@ -128,7 +128,7 @@ public partial class myuploadexp : System.Web.UI.Page
                     string[] allexpid = HiddenThings.Value.Split(';');
                     if (allexpid.Length != 0)
                     {//多试验情况未写；考虑是否允许多实验；目前考虑最多两条实验
-                        sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE status in ('signing','pass') and expid= '" + allexpid[0].ToString() + "'";
+                        sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE status in ('signing','pass','tipoff') and expid= '" + allexpid[0].ToString() + "'";
                         SqlDataAdapter dtable = new SqlDataAdapter(sqlstr, cn);
                         DataTable dp = new DataTable();
                         dtable.Fill(dp);
@@ -163,7 +163,18 @@ public partial class myuploadexp : System.Web.UI.Page
                                     table_html.Append("<td>已接受<br /><a onclick=\"return confirm('确定举报该被试放鸽子?')\" href=\"doingthings.aspx?oprate=tipoff&num=" + dp.Rows[i][0].ToString() + "\">举报毁约</a></td>");
                                     table_html.Append("</tr>");
                                 }
+                            else if (dp.Rows[i][11].ToString() == "tipoff")
+                            {
+                                table_html.Append("<tr data-toggle=\"tooltip\" data-html=\"true\" title =\"" + dp.Rows[i][9].ToString() + "\">");
+                                table_html.Append("<td>" + dp.Rows[i][5].ToString() + "</td>");
+                                table_html.Append("<td>" + dp.Rows[i][6].ToString() + "</td>");
+                                table_html.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
+                                table_html.Append("<td>" + dp.Rows[i][7].ToString() + "</td>");
+                                table_html.Append("<td>" + dp.Rows[i][13].ToString() + "</td>");
+                                table_html.Append("<td>已举报</td>");
+                                table_html.Append("</tr>");
                             }
+                        }
                             table_html.Append("</tbody></table>");
                             table_div.InnerHtml = table_html.ToString();
                         }
@@ -209,7 +220,18 @@ public partial class myuploadexp : System.Web.UI.Page
                                         table_html2.Append("<td>已接受<br /><a onclick=\"return confirm('确定举报该被试放鸽子?')\" href=\"doingthings.aspx?oprate=tipoff&num=" + dp2.Rows[i][0].ToString() + "\">举报毁约</a></td>");
                                         table_html2.Append("</tr>");
                                     }
+                                else if (dp.Rows[i][11].ToString() == "tipoff")
+                                {
+                                    table_html2.Append("<tr data-toggle=\"tooltip\" data-html=\"true\" title =\"" + dp.Rows[i][9].ToString() + "\">");
+                                    table_html2.Append("<td>" + dp.Rows[i][5].ToString() + "</td>");
+                                    table_html2.Append("<td>" + dp.Rows[i][6].ToString() + "</td>");
+                                    table_html2.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
+                                    table_html2.Append("<td>" + dp.Rows[i][7].ToString() + "</td>");
+                                    table_html2.Append("<td>" + dp.Rows[i][13].ToString() + "</td>");
+                                    table_html2.Append("<td>已举报</td>");
+                                    table_html2.Append("</tr>");
                                 }
+                            }
                                 table_html2.Append("</table>");
                                 table_div2.InnerHtml = table_html2.ToString();
                             }
@@ -223,7 +245,7 @@ public partial class myuploadexp : System.Web.UI.Page
                 }
 
                 int ntime = DateTime.Today.Year * 10000 + DateTime.Today.Month * 100 + DateTime.Today.Day;
-                string table_html3 = " <!-- /.table-responsive --> <table width=\"100%\" class=\"table table-striped table-bordered table-hover\" id=\"expdataTables\"><thead><tr><th>名称</th><th>日期</th><th>校区</th><th>时长</th><th>报酬</th></tr></thead><tbody>";
+                string table_html3 = " <!-- /.table-responsive --> <table width=\"100%\" class=\"table table-striped table-bordered table-hover\" id=\"expdataTables\"><thead><tr><th>名称</th><th>日期</th><th>校区</th><th>时长</th><th>报酬</th><th><操作></th></tr></thead><tbody>";
                 sqlstr= "SELECT * FROM [PSYcollection].[dbo].[Exp_Situation] WHERE Uploader='" + Session["UserId"].ToString() + "' collate CHINESE_PRC_CS_AS";
                 SqlDataAdapter stable = new SqlDataAdapter(sqlstr, cn);
                 DataTable ds = new DataTable();
@@ -244,7 +266,11 @@ public partial class myuploadexp : System.Web.UI.Page
                     table_html3 = table_html3 + "<td>" + ds.Rows[k][3].ToString() + "</td>";
                     table_html3 = table_html3 + "<td>" + ds.Rows[k][5].ToString() + "min</td>";
                     table_html3 = table_html3 + "<td>" + ds.Rows[k][6].ToString() + "</td>";
-                    table_html3 = table_html3 + "</tr>";
+                table_html3 = table_html3 + "<td><a href=\"doingthings.aspx?oprate=dn&num=" + ds.Rows[k][0].ToString() + "\">操作<a></td>";
+
+
+
+                table_html3 = table_html3 + "</tr>";
                     k = k + 1;
                             
                 }

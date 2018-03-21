@@ -39,12 +39,15 @@
             <br />
             <br />
             <br />
+                <div id="download" runat="server" class="col-lg-12">
 
-                <asp:Button ID="Button1" runat="server" Text="确认" CssClass="btn btn-default" OnClick="Button1_Click" />
+                </div>
+                <asp:Button ID="Button1" runat="server" Text="确认" CssClass="btn btn-default" OnClick="Button1_Click" Visible="False" />
             </div>
                 <asp:HiddenField ID="HiddenField1" runat="server" />
             </form>
-            </div></div>
+            </div>
+                </div>
         </div>
     </div>
 

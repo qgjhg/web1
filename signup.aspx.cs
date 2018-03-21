@@ -206,7 +206,7 @@ public partial class signup : System.Web.UI.Page
 
                                     if (Convert.ToInt16(ds.Rows[0][Select_Time + 1].ToString()) < Convert.ToInt16(ds.Rows[0][Select_Time + 2].ToString()))
                                     {
-                                        //插入之前实验信息
+                                        //插入之前实验信息--------------------------------------------------------
                                         string partinfo = "截至报名，该名被试信息如下：<br />是否在黑名单：";
                                         sqlstr = "SELECT COUNT(*) FROM PSYcollection.dbo.blackpage WHERE Name='" + dp.Rows[0][2].ToString() + "'";
                                         da.CommandText = sqlstr;
@@ -218,10 +218,9 @@ public partial class signup : System.Web.UI.Page
                                         {
                                             partinfo = partinfo + "否 <br />";
                                         }
-                                        sqlstr = "SELECT birthday,point,ExpList FROM PSYcollection.dbo.login WHERE id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+                                        sqlstr = "SELECT birthday,point FROM PSYcollection.dbo.login WHERE id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
                                         da.CommandText = sqlstr;
                                         int birth = 0;
-                                        string partexplist = "";
                                         SqlDataReader readerpartinfo = da.ExecuteReader();
                                         while (readerpartinfo.Read())
                                         {
@@ -229,7 +228,6 @@ public partial class signup : System.Web.UI.Page
                                             string birth2 = birth1[0] + birth1[1] + birth1[2];
                                             birth = Convert.ToInt32(birth2);
                                             partinfo = partinfo + "累计被举报或强行取消次数：" + readerpartinfo["point"].ToString() + " <br />";
-                                            partexplist = readerpartinfo["ExpList"].ToString();
                                         }
                                         readerpartinfo.Close();
 
@@ -244,11 +242,16 @@ public partial class signup : System.Web.UI.Page
                                             partinfo = partinfo + readerExp["expname"].ToString() + " <br />";
                                         }
                                         readerExp.Close();
-                                        string[] list = partexplist.Split(';');
-                                        for (int i = 0; i < list.Length; i++)
+
+                                        sqlstr = "SELECT expname FROM PSYcollection.dbo.applytable WHERE status='pass' and id='" + Session["UserId"].ToString() + "' collate Chinese_PRC_CS_AS";
+                                        da.CommandText = sqlstr;
+                                        SqlDataReader readerExp2 = da.ExecuteReader();
+                                        while (readerExp2.Read())
                                         {
-                                            partinfo = partinfo + list[i] + "<br />";
+                                            partinfo = partinfo + readerExp2["expname"].ToString() + " <br />";
                                         }
+                                        readerExp2.Close();
+
                                         //--------------
                                         System.Diagnostics.Debug.WriteLine((int)ds.Rows[0][Select_Time + 1]);
                                         int uptime = (int)ds.Rows[0][Select_Time + 1] + 1;
@@ -256,7 +259,7 @@ public partial class signup : System.Web.UI.Page
                                         da.CommandText = sqlstr;
                                         int line1 = da.ExecuteNonQuery();
                                         int changenumline = ((Select_Time - 9) / 3 + 1);
-                                        sqlstr = "insert into dbo.applytable (id,expid,expname,expdate,exptime,partname,partage,partsex,partcomment,expcomment,status,changenum,partphone) values ('" + Session["UserId"].ToString() + "','" + expid + "','" + ds.Rows[0][1].ToString() + "'," + Convert.ToInt32(ds.Rows[0][2].ToString()) + ",'" + ds.Rows[0][Select_Time].ToString() + "','" + dp.Rows[0][2].ToString() + "','" + (DateTime.Now.Year - Convert.ToInt32(dp.Rows[0][5].ToString().Substring(0, 4))).ToString() + "','" + dp.Rows[0][4].ToString() + "','" + partinfo + "','" + " " + "','" + "signing" + "',"+changenumline+",'"+dp.Rows[0][3].ToString()+"')";
+                                        sqlstr = "insert into dbo.applytable (id,expid,expname,expdate,exptime,partname,partage,partsex,partcomment,expcomment,status,changenum,partphone,parthand) values ('" + Session["UserId"].ToString() + "','" + expid + "','" + ds.Rows[0][1].ToString() + "'," + Convert.ToInt32(ds.Rows[0][2].ToString()) + ",'" + ds.Rows[0][Select_Time].ToString() + "','" + dp.Rows[0][2].ToString() + "','" + (DateTime.Now.Year - Convert.ToInt32(dp.Rows[0][5].ToString().Substring(0, 4))).ToString() + "','" + dp.Rows[0][4].ToString() + "','" + partinfo + "','" + " " + "','" + "signing" + "',"+changenumline+",'"+dp.Rows[0][3].ToString()+"','"+dp.Rows[0][8]+"')";
                                         da.CommandText = sqlstr;
                                         da.Connection = cn;
                                         int line2 = da.ExecuteNonQuery();

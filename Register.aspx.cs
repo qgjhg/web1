@@ -30,7 +30,7 @@ public partial class Register : System.Web.UI.Page
 
     protected void upload_Click(object sender, EventArgs e)
     {
-        if (Part_Id.Text != "" || Part_Name.Text != "" || Part_password1.Text != "" || Part_password2.Text != "" || Part_Phone.Text != "" || Part_Sex.Text != "" || Part_Birthday.Text != "" || Part_password1.Text != Part_password2.Text)
+        if (Part_Id.Text != "" || Part_Name.Text != "" || Part_password1.Text != "" || Part_password2.Text != "" || Part_Phone.Text != "" || Part_Sex.Text != "" || Part_Hand.Text != "" || Part_Birthday.Text != "" || Part_password1.Text != Part_password2.Text) 
         {
             try
             {
@@ -46,8 +46,8 @@ public partial class Register : System.Web.UI.Page
                     da.Connection = cn;
                     if (Convert.ToInt16(da.ExecuteScalar().ToString()) == 0)
                     {
-                        sqlstr = "insert into dbo.login (id,password,name,phone,sex,birthday,point,type,ExpList) values ('" + Part_Id.Text + "','" + Part_password1.Text + "','" + Part_Name.Text + "','" +
-                            Part_Phone.Text + "','" + Part_Sex.Text + "','" + Part_Birthday.Text + "',0,'part',' ')";
+                        sqlstr = "insert into dbo.login (id,password,name,phone,sex,birthday,point,type,Hand) values ('" + Part_Id.Text + "','" + Part_password1.Text + "','" + Part_Name.Text + "','" +
+                            Part_Phone.Text + "','" + Part_Sex.Text + "','" + Part_Birthday.Text + "',0,'part','" + Part_Hand.Text + "')";
                         da.CommandText = sqlstr;
                         da.Connection = cn;
                         int line = da.ExecuteNonQuery();
