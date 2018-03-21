@@ -134,7 +134,7 @@ public partial class uploadexp : System.Web.UI.Page
             string Exp_School_Value = Exp_School.SelectedItem.Text;
             string Hidden_Value = ChooseTime.Value.ToString();
 
-            if (Exp_School_Value == "" || Exp_Name_Value == "" || Exp_Start_Value == "" || Exp_Pos_Value == "" || Exp_Warn_Value == "" || Exp_Name_Value.Length > 11 || Exp_Start_Value.Length != 10 || Exp_Pos_Value.Length > 50 || Exp_Time_Value > 480 || Exp_Time_Value <= 0 || Exp_Reward_Value.Length > 50 || Exp_Warn_Value.Length > 255 || Hidden_Value == "")
+            if (Exp_School_Value == "" || Exp_Name_Value == "" || Exp_Start_Value == "" || Exp_Pos_Value == "" || Exp_Warn_Value == "" || Exp_Name_Value.Length > 16 || Exp_Start_Value.Length != 10 || Exp_Pos_Value.Length > 50 || Exp_Time_Value > 480 || Exp_Time_Value <= 0 || Exp_Reward_Value.Length > 50 || Exp_Warn_Value.Length > 255 || Hidden_Value == "")
             {
                 Response.Write("<script type=\"text/javascript\">alert(\"数据错误或不完整！\")</script>");
             }

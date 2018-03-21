@@ -143,7 +143,7 @@ public partial class myuploadexp : System.Web.UI.Page
                             {
                                 if (dp.Rows[i][11].ToString() == "signing")
                                 {
-                                    table_html.Append("<tr>");
+                                table_html.Append("<tr data-toggle=\"tooltip\" data-html=\"true\" title =\"" + dp.Rows[i][9].ToString() + "\">");
                                     table_html.Append("<td>" + dp.Rows[i][5].ToString() + "</td>");
                                     table_html.Append("<td>" + dp.Rows[i][6].ToString() + "</td>");
                                     table_html.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
@@ -154,7 +154,7 @@ public partial class myuploadexp : System.Web.UI.Page
                                 }
                                 else if (dp.Rows[i][11].ToString() == "pass")
                                 {
-                                    table_html.Append("<tr>");
+                                    table_html.Append("<tr data-toggle=\"tooltip\" data-html=\"true\" title =\"" + dp.Rows[i][9].ToString() + "\">");
                                     table_html.Append("<td>" + dp.Rows[i][5].ToString() + "</td>");
                                     table_html.Append("<td>" + dp.Rows[i][6].ToString() + "</td>");
                                     table_html.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
@@ -189,7 +189,7 @@ public partial class myuploadexp : System.Web.UI.Page
                                 {
                                     if (dp2.Rows[i][11].ToString() == "signing")
                                     {
-                                        table_html2.Append("<tr>");
+                                        table_html2.Append("<tr data-toggle=\"tooltip\" data-html=\"true\" title =\"" + dp2.Rows[i][9].ToString() + "\">");
                                         table_html2.Append("<td>" + dp2.Rows[i][5].ToString() + "</td>");
                                         table_html2.Append("<td>" + dp2.Rows[i][6].ToString() + "</td>");
                                         table_html2.Append("<td>" + dp2.Rows[i][8].ToString() + "</td>");
@@ -200,7 +200,7 @@ public partial class myuploadexp : System.Web.UI.Page
                                     }
                                     else if (dp2.Rows[i][11].ToString() == "pass")
                                     {
-                                        table_html2.Append("<tr>");
+                                        table_html2.Append("<tr data-toggle=\"tooltip\" data-html=\"true\" title =\"" + dp2.Rows[i][9].ToString() + "\">");
                                         table_html2.Append("<td>" + dp2.Rows[i][5].ToString() + "</td>");
                                         table_html2.Append("<td>" + dp2.Rows[i][6].ToString() + "</td>");
                                         table_html2.Append("<td>" + dp2.Rows[i][8].ToString() + "</td>");

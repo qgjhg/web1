@@ -184,7 +184,7 @@
             var Exp_Reward_Value = document.getElementById('<%=Exp_Reward.ClientID%>').value;
             var Exp_Warn_Value = document.getElementById('<%=Exp_Warn.ClientID%>').value;
             var returnvalue = true;
-            if (Exp_Name_Value == '' || Exp_Name_Value.length > 10) {
+            if (Exp_Name_Value == '' || Exp_Name_Value.length > 15) {
                 document.getElementById('<%=Exp_Name.ClientID%>').style.borderColor = '#B0171F';
                 returnvalue = false
             }
@@ -317,8 +317,8 @@
                                     <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                                         <div class="form-group">
                                             <label class="font_exp_title">实验名称</label>
-                                            <asp:TextBox ID="Exp_Name" runat="server" CssClass="form-control" MaxLength="10" placeholder="请输入实验名称" autocomplete="off"></asp:TextBox>
-                                            <p class="help-block">请输入实验名称（10字以内），好的名称更能吸引大家来参加哦~</p>
+                                            <asp:TextBox ID="Exp_Name" runat="server" CssClass="form-control" MaxLength="15" placeholder="请输入实验名称" autocomplete="off"></asp:TextBox>
+                                            <p class="help-block">请输入实验名称（15字以内），这是之后对比是否做过相似实验的关键，请提供有区分力的名称~</p>
                                         </div>
                                         <br />
                                     </div>
