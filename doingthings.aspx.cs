@@ -123,8 +123,8 @@ public partial class doingthings : System.Web.UI.Page
                         if (fi.Exists)
                         {
                             fi.Delete();
-                            StreamWriter sw = fi.CreateText();
-                            sw.WriteLine("日期\t实验时间段\t主试\t被试姓名\t被试性别\t联系方式\t实验名称\t年龄\t地点");
+                            StreamWriter sw = new StreamWriter(fi.Create(), Encoding.Unicode);
+                            sw.WriteLine("日期\t实验时间段\t主试\t被试姓名\t被试性别\t联系方式\t实验名称\t利手\t年龄\t地点");
                             sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE expid = " + Convert.ToInt32(num) + "and status = 'pass'";
                             da.CommandText = sqlstr;
                             SqlDataReader reader = da.ExecuteReader();
@@ -132,7 +132,7 @@ public partial class doingthings : System.Web.UI.Page
                             {
                                 string expdate = reader["expdate"].ToString();
                                 expdate = expdate.Substring(0, 4) + "/" + expdate.Substring(4, 2) + "/" + expdate.Substring(6, 2);
-                                sw.WriteLine(expdate + "\t" + reader["exptime"].ToString() + "\t" + zhushiname + "\t" + reader["partname"].ToString() + "\t" + reader["partsex"].ToString() + "\t" + reader["partphone"].ToString() + "\t" + reader["expname"].ToString() + "\t" + reader["partage"] + "\t" + expposition);
+                                sw.WriteLine(expdate + "\t" + reader["exptime"].ToString() + "\t" + zhushiname + "\t" + reader["partname"].ToString() + "\t" + reader["partsex"].ToString() + "\t" + reader["partphone"].ToString() + "\t" + reader["expname"].ToString() + "\t" +reader["parthand"].ToString() +"\t"+reader["partage"] + "\t" + expposition);
                             }
                             reader.Close();
                             download.InnerHtml = "<a href=\"/file/"+num+".txt\" download=\"" + num + ".txt\">点此下载</a>";
@@ -141,8 +141,8 @@ public partial class doingthings : System.Web.UI.Page
                         }
                         else
                         {
-                            StreamWriter sw = fi.CreateText();
-                            sw.WriteLine("日期\t实验时间段\t主试\t被试姓名\t被试性别\t联系方式\t实验名称\t年龄\t地点");
+                            StreamWriter sw = new StreamWriter(fi.Create(), Encoding.Unicode);
+                            sw.WriteLine("日期\t实验时间段\t主试\t被试姓名\t被试性别\t联系方式\t实验名称\t利手\t年龄\t地点");
                             sqlstr = "SELECT * FROM [PSYcollection].[dbo].[applytable] WHERE expid = " + Convert.ToInt32(num) + "and status = 'pass'";
                             da.CommandText = sqlstr;
                             SqlDataReader reader = da.ExecuteReader();
@@ -150,7 +150,7 @@ public partial class doingthings : System.Web.UI.Page
                             {
                                 string expdate = reader["expdate"].ToString();
                                 expdate = expdate.Substring(0, 4) + "/" + expdate.Substring(4, 2) + "/" + expdate.Substring(6, 2);
-                                sw.WriteLine(expdate + "\t" + reader["exptime"].ToString() + "\t" + zhushiname + "\t" + reader["partname"].ToString() + "\t" + reader["partsex"].ToString() + "\t" + reader["partphone"].ToString() + "\t" + reader["expname"].ToString() + "\t" + reader["partage"] + "\t" + expposition);
+                                sw.WriteLine(expdate + "\t" + reader["exptime"].ToString() + "\t" + zhushiname + "\t" + reader["partname"].ToString() + "\t" + reader["partsex"].ToString() + "\t" + reader["partphone"].ToString() + "\t" + reader["expname"].ToString() + "\t" + reader["parthand"].ToString() + "\t" + reader["partage"] + "\t" + expposition);
                                 download.InnerHtml = "<a href=\"/file/" + num + ".txt\" download=\"" + num + ".txt\">点此下载</a>";
                             }
                             reader.Close();

@@ -227,7 +227,7 @@ public partial class uploadexp : System.Web.UI.Page
                                 }
                                 else
                                 {
-                                    Response.Write("<script language=\"javascript\">alert(\"实验时间不能早于今天\")</script>");
+                                    Response.Write("<script language=\"javascript\">alert(\"只能发布明天及之后的实验\")</script>");
                                 }
                             }
                             else
