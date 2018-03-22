@@ -151,7 +151,7 @@ public partial class doingthings : System.Web.UI.Page
                                 string expdate = reader["expdate"].ToString();
                                 expdate = expdate.Substring(0, 4) + "/" + expdate.Substring(4, 2) + "/" + expdate.Substring(6, 2);
                                 sw.WriteLine(expdate + "\t" + reader["exptime"].ToString() + "\t" + zhushiname + "\t" + reader["partname"].ToString() + "\t" + reader["partsex"].ToString() + "\t" + reader["partphone"].ToString() + "\t" + reader["expname"].ToString() + "\t" + reader["partage"] + "\t" + expposition);
-                                download.InnerHtml = "<a href=\"" + path + "\" download=\"" + num + "\"></a>";
+                                download.InnerHtml = "<a href=\"/file/" + num + ".txt\" download=\"" + num + ".txt\">点此下载</a>";
                             }
                             reader.Close();
                             sw.Flush();

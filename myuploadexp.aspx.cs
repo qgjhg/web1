@@ -266,7 +266,7 @@ public partial class myuploadexp : System.Web.UI.Page
                     table_html3 = table_html3 + "<td>" + ds.Rows[k][3].ToString() + "</td>";
                     table_html3 = table_html3 + "<td>" + ds.Rows[k][5].ToString() + "min</td>";
                     table_html3 = table_html3 + "<td>" + ds.Rows[k][6].ToString() + "</td>";
-                table_html3 = table_html3 + "<td><a href=\"doingthings.aspx?oprate=dn&num=" + ds.Rows[k][0].ToString() + "\">操作<a></td>";
+                table_html3 = table_html3 + "<td><a href=\"doingthings.aspx?oprate=dn&num=" + ds.Rows[k][0].ToString() + "\">下载<a></td>";
 
 
 
