@@ -143,7 +143,7 @@ public partial class myuploadexp : System.Web.UI.Page
                             {
                                 if (dp.Rows[i][11].ToString() == "signing")
                                 {
-                                table_html.Append("<tr data-toggle=\"tooltip\" data-html=\"true\" title =\"" + dp.Rows[i][9].ToString() + "\">");
+                                table_html.Append("<tr data-toggle=\"tooltip\" data-placement=\"bottom\" data-html=\"true\" title =\"" + dp.Rows[i][9].ToString() + "\">");
                                     table_html.Append("<td>" + dp.Rows[i][5].ToString() + "</td>");
                                     table_html.Append("<td>" + dp.Rows[i][6].ToString() + "</td>");
                                     table_html.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
@@ -154,7 +154,7 @@ public partial class myuploadexp : System.Web.UI.Page
                                 }
                                 else if (dp.Rows[i][11].ToString() == "pass")
                                 {
-                                    table_html.Append("<tr data-toggle=\"tooltip\" data-html=\"true\" title =\"" + dp.Rows[i][9].ToString() + "\">");
+                                    table_html.Append("<tr data-toggle=\"tooltip\" data-html=\"true\" data-placement=\"bottom\" title =\"" + dp.Rows[i][9].ToString() + "\">");
                                     table_html.Append("<td>" + dp.Rows[i][5].ToString() + "</td>");
                                     table_html.Append("<td>" + dp.Rows[i][6].ToString() + "</td>");
                                     table_html.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
@@ -165,7 +165,7 @@ public partial class myuploadexp : System.Web.UI.Page
                                 }
                             else if (dp.Rows[i][11].ToString() == "tipoff")
                             {
-                                table_html.Append("<tr data-toggle=\"tooltip\" data-html=\"true\" title =\"" + dp.Rows[i][9].ToString() + "\">");
+                                table_html.Append("<tr data-toggle=\"tooltip\" data-html=\"true\" data-placement=\"bottom\" title =\"" + dp.Rows[i][9].ToString() + "\">");
                                 table_html.Append("<td>" + dp.Rows[i][5].ToString() + "</td>");
                                 table_html.Append("<td>" + dp.Rows[i][6].ToString() + "</td>");
                                 table_html.Append("<td>" + dp.Rows[i][8].ToString() + "</td>");
