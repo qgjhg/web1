@@ -76,6 +76,9 @@ Partial Class main
                 type_html.Append("<li>")
                 type_html.Append("<a href = " & Chr(34) & "help.aspx" & Chr(34) & "><i class=" & Chr(34) & "fa fa-files-o fa-fw" & Chr(34) & "></i> 帮助</a>")
                 type_html.Append("</li>")
+                type_html.Append("<li>")
+                type_html.Append("<a href = " & Chr(34) & "Games/Games_choose.aspx" & Chr(34) & "><i class=" & Chr(34) & "fa fa-files-o fa-fw" & Chr(34) & "></i> 不要点我</a>")
+                type_html.Append("</li>")
                 type_html.Append("</ul>")
                 type_diff.InnerHtml = type_html.ToString
             ElseIf (Session("Type").ToString = "admin") Then
@@ -99,10 +102,12 @@ Partial Class main
                 type_html.Append("<li>")
                 type_html.Append("<a href = " & Chr(34) & "management.aspx" & Chr(34) & "><i class=" & Chr(34) & "fa fa-wrench fa-fw" & Chr(34) & "></i> 管理</a>")
                 type_html.Append("</li>")
+                type_html.Append("<li>")
+                type_html.Append("<a href = " & Chr(34) & "Games/Games_choose.aspx" & Chr(34) & "><i class=" & Chr(34) & "fa fa-files-o fa-fw" & Chr(34) & "></i> 不要点我</a>")
+                type_html.Append("</li>")
                 type_html.Append("</ul>")
                 type_diff.InnerHtml = type_html.ToString
             Else
-
                 Dim type_html As New StringBuilder
                 type_html.Append("<ul class=" & Chr(34) & "nav" & Chr(34) & " id=" & Chr(34) & "side-menu" & Chr(34) & ">")
                 type_html.Append("<li>")
@@ -113,6 +118,9 @@ Partial Class main
                 type_html.Append("</li>")
                 type_html.Append("<li>")
                 type_html.Append("<a href = " & Chr(34) & "help.aspx" & Chr(34) & "><i class=" & Chr(34) & "fa fa-files-o fa-fw" & Chr(34) & "></i> 帮助</a>")
+                type_html.Append("</li>")
+                type_html.Append("<li>")
+                type_html.Append("<a href = " & Chr(34) & "Games/Games_choose.aspx" & Chr(34) & "><i class=" & Chr(34) & "fa fa-files-o fa-fw" & Chr(34) & "></i> 不要点我</a>")
                 type_html.Append("</li>")
                 type_html.Append("</ul>")
                 type_diff.InnerHtml = type_html.ToString

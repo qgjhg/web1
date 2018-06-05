@@ -1,0 +1,67 @@
+﻿.game_title{
+  font-size: 16px;
+  font-family:'Microsoft YaHei';
+  padding-top: 5vh;
+  text-align: center;
+  padding-bottom:5vh;
+  background-color:#e8e8e8;
+}
+
+.sudu_imgbox{
+  margin-left: 4%;
+  margin-right: 4%;
+  padding-top:4vh;
+  padding-bottom:2vh;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.sudu_img{
+  width: 40vmin;
+  height: 40vmin;
+}
+
+.sudu_imginfo{
+  font-size: 12px;
+  text-align: center;
+  display:flex;
+}
+
+.sudu_blackview{
+  width: 4%;
+  height: 33vmin;
+}
+
+
+.sudu_introarea{
+  width:80%;
+  resize:none;
+  text-align: justify;
+  background-color:white;
+  border:none;
+  font-size:12px;
+}
+
+.sudu_txtbox {
+  font-size:11px;
+  width:75%;
+  text-align:justify;
+  margin-top:4vh;
+  margin-left:auto;
+  margin-right:auto;
+  font-size:12px;
+  line-height:20px;
+}
+
+.sudu_centerbtn {
+    margin-top:4vh;
+    margin-left:auto;
+    margin-right:auto;
+    width:75%;
+    text-align:center;
+    align-items:center;
+}
+
+
